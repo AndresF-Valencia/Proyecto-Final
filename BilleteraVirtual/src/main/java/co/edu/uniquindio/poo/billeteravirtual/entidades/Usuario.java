@@ -12,13 +12,15 @@ public class Usuario {
     private ArrayList<Transaccion> transacciones;
 
     public Usuario(UsuarioBuilder builder) {
-        this.nombre = nombre;
-        this.cedula = cedula;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.saldo = 1000000.0;
+        this.nombre = builder.nombre;
+        this.cedula = builder.cedula;
+        this.correo = builder.correo;
+        this.telefono = builder.telefono;
+        this.saldo = builder.saldo != 0 ? builder.saldo : 1000000.0;
+        this.claveAcceso = builder.claveAcceso;
         this.transacciones = new ArrayList<>();
     }
+
 
     public String getNombre() {
         return nombre;
