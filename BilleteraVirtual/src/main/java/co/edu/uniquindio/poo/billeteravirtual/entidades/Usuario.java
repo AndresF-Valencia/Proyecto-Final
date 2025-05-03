@@ -7,7 +7,7 @@ public class Usuario {
     private String cedula;
     private String correo;
     private String telefono;
-    private double saldo;
+    private String palabraclave;
     private String claveAcceso;
     private ArrayList<Transaccion> transacciones;
 
@@ -16,7 +16,7 @@ public class Usuario {
         this.cedula = builder.cedula;
         this.correo = builder.correo;
         this.telefono = builder.telefono;
-        this.saldo = builder.saldo != 0 ? builder.saldo : 1000000.0;
+        this.palabraclave = builder.palabraclave;
         this.claveAcceso = builder.claveAcceso;
         this.transacciones = new ArrayList<>();
     }
@@ -38,8 +38,8 @@ public class Usuario {
         return telefono;
     }
 
-    public double getSaldo() {
-        return saldo;
+    public String getPalabraclave() {
+        return palabraclave;
     }
 
     public String getClaveAcceso() {
@@ -59,7 +59,7 @@ public class Usuario {
         private String cedula;
         private String correo;
         private String telefono;
-        private double saldo;
+        private String palabraclave;
         private String claveAcceso;
 
         public UsuarioBuilder Nombre(String nombre) {
@@ -82,8 +82,8 @@ public class Usuario {
             return this;
         }
 
-        public UsuarioBuilder Saldo(double saldo) {
-            this.saldo = saldo;
+        public UsuarioBuilder PalabraClave(String palabraclave) {
+            this.palabraclave = palabraclave;
             return this;
         }
 
@@ -97,5 +97,16 @@ public class Usuario {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombre='" + nombre + '\'' +
+                ", cedula='" + cedula + '\'' +
+                ", correo='" + correo + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", palabraclave='" + palabraclave + '\'' +
+                ", claveAcceso='" + claveAcceso + '\'' +
+                ", transacciones=" + transacciones +
+                '}';
+    }
 }
-

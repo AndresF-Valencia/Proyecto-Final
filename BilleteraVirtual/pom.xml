@@ -5,27 +5,29 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>co.edu.uniquindio.poo</groupId>
-  <artifactId>BilleteraVirtual</artifactId>
+  <artifactId>ProyectoFinalBeta</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>BilleteraVirtual</name>
+  <name>ProyectoFinalBeta</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<junit.version>5.10.2</junit.version>  </properties>
+    <junit.version>5.10.2</junit.version>
+    <javafx.version>23.0.1</javafx.version>
+  </properties>
 
   <dependencies>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>21</version>
+      <version>${javafx.version}</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>21</version>
+      <version>${javafx.version}</version>
     </dependency>
 
-<dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>${junit.version}</version>
@@ -36,12 +38,6 @@
       <artifactId>junit-jupiter-engine</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>RELEASE</version>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -68,10 +64,11 @@
         <version>0.0.8</version>
         <executions>
           <execution>
-            <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>co.edu.uniquindio.poo.billeteravirtual/co.edu.uniquindio.poo.billeteravirtual.HelloApplication</mainClass>
+              <mainClass>
+                co.edu.uniquindio.poo.proyectofinalbeta/co.edu.uniquindio.poo.proyectofinalbeta.HelloApplication
+              </mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
@@ -84,4 +81,11 @@
       </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>gluon-releases</id>
+      <url>https://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
+    </repository>
+  </repositories>
 </project>
