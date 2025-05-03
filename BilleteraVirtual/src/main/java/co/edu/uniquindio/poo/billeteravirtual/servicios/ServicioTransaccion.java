@@ -2,6 +2,7 @@ package co.edu.uniquindio.poo.billeteravirtual.servicios;
 
 import co.edu.uniquindio.poo.billeteravirtual.Excepciones.ExcepcionTransaccion;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Transaccion;
+import co.edu.uniquindio.poo.billeteravirtual.facade.ValidacionTransaccionFacade;
 
 import java.util.*;
 
@@ -10,12 +11,20 @@ public class ServicioTransaccion {
     private Map<Integer, Transaccion> transacciones = new HashMap<>();
 
     //Registrar una Transacción
-    public void registrarTransaccion(int idTransaccion, Date fecha,String tipo, double monto, String descripcion) throws ExcepcionTransaccion {
+    public void registrarTransaccion(int idTransaccion, Date fecha, String tipo, double monto, String descripcion) throws ExcepcionTransaccion {
         if (transacciones.containsKey(idTransaccion)) {
-            throw new ExcepcionTransaccion("Ya existe una Transacion con el id: " + idTransaccion);
+            throw new ExcepcionTransaccion("Ya existe una Transacción con el id: " + idTransaccion);
         }
-        transacciones.put(idTransaccion, new Transaccion(idTransaccion, fecha, tipo, monto, descripcion));
-        System.out.println("Transaccion registrada con id: " + idTransaccion);
+
+        // 1. Crear la transacción
+        Transaccion nuevaTransaccion = new Transaccion(idTransaccion, fecha, tipo, monto, descripcion);
+
+        // 2. Validar usando el facade
+        ValidacionTransaccionFacade.validarTransaccion(nuevaTransaccion);
+
+        // 3. Guardar si pasó la validación
+        transacciones.put(idTransaccion, nuevaTransaccion);
+        System.out.println("Transacción registrada con id: " + idTransaccion);
     }
 
     //Obtener transacción por ID
