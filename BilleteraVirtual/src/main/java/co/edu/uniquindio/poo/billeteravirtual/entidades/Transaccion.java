@@ -1,8 +1,9 @@
 package co.edu.uniquindio.poo.billeteravirtual.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Transaccion {
+public class Transaccion implements Cloneable{
     private int idTransaccion;
     private Date fecha;
     private String tipo;
@@ -47,6 +48,15 @@ public class Transaccion {
     }
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @Override
+    public Transaccion clone() {
+        try {
+            return (Transaccion) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Error al clonar transacción", e);
+        }
     }
 
     //Metodo ToString para Transacción

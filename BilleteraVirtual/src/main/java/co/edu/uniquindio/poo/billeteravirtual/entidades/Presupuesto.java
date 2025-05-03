@@ -1,6 +1,6 @@
 package co.edu.uniquindio.poo.billeteravirtual.entidades;
 
-public class Presupuesto {
+public class Presupuesto implements Cloneable{
     private int idPresupuesto;
     private String descripcion;
     private Double montoTotal;
@@ -39,6 +39,16 @@ public class Presupuesto {
         this.montoGastado = montoGastado;
     }
     //Metodo To String de Presupuesto
+
+    @Override
+    public Presupuesto clone() {
+        try {
+            return (Presupuesto) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException("Clonación fallida", e);
+        }
+    }
+
     @Override
     public String toString() {
         return "Presupuesto{" +
