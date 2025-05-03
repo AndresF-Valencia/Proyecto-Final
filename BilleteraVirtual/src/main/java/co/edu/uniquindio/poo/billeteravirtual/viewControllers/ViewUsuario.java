@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
 import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerUsuario;
+import co.edu.uniquindio.poo.billeteravirtual.utilidades.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -10,13 +11,13 @@ import javafx.scene.layout.Pane;
 
 public class ViewUsuario {
     @FXML
-    public Button buttonRegistro, buttonIS, ingresar, OlvidarClave, buttonContinuar, buttonFinalizar;
+    public Button buttonRegistro, buttonIS, ingresar, OlvidarClave, buttonContinuar, buttonFinalizar, enviarCodigo, iniciarSesionPorRecuperacion;
     @FXML
-    public TextField CedulaIS, ClaveIS, textNombre, textCedula, textCorreo, textTelefono;
+    public TextField CedulaIS, ClaveIS, textNombre, textCedula, textCorreo, textTelefono, textPalabraClave,textRecuperar, textCodigo;
     @FXML
-    public AnchorPane IniciarSesion, Bienvenida, RegistroUsuario;
+    public AnchorPane rootPane, IniciarSesion, Bienvenida, RegistroUsuario, recuperar;
     @FXML
-    public Pane datosUsuario, PonerContrasena;
+    public Pane datosUsuario, PonerContrasena, panePalabraClave, paneCodigo;
     @FXML
     public PasswordField clave, verificarClave;
 
@@ -27,17 +28,25 @@ public class ViewUsuario {
         controllerUsuario = new ControllerUsuario(this);
 
 
+
         Bienvenida.setVisible(true);
         IniciarSesion.setVisible(false);
         RegistroUsuario.setVisible(false);
         datosUsuario.setVisible(false);
         PonerContrasena.setVisible(false);
+        recuperar.setVisible(false);
+        panePalabraClave.setVisible(false);
+        paneCodigo.setVisible(false);
 
 
         buttonRegistro.setOnAction(e -> controllerUsuario.mostrarRegistro());
         buttonIS.setOnAction(e -> controllerUsuario.mostrarInicioSesion());
         buttonFinalizar.setOnAction(e -> controllerUsuario.finalizarRegistro());
         buttonContinuar.setOnAction(e -> controllerUsuario.continuar());
+        ingresar.setOnAction(e -> controllerUsuario.iniciarSesion());
+        OlvidarClave.setOnAction(e -> controllerUsuario.mostrarRecuperacion());
+        enviarCodigo.setOnAction(e -> controllerUsuario.verificarPalabraClave() );
+        iniciarSesionPorRecuperacion.setOnAction(e -> controllerUsuario.verificarCodigo() );
     }
 
 
@@ -115,5 +124,33 @@ public class ViewUsuario {
 
     public PasswordField getVerificarClave() {
         return verificarClave;
+    }
+
+    public TextField getTextPalabraClave(){
+        return textPalabraClave;
+    }
+
+    public TextField getTextRecuperar() {
+        return textRecuperar;
+    }
+
+    public TextField getTextCodigo() {
+        return textCodigo;
+    }
+
+    public Button getEnviarCodigo() {
+        return enviarCodigo;
+    }
+
+    public AnchorPane getRecuperar() {
+        return recuperar;
+    }
+
+    public Pane getPanePalabraClave() {
+        return panePalabraClave;
+    }
+
+    public Pane getPaneCodigo() {
+        return paneCodigo;
     }
 }

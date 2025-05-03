@@ -10,11 +10,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1"
-            fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewUsuario" xmlns:fx="http://javafx.com/fxml">
+<AnchorPane fx:id = "rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewUsuario" stylesheets="@estilos.css"
+>
    <children>
-      <AnchorPane fx:id="Bienvenida" layoutX="650.0" prefHeight="700.0" prefWidth="650.0" visible="true">
+      <AnchorPane fx:id="Bienvenida" layoutX="650.0" prefHeight="700.0" prefWidth="650.0" visible="false">
          <children>
             <ImageView fitHeight="221.0" fitWidth="263.0" layoutX="214.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -52,8 +51,8 @@
                   <Font size="21.0" />
                </font>
             </Text>
-            <TextField fx:id="CedulaIS" blendMode="ADD" layoutX="226.0" layoutY="233.0" prefHeight="25.0" prefWidth="197.0" />
-            <TextField fx:id="ClaveIS" blendMode="ADD" layoutX="226.0" layoutY="294.0" prefHeight="25.0" prefWidth="197.0" />
+            <TextField fx:id="CedulaIS" layoutX="226.0" layoutY="233.0" prefHeight="25.0" prefWidth="197.0" />
+            <TextField fx:id="ClaveIS" layoutX="226.0" layoutY="294.0" prefHeight="25.0" prefWidth="197.0" />
             <Button fx:id="ingresar" blendMode="HARD_LIGHT" contentDisplay="CENTER" layoutX="295.0" layoutY="337.0" mnemonicParsing="false" text="Ingresar" textOverrun="CENTER_ELLIPSIS">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -73,14 +72,14 @@
                </image>
             </ImageView>
          </children></AnchorPane>
-      <AnchorPane fx:id="RegistroUsuario" layoutX="650.0" prefHeight="700.0" prefWidth="650.0">
+      <AnchorPane fx:id="RegistroUsuario" layoutX="650.0" prefHeight="700.0" prefWidth="650.0" visible="false">
          <children>
             <ImageView fitHeight="221.0" fitWidth="263.0" layoutX="215.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@logo2.png" />
                </image>
             </ImageView>
-            <Pane fx:id="datosUsuario" layoutX="143.0" layoutY="138.0" prefHeight="302.0" prefWidth="373.0" visible="false">
+            <Pane fx:id="datosUsuario" layoutX="143.0" layoutY="138.0" prefHeight="351.0" prefWidth="373.0" visible="false">
                <children>
                   <Text layoutX="112.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" />
                   <TextField fx:id="textNombre" layoutX="112.0" layoutY="61.0" />
@@ -91,15 +90,38 @@
                   <Text layoutX="111.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cedula:" />
                   <Text layoutX="111.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefono:" />
                   <TextField fx:id="textCedula" layoutX="111.0" layoutY="105.0" />
-                  <Button fx:id="buttonContinuar" layoutX="150.0" layoutY="244.0" mnemonicParsing="false" text="Continuar" />
+                  <Button fx:id="buttonContinuar" layoutX="151.0" layoutY="296.0" mnemonicParsing="false" text="Continuar" />
+                  <TextField fx:id="textPalabraClave" layoutX="112.0" layoutY="256.0" />
+                  <Text layoutX="74.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Palabra clave para recuperacion de cuenta:" />
                </children>
             </Pane>
-            <Pane fx:id="PonerContrasena" layoutX="143.0" layoutY="138.0" prefHeight="302.0" prefWidth="373.0">
+            <Pane fx:id="PonerContrasena" layoutX="143.0" layoutY="138.0" prefHeight="302.0" prefWidth="373.0" visible="false">
                <children>
                   <Text layoutX="99.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Por favor escriba una contraseña:" />
                   <PasswordField fx:id="clave" layoutX="112.0" layoutY="66.0" />
                   <PasswordField fx:id="verificarClave" layoutX="112.0" layoutY="126.0" />
                   <Button fx:id="buttonFinalizar" layoutX="161.0" layoutY="204.0" mnemonicParsing="false" text="Finalizar" />
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="recuperar" layoutX="650.0" prefHeight="700.0" prefWidth="650.0">
+         <children>
+            <ImageView fitHeight="221.0" fitWidth="263.0" layoutX="215.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@logo2.png" />
+               </image>
+            </ImageView>
+            <Pane fx:id="panePalabraClave" layoutX="225.0" layoutY="150.0" prefHeight="200.0" prefWidth="200.0" visible="false">
+               <children>
+                  <TextField fx:id="textRecuperar" layoutX="26.0" layoutY="26.0" />
+                  <Button fx:id="enviarCodigo" layoutX="56.0" layoutY="100.0" mnemonicParsing="false" text="Enviar codigo" />
+               </children>
+            </Pane>
+            <Pane fx:id="paneCodigo" layoutX="225.0" layoutY="150.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="textCodigo" layoutX="26.0" layoutY="26.0" />
+                  <Button fx:id="iniciarSesionPorRecuperacion" layoutX="58.0" layoutY="121.0" mnemonicParsing="false" text="Iniciar Sesion" />
                </children>
             </Pane>
          </children>
