@@ -4,6 +4,7 @@ module co.edu.uniquindio.poo.billeteravirtual {
     requires javafx.fxml;
     requires junit;
     requires java.desktop;
+    requires org.apache.pdfbox;
 
 
     opens co.edu.uniquindio.poo.billeteravirtual to javafx.fxml;

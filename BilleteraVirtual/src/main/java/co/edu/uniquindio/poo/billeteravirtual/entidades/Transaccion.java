@@ -1,17 +1,18 @@
 package co.edu.uniquindio.poo.billeteravirtual.entidades;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Transaccion implements Cloneable{
-    private int idTransaccion;
+public class Transaccion implements TransaccionClonable{
+    private String idUsuario;
+    private String idTransaccion;
     private Date fecha;
     private String tipo;
     private double monto;
     private String descripcion;
 
     //Constructor de Transacción
-    public Transaccion(int idTransaccion, Date fecha, String tipo, double monto, String descripcion) {
+    public Transaccion(String idUsuario, String idTransaccion, Date fecha, String tipo, double monto, String descripcion) {
+        this.idUsuario = idUsuario;
         this.idTransaccion = idTransaccion;
         this.fecha = fecha;
         this.tipo = tipo;
@@ -19,10 +20,17 @@ public class Transaccion implements Cloneable{
         this.descripcion = descripcion;
     }
     //Getters y Setters de Transacción
-    public int getIdTransaccion() {
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+    public Transaccion setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+        return this;
+    }
+    public String getIdTransaccion() {
         return idTransaccion;
     }
-    public void setIdTransaccion(int idTransaccion) {
+    public void setIdTransaccion(String idTransaccion) {
         this.idTransaccion = idTransaccion;
     }
     public Date getFecha() {
@@ -51,7 +59,7 @@ public class Transaccion implements Cloneable{
     }
 
     @Override
-    public Transaccion clone() {
+    public Transaccion clonar() {
         try {
             return (Transaccion) super.clone();
         } catch (CloneNotSupportedException e) {

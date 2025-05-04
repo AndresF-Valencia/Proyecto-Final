@@ -27,7 +27,7 @@ public class ServicioTransaccionTest {
         Presupuesto presupuesto = new Presupuesto(1, "Presupuesto Personal", 1000.0, 0.0);
 
         // Crear la transacción (por ejemplo, un gasto)
-        Transaccion transaccion = new Transaccion(1, fecha, "Gasto", 150.0, "Compra en supermercado");
+        Transaccion transaccion = new Transaccion("1","1", fecha, "Gasto", 150.0, "Compra en supermercado");
 
         // Crear el procesador de transacción con la estrategia de gasto
         ProcesadorTransaccion procesador = new ProcesadorTransaccion();
@@ -40,11 +40,11 @@ public class ServicioTransaccionTest {
         assertEquals(150.0, presupuesto.getMontoGastado(), 0.001);
 
         // Registrar la transacción en el servicio (simulando el registro)
-        servicioTransaccion.registrarTransaccion(1, fecha, "Gasto", 150.0, "Compra supermercado");
+        servicioTransaccion.registrarTransaccion("1","1", fecha, "Gasto", 150.0, "Compra supermercado");
 
         // Obtener la transacción registrada
-        Transaccion transaccionObtenida = servicioTransaccion.obtenerTransaccion(1, "Gasto");
-        assertEquals(1, transaccionObtenida.getIdTransaccion());
+        Transaccion transaccionObtenida = servicioTransaccion.obtenerTransaccion("1", "Gasto");
+        assertEquals("1", transaccionObtenida.getIdTransaccion());
         assertEquals(fecha, transaccionObtenida.getFecha());
         assertEquals("Gasto", transaccionObtenida.getTipo());
         assertEquals(150.0, transaccionObtenida.getMonto(), 0.001);
@@ -52,14 +52,14 @@ public class ServicioTransaccionTest {
 
         // Verificar la lista de transacciones
         List<Transaccion> lista = servicioTransaccion.listarTransaciones();
-        assertEquals(1, lista.size());
+        assertEquals("1", lista.size());
 
         // Eliminar la transacción
-        servicioTransaccion.eliminarTransaccion(1);
+        servicioTransaccion.eliminarTransaccion("1");
 
         // Verificar que se lanzó la excepción al intentar obtener la transacción eliminada
         try {
-            servicioTransaccion.obtenerTransaccion(1, "Gasto");
+            servicioTransaccion.obtenerTransaccion("1", "Gasto");
             fail("Se esperaba una ExcepcionTransaccion al intentar obtener una transacción eliminada.");
         } catch (ExcepcionTransaccion e) {
             assertEquals("No existe una Transaccion con el id: 1", e.getMessage());
@@ -74,7 +74,7 @@ public class ServicioTransaccionTest {
         Date fecha = new Date();
 
         // Intentar registrar una transacción con un monto negativo
-        servicioTransaccion.registrarTransaccion(1, fecha, "Gasto", -100.0, "Compra supermercado");
+        servicioTransaccion.registrarTransaccion("1","1", fecha, "Gasto", -100.0, "Compra supermercado");
     }
 }
 
