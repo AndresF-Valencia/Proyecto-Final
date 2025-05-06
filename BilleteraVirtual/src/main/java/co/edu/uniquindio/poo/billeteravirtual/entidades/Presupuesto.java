@@ -1,6 +1,8 @@
 package co.edu.uniquindio.poo.billeteravirtual.entidades;
 
-public class Presupuesto implements Cloneable{
+import co.edu.uniquindio.poo.billeteravirtual.decoradores.PresupuestoBase;
+
+public class Presupuesto implements PresupuestoBase, Cloneable{
     private int idPresupuesto;
     private String descripcion;
     private Double montoTotal;
@@ -14,31 +16,51 @@ public class Presupuesto implements Cloneable{
         this.montoGastado = montoGastado;
     }
     //Getters y Setters de Presupuesto
+
+
     public int getIdPresupuesto() {
         return idPresupuesto;
     }
-    public void setIdPresupuesto(int idPresupuesto) {
-        this.idPresupuesto = idPresupuesto;
-    }
-    public String getDescripcion() {
-        return descripcion;
-    }
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-    public Double getMontoTotal() {
+
+    @Override
+    public double getMontoTotal() {
         return montoTotal;
     }
-    public void setMontoTotal(Double montoTotal) {
-        this.montoTotal = montoTotal;
-    }
+
+    @Override
     public double getMontoGastado() {
         return montoGastado;
     }
+
+    @Override
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    @Override
+    public void agregarGasto(double monto) {
+        this.montoGastado += monto;
+    }
+
+    public void setMontoTotal(double montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
+    public void setIdPresupuesto(int idPresupuesto) {
+        this.idPresupuesto = idPresupuesto;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setMontoTotal(Double montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
     public void setMontoGastado(double montoGastado) {
         this.montoGastado = montoGastado;
     }
-    //Metodo To String de Presupuesto
 
     @Override
     public Presupuesto clone() {
@@ -58,4 +80,5 @@ public class Presupuesto implements Cloneable{
                 ", montoGastado=" + montoGastado +
                 '}';
     }
-}
+    }
+
