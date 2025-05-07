@@ -1,6 +1,6 @@
 package co.edu.uniquindio.poo.billeteravirtual.servicios;
 
-import co.edu.uniquindio.poo.billeteravirtual.Excepciones.ExcepcionTransaccion;
+
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Transaccion;
 import co.edu.uniquindio.poo.billeteravirtual.facade.ValidacionTransaccionFacade;
 
@@ -10,40 +10,6 @@ public class ServicioTransaccion {
 
     private static Map<String, Transaccion> transacciones = new HashMap<>();
 
-    // Registrar una transacción
-    public void registrarTransaccion(String idUsuario, String idTransaccion, Date fecha, String tipo, double monto, String descripcion) throws ExcepcionTransaccion {
-        if (transacciones.containsKey(idTransaccion)) {
-            throw new ExcepcionTransaccion("Ya existe una Transacción con el id: " + idTransaccion);
-        }
-
-        // Crear la nueva transacción (idUsuario ahora se pasa primero)
-        Transaccion nuevaTransaccion = new Transaccion(idUsuario, idTransaccion, fecha, tipo, monto, descripcion);
-
-        // Validar la transacción utilizando el facade
-        ValidacionTransaccionFacade.validarTransaccion(nuevaTransaccion);
-
-        // Guardar la transacción en el mapa
-        transacciones.put(idTransaccion, nuevaTransaccion);
-        System.out.println("Transacción registrada con id: " + idTransaccion);
-    }
-
-    // Obtener una transacción por su ID
-    public Transaccion obtenerTransaccion(String idTransaccion) throws ExcepcionTransaccion {
-        Transaccion transaccion = transacciones.get(idTransaccion);
-        if (transaccion == null) {
-            throw new ExcepcionTransaccion("No existe una Transacción con el id: " + idTransaccion);
-        }
-        return transaccion;
-    }
-
-    // Eliminar una transacción por su ID
-    public void eliminarTransaccion(String idTransaccion) throws ExcepcionTransaccion {
-        if (!transacciones.containsKey(idTransaccion)) {
-            throw new ExcepcionTransaccion("No existe una Transacción con el id: " + idTransaccion);
-        }
-        transacciones.remove(idTransaccion);
-        System.out.println("Transacción eliminada con id: " + idTransaccion);
-    }
 
     // Obtener todas las transacciones
     public static List<Transaccion> obtenerTodasLasTransacciones() {
@@ -68,11 +34,8 @@ public class ServicioTransaccion {
         return transaccionesPorCliente;
     }
 
-    public Transaccion obtenerTransaccion(String idTransaccion, String tipo) throws ExcepcionTransaccion {
+    public Transaccion obtenerTransaccion(String idTransaccion, String tipo) {
         Transaccion transaccion = transacciones.get(idTransaccion);
-        if (transaccion == null) {
-            throw new ExcepcionTransaccion("No existe una Transaccion con el id: " + idTransaccion);
-        }
         return transaccion;
     }
 

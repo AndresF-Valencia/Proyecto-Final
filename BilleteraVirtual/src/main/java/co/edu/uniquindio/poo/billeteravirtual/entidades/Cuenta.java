@@ -1,21 +1,27 @@
 package co.edu.uniquindio.poo.billeteravirtual.entidades;
 
 public class Cuenta {
-    private int IdCuenta;
+    private Usuario usuario;
+    private String IdCuenta;
     private String numeroCuenta;
     private String tipoCuenta;
+    private String bancoCuenta;
+    public double saldo;
 
     //Contructor De Cuenta
-    public Cuenta(int IdCuenta, String numeroCuenta, String tipoCuenta) {
+    public Cuenta(String IdCuenta, String numeroCuenta, String tipoCuenta, String bancoCuenta, Usuario usuario) {
+        this.usuario = usuario;
         this.IdCuenta = IdCuenta;
         this.numeroCuenta = numeroCuenta;
         this.tipoCuenta = tipoCuenta;
+        this.bancoCuenta = bancoCuenta;
+        this.saldo = 1000000.0;
     }
     //Getters y Setter de la cuenta
-    public int getIdCuenta() {
+    public String getIdCuenta() {
         return IdCuenta;
     }
-    public void setIdCuenta(int IdCuenta) {
+    public void setIdCuenta(String IdCuenta) {
         this.IdCuenta = IdCuenta;
     }
     public String getNumeroCuenta() {
@@ -30,13 +36,30 @@ public class Cuenta {
     public void setTipoCuenta(String tipoCuenta) {
         this.tipoCuenta = tipoCuenta;
     }
+    public String getBancoCuenta() {
+        return bancoCuenta;
+    }
+    public Cuenta setBancoCuenta(String bancoCuenta) {
+        this.bancoCuenta = bancoCuenta;
+        return this;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public Cuenta setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+        return this;
+    }
 
     @Override
     public String toString() {
         return "Cuenta{" +
-                "IdCuenta=" + IdCuenta +
+                "IdCuenta='" + IdCuenta + '\'' +
                 ", numeroCuenta='" + numeroCuenta + '\'' +
                 ", tipoCuenta='" + tipoCuenta + '\'' +
+                ", titularCuenta='" + bancoCuenta + '\'' +
                 '}';
     }
 }

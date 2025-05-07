@@ -1,36 +1,30 @@
 package co.edu.uniquindio.poo.billeteravirtual.servicios;
 
-import co.edu.uniquindio.poo.billeteravirtual.Excepciones.ExcepcionCuenta;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Cuenta;
+import co.edu.uniquindio.poo.billeteravirtual.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.utilidades.GeneradorCodigo;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServicioCuenta {
+    private Usuario usuario;
+    public List<Cuenta> cuentas = new ArrayList<>();
 
-    private Map<Integer, Cuenta> cuentas = new HashMap();
-
-    public void registrarCuenta(int idCuenta, String numeroCuenta, String tipoCuenta) throws ExcepcionCuenta {
-        if (cuentas.containsKey(idCuenta)) {
-            throw new ExcepcionCuenta("La ID de la cuenta ya existe");
-        }
-        cuentas.put(idCuenta, new Cuenta(idCuenta, numeroCuenta, tipoCuenta));
-        System.out.println("Cuenta Registrada Exitosamente");
+    public void registrarCuenta(String numeroCuenta, String tipoCuenta, String bancoCuenta, Usuario usuario) {
+        String codigo= new GeneradorCodigo().generarCodigo();
+        Cuenta cuenta = new Cuenta(codigo, numeroCuenta, tipoCuenta, bancoCuenta, usuario);
+        cuentas.add(cuenta);
     }
 
-    public Cuenta obtenerCuenta(int idCuenta) throws ExcepcionCuenta {
-        Cuenta cuenta = cuentas.get(idCuenta);
-        if (cuenta == null) {
-            throw new ExcepcionCuenta("La cuenta no existe");
+    public List<Cuenta> obtenerCuentasDe(Usuario usuario) {
+        List<Cuenta> cuentasDelUsuario = new ArrayList<>();
+        for (Cuenta cuenta : usuario.getCuentas()) {
+            if (cuenta.getUsuario().equals(usuario)) {
+                cuentasDelUsuario.add(cuenta);
+            }
         }
-        return cuenta;
+        return cuentasDelUsuario;
     }
 
-    public void eliminarCuenta(int idCuenta) throws ExcepcionCuenta {
-        if (!cuentas.containsKey(idCuenta)) {
-            throw new ExcepcionCuenta("La cuenta no existe");
-        }
-        cuentas.remove(idCuenta);
-        System.out.println("Cuenta Eliminada Exitosamente");
-    }
 }

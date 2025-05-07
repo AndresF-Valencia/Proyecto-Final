@@ -1,18 +1,30 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
+
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.servicios.ServicioUsuario;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewUsuario;
 import co.edu.uniquindio.poo.billeteravirtual.utilidades.*;
+import javafx.animation.FadeTransition;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerUsuario {
     private String codigoGenerado;
     private final ViewUsuario view;
-    private List<Usuario> usuariosRegistrados; // Lista persistente de usuarios
+    private final ServicioUsuario servicioUsuario;// Lista persistente de usuarios
 
     public ControllerUsuario(ViewUsuario view) {
         this.view = view;
-        this.usuariosRegistrados = new ArrayList<>();
+        this.servicioUsuario = new ServicioUsuario();
     }
 
     private void cambiarVista(String vistaActiva) {
@@ -55,17 +67,8 @@ public class ControllerUsuario {
             return;
         }
 
-        Usuario usuario = new Usuario.UsuarioBuilder()
-                .Nombre(nombre)
-                .Cedula(cedula)
-                .Telefono(telefono)
-                .Correo(correo)
-                .PalabraClave(palabraClave)
-                .ClaveAcceso(clave)
-                .build();
+        servicioUsuario.registrarUsuario(nombre,correo,telefono,cedula,palabraClave,clave);
 
-        usuariosRegistrados.add(usuario);
-        System.out.println("Usuario registrado: " + usuario);
         Logger.getInstance().mostrarToast(view.rootPane, "Usuario registrado con exito");
         cambiarVista("Bienvenida");
     }
@@ -75,25 +78,20 @@ public class ControllerUsuario {
         view.getPonerContrasena().setVisible(true);
     }
 
-    public void iniciarSesion() {
+    public boolean iniciarSesion() {
         String cedula = view.getCedulaIS().getText();
         String clave = view.getClaveIS().getText();
-
-        for (Usuario u : usuariosRegistrados) {
-            String cedulaUsuario = u.getCedula();
-            String claveUsuario = u.getClaveAcceso();
-            if (cedulaUsuario.equals(cedula)) {
-                if (claveUsuario.equals(clave)) {
-                    //cambiar esto despues
-                    cambiarVista("Bienvenida");
-                }
-            }
+        Usuario usuarioEncontrado = servicioUsuario.obtenerUsuario(cedula);
+        if (usuarioEncontrado != null) {
+            Sesion.setUsuarioActual(usuarioEncontrado);
         }
+
+        return servicioUsuario.autenticarUsuario(cedula, clave);
     }
 
     public void verificarPalabraClave(){
         String palabraclave = view.getTextRecuperar().getText();
-        for (Usuario u : usuariosRegistrados) {
+        for (Usuario u : servicioUsuario.getUsuariosRegistrados()) {
             String palabra = u.getPalabraclave();
             if(palabra.equals(palabraclave)){
                 generarCodigoRecuperacion();
@@ -104,13 +102,15 @@ public class ControllerUsuario {
         }
     }
 
-    public void verificarCodigo() {
+    public boolean verificarCodigo() {
         String codigoIngresado = view.getTextCodigo().getText();
         if (codigoGenerado != null && codigoGenerado.equals(codigoIngresado)) {
             Logger.getInstance().mostrarToast(view.rootPane,"✅ Código correcto.");
+            return true;
         } else {
             Logger.getInstance().mostrarToast(view.rootPane,"❌ Código incorrecto.");
         }
+        return false;
     }
 
     public void generarCodigoRecuperacion(){
@@ -118,9 +118,24 @@ public class ControllerUsuario {
         Logger.getInstance().mostrarToast(view.rootPane ,"Codigo de recuperacion: " + codigoGenerado);
     }
 
-    public List<Usuario> getUsuariosRegistrados() {
-        return usuariosRegistrados;
+    public void cambiarEscena(Stage stage, String rutaFXML) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
+            Parent root = loader.load();
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            fadeIn.play();
+        } catch (IOException e) {
+            Logger.getInstance().mostrarToast(view.rootPane, "Cedula y/o clave incorrecta");
+        }
     }
+
 
 }
 

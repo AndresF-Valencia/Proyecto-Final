@@ -1,66 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootPanelUsuario" prefHeight="700.0" prefWidth="1200.0" stylesheets="@estilos.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.PanelUsuarioController">
-    <children>
-        <!-- Panel lateral con fondo negro y letras negras -->
-        <AnchorPane fx:id="panelIzquierdo" prefHeight="700.0" prefWidth="240.0" style="-fx-background-color: #000000; -fx-border-color: #333333; -fx-border-width: 2px;">
-            <children>
-                <!-- Imagen cambiada a logo2.png -->
-                <ImageView fx:id="logoImageView" fitHeight="50.0" fitWidth="150.0" layoutX="42.0" layoutY="25.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="42.0">
-                    <image>
-                        <Image url="@logo2.png" />
-                    </image>
-                </ImageView>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="rootPane">
+   <children>
+      <!-- Panel lateral -->
+      <AnchorPane prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #000000;">
+         <children>
+            <Text fx:id="bienvenidaText" fill="WHITE" layoutX="20.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Bienvenido,  " wrappingWidth="261.25587463378906">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="20.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="💰 Dinero" />
+            <Button fx:id="btnMeterDinero" layoutX="20.0" layoutY="110.0" prefHeight="35.0" prefWidth="260.0" text="➕ Meter Dinero" />
+            <Button fx:id="btnSacarDinero" layoutX="20.0" layoutY="150.0" prefHeight="35.0" prefWidth="260.0" text="➖ Sacar Dinero" />
+            <Button fx:id="btnPasarDinero" layoutX="20.0" layoutY="190.0" prefHeight="35.0" prefWidth="260.0" text="🔁 Pasar Dinero" />
+            <Button fx:id="btnVerMovimientos" layoutX="20.0" layoutY="230.0" prefHeight="35.0" prefWidth="260.0" text="📜 Ver Movimientos" />
+            <Text fill="WHITE" layoutX="20.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="👤 Mi Cuenta" />
+            <Button fx:id="btnVerDatos" layoutX="20.0" layoutY="300.0" prefHeight="35.0" prefWidth="260.0" text="📋 Ver Datos" />
+            <Button fx:id="btnCambiarContrasena" layoutX="20.0" layoutY="340.0" prefHeight="35.0" prefWidth="260.0" text="🔒 Cambiar Contraseña" />
+            <Button fx:id="btnActualizarDatos" layoutX="20.0" layoutY="380.0" prefHeight="35.0" prefWidth="260.0" text="✏ Actualizar Datos" />
+            <Text fill="WHITE" layoutX="20.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="🏦 Cuentas Bancarias" />
+            <Button fx:id="btnAgregarCuenta" layoutX="20.0" layoutY="450.0" prefHeight="35.0" prefWidth="260.0" text="➕ Agregar Cuenta" />
+            <Button fx:id="btnGestionarCuentas" layoutX="20.0" layoutY="490.0" prefHeight="35.0" prefWidth="260.0" text="💼 Gestionar Cuentas" />
+            <Text fill="WHITE" layoutX="20.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="0.0" text="⚙ Opciones" />
+            <Button fx:id="btnCerrarSesion" layoutX="20.0" layoutY="560.0" prefHeight="35.0" prefWidth="260.0" text="🚪 Cerrar Sesión" />
+         </children>
+      </AnchorPane>
 
-                <!-- Sección Dinero -->
-                <Label fx:id="dineroLabel" layoutY="60.0" text="💰 Dinero" textFill="white" />
-                <Button fx:id="btnRecargar" layoutX="50.0" layoutY="89.0" maxWidth="140.0" minHeight="30.0" text="➕ Meter Dinero" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"/>
-                <Button fx:id="btnRetirar" layoutX="50.0" layoutY="130.0" maxWidth="140.0" minHeight="30.0" text="➖ Sacar Dinero" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"/>
-                <Button fx:id="btnTransferir" layoutX="50.0" layoutY="170.0" maxWidth="140.0" minHeight="30.0" text="🔁 Pasar Dinero" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"/>
-                <Button fx:id="btnMovimientos" layoutX="50.0" layoutY="209.0" maxWidth="140.0" minHeight="30.0" text="📜 Ver Movimientos" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"/>
-                <Button fx:id="btnEstadoCuentas" layoutX="50.0" layoutY="250.0" maxWidth="140.0" minHeight="30.0" text="💼 Estado de Cuentas" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"/>
+      <!-- Panel principal -->
+      <AnchorPane layoutX="300.0" prefHeight="700.0" prefWidth="1000.0">
+         <children>
+            <!-- Formulario de registro de cuenta -->
+            <AnchorPane layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+               <children>
+                  <Text layoutX="300.0" layoutY="50.0" text="Registrar Cuenta Bancaria">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
 
-                <!-- Sección Usuario -->
-                <Label fx:id="usuarioLabel" layoutX="50.0" layoutY="293.0" text="👤 Mi Cuenta" textFill="white" />
-                <Button fx:id="btnDatosUsuario" layoutX="50.0" layoutY="320.0" maxWidth="140.0" minHeight="30.0" text="📋 Ver Datos" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"/>
-                <Button fx:id="btnActualizarDatos" layoutX="50.0" layoutY="361.0" maxWidth="140.0" minHeight="30.0" text="✏️ Actualizar Datos" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"/>
-                <Button fx:id="btnCambiarClave" layoutX="50.0" layoutY="399.0" maxWidth="140.0" minHeight="30.0" text="🔒 Cambiar Contraseña" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"/>
+                  <Text layoutX="324.0" layoutY="105.0" text="Titular de la Cuenta:" />
+                  <TextField fx:id="campoTitular" layoutX="325.0" layoutY="108.0" prefWidth="250.0" />
 
-                <!-- Sección Cuentas Bancarias -->
-                <Label fx:id="cuentasLabel" layoutX="50.0" layoutY="441.0" text="🏦 Cuentas Bancarias" textFill="white" />
-                <Button fx:id="btnAgregarCuenta" layoutX="50.0" layoutY="472.0" maxWidth="140.0" minHeight="30.0" text="➕ Agregar Cuenta" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"/>
-                <Button fx:id="btnGestionarCuentas" layoutX="50.0" layoutY="520.0" maxWidth="140.0" minHeight="30.0" text="🧾 Gestionar Cuentas" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"/>
+                  <Text layoutX="326.0" layoutY="164.0" text="Número de Cuenta:" />
+                  <TextField fx:id="campoNumeroCuenta" layoutX="325.0" layoutY="167.0" prefWidth="250.0" />
 
-                <!-- Sección Opciones -->
-                <Label fx:id="opcionesLabel" layoutX="50.0" layoutY="557.0" text="⚙️ Opciones" textFill="white" />
-                <Button fx:id="btnCerrarSesion" layoutX="50.0" layoutY="589.0" maxWidth="140.0" minHeight="30.0" text="🚪 Cerrar Sesión" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0"/>
-            </children>
-        </AnchorPane>
+                  <Text layoutX="326.0" layoutY="224.0" text="Tipo de Cuenta:" />
+                  <ComboBox fx:id="comboTipoCuenta" layoutX="325.0" layoutY="227.0" prefWidth="250.0" />
 
-        <!-- Área principal de contenido con borde -->
-        <AnchorPane fx:id="panelContenido" layoutX="240.0" prefHeight="700.0" prefWidth="960.0">
-            <children>
-                <Label fx:id="bienvenidaLabel" layoutX="30.0" layoutY="25.0" text="¡Bienvenido, Usuario!" />
+                  <Button fx:id="btnRegistrarCuenta" layoutX="325.0" layoutY="319.0" prefWidth="250.0" text="Registrar Cuenta" />
+               </children>
+            </AnchorPane>
 
-                <!-- Panel inicial de bienvenida -->
-                <Pane fx:id="panelBienvenida" layoutX="45.0" layoutY="70.0" prefHeight="500.0" prefWidth="855.0">
-                    <children>
-                        <Label fx:id="mensajeBienvenidaLabel" layoutX="40.0" layoutY="40.0" text="Aquí puedes gestionar tu billetera virtual PayVax." />
-                        <Label fx:id="instruccionesLabel" layoutX="40.0" layoutY="80.0" text="Utiliza el menú de la izquierda para acceder a cada funcionalidad." />
-                    </children>
-                </Pane>
-            </children>
-        </AnchorPane>
-    </children>
+            <!-- Gestionar Cuenta -->
+            <AnchorPane layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
+               <children>
+                  <Text layoutX="300.0" layoutY="50.0" text="Gestionar Cuenta Bancaria">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
+
+                  <!-- Selección de Cuenta -->
+                  <Text layoutX="389.0" layoutY="106.0" text="Selecciona una Cuenta:" />
+                  <ComboBox fx:id="comboCuentas" layoutX="331.0" layoutY="124.0" prefWidth="250.0" />
+
+                  <!-- Información de la Cuenta Seleccionada -->
+                  <Text layoutX="371.0" layoutY="172.0" text="Titular:" />
+                  <Text fx:id="textTitular" layoutX="415.0" layoutY="172.0" text="--" />
+                  <Text layoutX="373.0" layoutY="202.0" text="Número de Cuenta:" />
+                  <Text fx:id="textNumeroCuenta" layoutX="484.0" layoutY="202.0" text="--" />
+                  <Text layoutX="373.0" layoutY="232.0" text="Tipo de Cuenta:" />
+                  <Text fx:id="textTipoCuenta" layoutX="479.0" layoutY="232.0" text="--" />
+
+                  <!-- Botones de gestión -->
+                  <Button fx:id="btnConsultarCuenta" layoutX="337.0" layoutY="336.0" prefWidth="250.0" text="Consultar Cuenta" />
+                  <Button fx:id="btnEliminarCuenta" layoutX="337.0" layoutY="378.0" prefWidth="250.0" text="Eliminar Cuenta" />
+                  <Button fx:id="btnModificarCuenta" layoutX="337.0" layoutY="419.0" prefWidth="250.0" text="Modificar Cuenta" />
+
+                  <!-- Botón de Regresar -->
+                  <Button fx:id="btnRegresar" layoutX="337.0" layoutY="469.0" prefWidth="250.0" text="Regresar" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>
-
-
-
-

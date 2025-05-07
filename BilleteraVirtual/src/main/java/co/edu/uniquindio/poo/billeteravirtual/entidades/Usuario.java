@@ -10,6 +10,7 @@ public class Usuario {
     private String palabraclave;
     private String claveAcceso;
     private ArrayList<Transaccion> transacciones;
+    private ArrayList<Cuenta> cuentas;
 
     public Usuario(UsuarioBuilder builder) {
         this.nombre = builder.nombre;
@@ -19,6 +20,7 @@ public class Usuario {
         this.palabraclave = builder.palabraclave;
         this.claveAcceso = builder.claveAcceso;
         this.transacciones = new ArrayList<>();
+        this.cuentas = new ArrayList<>();
     }
 
 
@@ -52,6 +54,15 @@ public class Usuario {
 
     public void setTransacciones(ArrayList<Transaccion> transacciones) {
         this.transacciones = transacciones;
+    }
+
+    public ArrayList<Cuenta> getCuentas() {
+        return cuentas;
+    }
+
+    public Usuario setCuentas(ArrayList<Cuenta> cuentas) {
+        this.cuentas = cuentas;
+        return this;
     }
 
     public static class UsuarioBuilder {

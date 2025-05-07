@@ -1,5 +1,6 @@
 module co.edu.uniquindio.poo.billeteravirtual {
     exports co.edu.uniquindio.poo.billeteravirtual.servicios;
+    exports co.edu.uniquindio.poo.billeteravirtual.entidades;
     requires javafx.controls;
     requires javafx.fxml;
     requires junit;
