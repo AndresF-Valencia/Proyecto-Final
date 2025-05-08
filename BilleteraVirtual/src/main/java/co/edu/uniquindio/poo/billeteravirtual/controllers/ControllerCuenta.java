@@ -7,6 +7,7 @@ import co.edu.uniquindio.poo.billeteravirtual.utilidades.Logger;
 import co.edu.uniquindio.poo.billeteravirtual.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
