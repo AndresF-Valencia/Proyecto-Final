@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
 import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerCuenta;
+import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerDatos;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Usuario;
 import co.edu.uniquindio.poo.billeteravirtual.utilidades.Sesion;
@@ -19,14 +20,15 @@ public class ViewFuncionalidades {
             btnVerDatos, btnCambiarContrasena, btnActualizarDatos, btnAgregarCuenta,
             btnGestionarCuentas, btnCerrarSesion, btnRegistrarCuenta,
             btnConsultarCuenta, btnEliminarCuenta, btnRegresar,
-            btnModificarDatos, btnVolverDatosUsuario,btnGuardarCambioClave, btnVolverCambioClave;
+            btnGuardarCambio, btnModificarDatos, btnVolverDatosUsuario,btnGuardarCambioClave, btnVolverCambioClave;
 
     @FXML
     public Text bienvenidaText, textTitular, textNumeroCuenta, textTipoCuenta, textSaldo,
             textNombreUsuario, textCorreoUsuario, textDocumentoUsuario, textTelefonoUsuario;
 
     @FXML
-    public TextField campoTitular, campoNumeroCuenta, txtCorreoEditar, txtTelefonoEditar,txtPalabraClaveActual, txtNuevaPalabraClave;
+    public TextField campoTitular, campoNumeroCuenta,
+            txtNombreEditar, txtCorreoEditar, txtTelefonoEditar,txtPalabraClaveActual, txtNuevaPalabraClave;
 
 
     @FXML
@@ -48,23 +50,35 @@ public class ViewFuncionalidades {
     @FXML
     public void initialize() {
         try {
+            System.out.println("Inicializando ViewFuncionalidades");
             controllerCuenta = new ControllerCuenta(this);;
             controllerCuenta.cargarCuentas();
+
+            //Controller datos
+            ControllerDatos controllerDatos = new ControllerDatos(this);
 
             anchorPaneRegistroCuenta.setVisible(false);
             anchorPaneGestionarCuenta.setVisible(false);
             anchorPaneVerDatosUsuario.setVisible(false);
             anchorPaneCambiarContrasena.setVisible(false);
-            
 
+            // Eventos ControllerCuenta
             comboTipoCuenta.getItems().addAll("Cuenta de ahorros", "Cuenta corriente");
-            btnAgregarCuenta.setOnAction(e -> controllerCuenta.agregarCuenta());
+                btnAgregarCuenta.setOnAction(e -> controllerCuenta.agregarCuenta());
             btnRegistrarCuenta.setOnAction(e -> controllerCuenta.registrarCuenta());
             btnGestionarCuentas.setOnAction(e -> controllerCuenta.gestionarCuentas());
             btnConsultarCuenta.setOnAction(e -> controllerCuenta.consultarCuenta());
             btnEliminarCuenta.setOnAction(e -> controllerCuenta.eliminarCuenta());
             btnRegresar.setOnAction(e -> controllerCuenta.regresar());
             btnCerrarSesion.setOnAction(e -> controllerCuenta.cerrarSesion());
+
+            //Eventos controllerDatos
+            btnVerDatos.setOnAction(e -> controllerDatos.verDatosUsuario());
+            btnModificarDatos.setOnAction(e -> controllerDatos.mostrarPanelEditarDatos());
+            btnVolverDatosUsuario.setOnAction(e -> controllerDatos.volver());
+            btnGuardarCambio.setOnAction(e -> controllerDatos.editarDatosUsuario());
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }

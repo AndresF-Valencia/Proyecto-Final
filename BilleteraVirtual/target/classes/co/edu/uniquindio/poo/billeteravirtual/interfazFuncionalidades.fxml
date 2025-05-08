@@ -2,12 +2,14 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades" stylesheets="@estilos2.css">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@estilos2.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades">
    <children>
       <!-- Panel lateral -->
       <AnchorPane prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #000000;">
@@ -90,7 +92,87 @@
                   <Button fx:id="btnRegresar" layoutX="337.0" layoutY="422.0" prefWidth="250.0" text="Regresar" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPaneVerDatos" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" />
+            <!-- Ver Datos del Usuario -->
+            <AnchorPane fx:id="anchorPaneVerDatosUsuario" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
+               <children>
+                  <Text layoutX="330.0" layoutY="50.0" text="Datos del Usuario">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
+
+                  <!-- Pane solo para visualizar -->
+                  <Pane fx:id="camposInformacion" layoutX="0.0" layoutY="100.0" prefHeight="300.0" prefWidth="900.0">
+                     <children>
+                        <Text layoutX="290.0" layoutY="20.0" text="Nombre completo:" />
+                        <Text fx:id="textNombreUsuario" layoutX="430.0" layoutY="20.0" text="--" />
+
+                        <Text layoutX="290.0" layoutY="60.0" text="Correo electrónico:" />
+                        <Text fx:id="textCorreoUsuario" layoutX="430.0" layoutY="60.0" text="--" />
+
+                        <Text layoutX="290.0" layoutY="100.0" text="Número de documento:" />
+                        <Text fx:id="textDocumentoUsuario" layoutX="430.0" layoutY="100.0" text="--" />
+
+                        <Text layoutX="290.0" layoutY="140.0" text="Teléfono:" />
+                        <Text fx:id="textTelefonoUsuario" layoutX="430.0" layoutY="140.0" text="--" />
+                     </children>
+                  </Pane>
+
+                  <!-- Pane para editar (solo correo y teléfono) -->
+                  <Pane fx:id="paneEditarInformacion" layoutX="0.0" layoutY="100.0" prefHeight="300.0" prefWidth="900.0">
+                     <children>
+
+                        <Text layoutX="323.0" layoutY="102.0" text="Correo electrónico:" />
+                        <TextField fx:id="txtCorreoEditar" layoutX="325.0" layoutY="106.0" prefWidth="250.0" />
+
+                        <Text layoutX="325.0" layoutY="154.0" text="Teléfono:" />
+                        <TextField fx:id="txtTelefonoEditar" layoutX="325.0" layoutY="156.0" prefWidth="250.0" />
+
+                        <Text layoutX="325.0" layoutY="47.0" text="Nombre" />
+                        <TextField fx:id="txtNombreEditar" layoutX="325.0" layoutY="51.0" prefWidth="250.0" />
+
+                     </children>
+                  </Pane>
+
+                  <!-- Botones -->
+                  <Button fx:id="btnModificarDatos" layoutX="325.0" layoutY="420.0" prefWidth="250.0" text="Modificar Datos" />
+                  <Button fx:id="btnVolverDatosUsuario" layoutX="325.0" layoutY="465.0" prefWidth="250.0" text="Regresar" />
+                  <Button fx:id="btnGuardarCambios" layoutX="325.0" layoutY="420.0" prefWidth="250.0" text="Guardar Cambios" visible="false" />
+                  <Button fx:id="btnGuardarCambios1" layoutX="335.0" layoutY="430.0" prefWidth="250.0" text="Guardar Cambios" visible="false" />
+                  <Button fx:id="btnGuardarCambio" layoutX="325.0" layoutY="513.0" prefWidth="250.0" text="Guardar" />
+               </children>
+            </AnchorPane>
+            <!-- Cambiar Contraseña -->
+            <AnchorPane fx:id="anchorPaneCambiarContrasena" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+               <children>
+                  <Text layoutX="320.0" layoutY="40.0" text="Cambiar Contraseña">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
+
+                  <!-- Verificación -->
+                  <Text layoutX="327.0" layoutY="80.0" text="Clave actual:" />
+                  <PasswordField fx:id="pfClaveActual" layoutX="325.0" layoutY="84.0" prefWidth="250.0" />
+
+                  <Text layoutX="326.0" layoutY="131.0" text="Palabra clave actual:" />
+                  <TextField fx:id="txtPalabraClaveActual" layoutX="325.0" layoutY="134.0" prefWidth="250.0" />
+
+                  <!-- Nuevos datos -->
+                  <Text layoutX="326.0" layoutY="181.0" text="Nueva clave:" />
+                  <PasswordField fx:id="pfNuevaClave" layoutX="325.0" layoutY="184.0" prefWidth="250.0" />
+
+                  <Text layoutX="326.0" layoutY="229.0" text="Confirmar nueva clave:" />
+                  <PasswordField fx:id="pfConfirmarClave" layoutX="325.0" layoutY="232.0" prefWidth="250.0" />
+
+                  <Text layoutX="326.0" layoutY="281.0" text="Nueva palabra clave:" />
+                  <TextField fx:id="txtNuevaPalabraClave" layoutX="325.0" layoutY="286.0" prefWidth="250.0" />
+
+                  <!-- Botones -->
+                  <Button fx:id="btnGuardarCambioClave" layoutX="325.0" layoutY="350.0" prefWidth="250.0" text="Guardar Cambios" />
+                  <Button fx:id="btnVolverCambioClave" layoutX="325.0" layoutY="400.0" prefWidth="250.0" text="Regresar" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>
