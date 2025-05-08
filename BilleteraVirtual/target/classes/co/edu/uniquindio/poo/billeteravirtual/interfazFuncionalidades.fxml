@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades" stylesheets="@estilos2.css">
    <children>
       <!-- Panel lateral -->
       <AnchorPane prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #000000;">
@@ -60,7 +60,7 @@
             </AnchorPane>
 
             <!-- Gestionar Cuenta -->
-            <AnchorPane fx:id="anchorPaneGestionarCuenta" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
+            <AnchorPane fx:id="anchorPaneGestionarCuenta" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
                <children>
                   <Text layoutX="300.0" layoutY="50.0" text="Gestionar Cuenta Bancaria">
                      <font>
@@ -90,6 +90,7 @@
                   <Button fx:id="btnRegresar" layoutX="337.0" layoutY="422.0" prefWidth="250.0" text="Regresar" />
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="anchorPaneVerDatos" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" />
          </children>
       </AnchorPane>
    </children>

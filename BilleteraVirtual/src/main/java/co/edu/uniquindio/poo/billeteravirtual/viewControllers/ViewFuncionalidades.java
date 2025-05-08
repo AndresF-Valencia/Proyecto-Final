@@ -30,7 +30,7 @@ public class ViewFuncionalidades {
     public ComboBox<Cuenta> comboCuentas;
 
     @FXML
-    public AnchorPane anchorPaneRegistroCuenta, anchorPaneGestionarCuenta, rootPane;
+    public AnchorPane anchorPaneRegistroCuenta, anchorPaneGestionarCuenta, rootPane, anchorPaneVerDatos;
 
     private ControllerCuenta controllerCuenta;
 
@@ -42,6 +42,7 @@ public class ViewFuncionalidades {
 
             anchorPaneRegistroCuenta.setVisible(false);
             anchorPaneGestionarCuenta.setVisible(false);
+            anchorPaneVerDatos.setVisible(false);
 
             comboTipoCuenta.getItems().addAll("Cuenta de ahorros", "Cuenta corriente");
             btnAgregarCuenta.setOnAction(e -> controllerCuenta.agregarCuenta());

@@ -1,0 +1,69 @@
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: white;
+}
+
+/* ==========================
+   Botones principales
+   ========================== */
+.button {
+    -fx-background-color: #cc0000;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 4, 0, 0, 1);
+    -fx-padding: 8 14;
+    -fx-font-size: 13px;
+}
+
+.button:hover {
+    -fx-background-color: #e60000;
+}
+
+/* ==========================
+   Campos de texto y combo
+   ========================== */
+.text-field, .combo-box, .combo-box-base {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-size: 13px;
+    -fx-text-fill: #333333;
+    -fx-padding: 4 6;
+}
+
+.text-field:focused, .combo-box:focused, .combo-box-base:focused {
+    -fx-border-color: #cc0000;
+    -fx-background-color: #ffffff;
+}
+
+/* ==========================
+   Textos generales
+   ========================== */
+.text {
+    -fx-fill: #222222;
+    -fx-font-size: 14px;
+}
+
+/* ==========================
+   Títulos
+   ========================== */
+.titulo-formulario {
+    -fx-fill: #cc0000;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+/* ==========================
+   Panel lateral
+   ========================== */
+#rootPane > .anchor-pane {
+    -fx-background-color: #000000;
+}
+
+#rootPane > .anchor-pane .text {
+    -fx-fill: white;
+    -fx-font-size: 14px;
+}
