@@ -7,8 +7,10 @@ import co.edu.uniquindio.poo.billeteravirtual.utilidades.Sesion;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 public class ViewFuncionalidades {
@@ -16,22 +18,31 @@ public class ViewFuncionalidades {
     public Button btnMeterDinero, btnSacarDinero, btnPasarDinero, btnVerMovimientos,
             btnVerDatos, btnCambiarContrasena, btnActualizarDatos, btnAgregarCuenta,
             btnGestionarCuentas, btnCerrarSesion, btnRegistrarCuenta,
-            btnConsultarCuenta, btnEliminarCuenta, btnRegresar;
+            btnConsultarCuenta, btnEliminarCuenta, btnRegresar,
+            btnModificarDatos, btnVolverDatosUsuario,btnGuardarCambioClave, btnVolverCambioClave;
 
     @FXML
-    public Text bienvenidaText, textTitular, textNumeroCuenta, textTipoCuenta, textSaldo;
+    public Text bienvenidaText, textTitular, textNumeroCuenta, textTipoCuenta, textSaldo,
+            textNombreUsuario, textCorreoUsuario, textDocumentoUsuario, textTelefonoUsuario;
 
     @FXML
-    public TextField campoTitular, campoNumeroCuenta;
+    public TextField campoTitular, campoNumeroCuenta, txtCorreoEditar, txtTelefonoEditar,txtPalabraClaveActual, txtNuevaPalabraClave;
+
 
     @FXML
     public ComboBox<String> comboTipoCuenta;
+
     @FXML
     public ComboBox<Cuenta> comboCuentas;
 
     @FXML
-    public AnchorPane anchorPaneRegistroCuenta, anchorPaneGestionarCuenta, rootPane, anchorPaneVerDatos;
+    public AnchorPane anchorPaneRegistroCuenta, anchorPaneGestionarCuenta, rootPane, anchorPaneVerDatosUsuario, anchorPaneCambiarContrasena;
 
+    @FXML
+    public PasswordField pfClaveActual, pfNuevaClave, pfConfirmarClave;
+
+    @FXML
+    public Pane camposInformacion, paneEditarInformacion;
     private ControllerCuenta controllerCuenta;
 
     @FXML
@@ -42,7 +53,9 @@ public class ViewFuncionalidades {
 
             anchorPaneRegistroCuenta.setVisible(false);
             anchorPaneGestionarCuenta.setVisible(false);
-            anchorPaneVerDatos.setVisible(false);
+            anchorPaneVerDatosUsuario.setVisible(false);
+            anchorPaneCambiarContrasena.setVisible(false);
+            
 
             comboTipoCuenta.getItems().addAll("Cuenta de ahorros", "Cuenta corriente");
             btnAgregarCuenta.setOnAction(e -> controllerCuenta.agregarCuenta());
@@ -100,5 +113,17 @@ public class ViewFuncionalidades {
     public ViewFuncionalidades setComboCuentas(ComboBox<Cuenta> comboCuentas) {
         this.comboCuentas = comboCuentas;
         return this;
+    }
+
+    public Button getBtnSacarDinero() {
+        return btnSacarDinero;
+    }
+
+    public TextField getTxtCorreoEditar() {
+        return txtCorreoEditar;
+    }
+
+    public TextField getTxtTelefonoEditar() {
+        return txtTelefonoEditar;
     }
 }
