@@ -28,7 +28,7 @@ public class ViewUsuario {
     @FXML
     public void initialize() {
         controllerUsuario = new ControllerUsuario(this);
-
+        controllerUsuario.iniciarDatos();
 
 
         Bienvenida.setVisible(true);

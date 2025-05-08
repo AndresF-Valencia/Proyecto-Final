@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:id="rootPane">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades">
    <children>
       <!-- Panel lateral -->
       <AnchorPane prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #000000;">
@@ -38,7 +38,7 @@
       <AnchorPane layoutX="300.0" prefHeight="700.0" prefWidth="1000.0">
          <children>
             <!-- Formulario de registro de cuenta -->
-            <AnchorPane layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+            <AnchorPane fx:id="anchorPaneRegistroCuenta" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
                <children>
                   <Text layoutX="300.0" layoutY="50.0" text="Registrar Cuenta Bancaria">
                      <font>
@@ -46,7 +46,7 @@
                      </font>
                   </Text>
 
-                  <Text layoutX="324.0" layoutY="105.0" text="Titular de la Cuenta:" />
+                  <Text layoutX="324.0" layoutY="105.0" text="Banco:" />
                   <TextField fx:id="campoTitular" layoutX="325.0" layoutY="108.0" prefWidth="250.0" />
 
                   <Text layoutX="326.0" layoutY="164.0" text="Número de Cuenta:" />
@@ -60,7 +60,7 @@
             </AnchorPane>
 
             <!-- Gestionar Cuenta -->
-            <AnchorPane layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
+            <AnchorPane fx:id="anchorPaneGestionarCuenta" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
                <children>
                   <Text layoutX="300.0" layoutY="50.0" text="Gestionar Cuenta Bancaria">
                      <font>
@@ -73,22 +73,24 @@
                   <ComboBox fx:id="comboCuentas" layoutX="331.0" layoutY="124.0" prefWidth="250.0" />
 
                   <!-- Información de la Cuenta Seleccionada -->
-                  <Text layoutX="371.0" layoutY="172.0" text="Titular:" />
+                  <Text layoutX="371.0" layoutY="172.0" text="Banco:" />
                   <Text fx:id="textTitular" layoutX="415.0" layoutY="172.0" text="--" />
-                  <Text layoutX="373.0" layoutY="202.0" text="Número de Cuenta:" />
+                  <Text layoutX="371.0" layoutY="201.0" text="Número de Cuenta:" />
                   <Text fx:id="textNumeroCuenta" layoutX="484.0" layoutY="202.0" text="--" />
-                  <Text layoutX="373.0" layoutY="232.0" text="Tipo de Cuenta:" />
+                  <Text layoutX="371.0" layoutY="232.0" text="Tipo de Cuenta:" />
                   <Text fx:id="textTipoCuenta" layoutX="479.0" layoutY="232.0" text="--" />
+                  <Text layoutX="371.0" layoutY="263.0" text="Saldo:" />
+                  <Text fx:id="textSaldo" layoutX="425.0" layoutY="263.0" text="--" />
 
                   <!-- Botones de gestión -->
                   <Button fx:id="btnConsultarCuenta" layoutX="337.0" layoutY="336.0" prefWidth="250.0" text="Consultar Cuenta" />
                   <Button fx:id="btnEliminarCuenta" layoutX="337.0" layoutY="378.0" prefWidth="250.0" text="Eliminar Cuenta" />
-                  <Button fx:id="btnModificarCuenta" layoutX="337.0" layoutY="419.0" prefWidth="250.0" text="Modificar Cuenta" />
 
                   <!-- Botón de Regresar -->
-                  <Button fx:id="btnRegresar" layoutX="337.0" layoutY="469.0" prefWidth="250.0" text="Regresar" />
+                  <Button fx:id="btnRegresar" layoutX="337.0" layoutY="422.0" prefWidth="250.0" text="Regresar" />
                </children>
             </AnchorPane>
+            <AnchorPane layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" />
          </children>
       </AnchorPane>
    </children>

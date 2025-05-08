@@ -14,7 +14,7 @@ public class ServicioCuenta {
     public void registrarCuenta(String numeroCuenta, String tipoCuenta, String bancoCuenta, Usuario usuario) {
         String codigo= new GeneradorCodigo().generarCodigo();
         Cuenta cuenta = new Cuenta(codigo, numeroCuenta, tipoCuenta, bancoCuenta, usuario);
-        cuentas.add(cuenta);
+        usuario.getCuentas().add(cuenta);
     }
 
     public List<Cuenta> obtenerCuentasDe(Usuario usuario) {
@@ -27,4 +27,12 @@ public class ServicioCuenta {
         return cuentasDelUsuario;
     }
 
+    public List<Cuenta> getCuentas() {
+        return cuentas;
+    }
+
+    public ServicioCuenta setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
+        return this;
+    }
 }

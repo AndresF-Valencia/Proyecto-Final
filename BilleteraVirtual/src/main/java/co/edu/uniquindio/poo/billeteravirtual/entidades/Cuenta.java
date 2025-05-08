@@ -53,13 +53,21 @@ public class Cuenta {
         return this;
     }
 
+    public String getSaldo() {
+        return String.valueOf(saldo);
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public double getSaldo1() {
+        return saldo;
+    }
+
     @Override
     public String toString() {
-        return "Cuenta{" +
-                "IdCuenta='" + IdCuenta + '\'' +
-                ", numeroCuenta='" + numeroCuenta + '\'' +
-                ", tipoCuenta='" + tipoCuenta + '\'' +
-                ", titularCuenta='" + bancoCuenta + '\'' +
-                '}';
+        return bancoCuenta + "-" + numeroCuenta;
     }
+
 }

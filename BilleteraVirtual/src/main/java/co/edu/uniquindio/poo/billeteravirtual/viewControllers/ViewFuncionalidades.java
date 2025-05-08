@@ -1,6 +1,6 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
-import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerFuncionalidades;
+import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerCuenta;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Usuario;
 import co.edu.uniquindio.poo.billeteravirtual.utilidades.Sesion;
@@ -16,10 +16,10 @@ public class ViewFuncionalidades {
     public Button btnMeterDinero, btnSacarDinero, btnPasarDinero, btnVerMovimientos,
             btnVerDatos, btnCambiarContrasena, btnActualizarDatos, btnAgregarCuenta,
             btnGestionarCuentas, btnCerrarSesion, btnRegistrarCuenta,
-            btnConsultarCuenta, btnEliminarCuenta, btnModificarCuenta, btnRegresar;
+            btnConsultarCuenta, btnEliminarCuenta, btnRegresar;
 
     @FXML
-    public Text bienvenidaText, textTitular, textNumeroCuenta, textTipoCuenta;
+    public Text bienvenidaText, textTitular, textNumeroCuenta, textTipoCuenta, textSaldo;
 
     @FXML
     public TextField campoTitular, campoNumeroCuenta;
@@ -32,16 +32,28 @@ public class ViewFuncionalidades {
     @FXML
     public AnchorPane anchorPaneRegistroCuenta, anchorPaneGestionarCuenta, rootPane;
 
-    private ControllerFuncionalidades controllerFuncionalidades;
+    private ControllerCuenta controllerCuenta;
 
     @FXML
     public void initialize() {
-        Usuario usuarioActual = Sesion.getUsuarioActual();
-        controllerFuncionalidades.cargarCuentas(usuarioActual);
+        try {
+            controllerCuenta = new ControllerCuenta(this);;
+            controllerCuenta.cargarCuentas();
 
-        comboTipoCuenta.getItems().addAll("Cuenta de ahorros", "Cuenta corriente");
-        btnAgregarCuenta.setOnAction(e -> controllerFuncionalidades.agregarCuenta());
-        btnRegistrarCuenta.setOnAction(e -> controllerFuncionalidades.registrarCuenta() );
+            anchorPaneRegistroCuenta.setVisible(false);
+            anchorPaneGestionarCuenta.setVisible(false);
+
+            comboTipoCuenta.getItems().addAll("Cuenta de ahorros", "Cuenta corriente");
+            btnAgregarCuenta.setOnAction(e -> controllerCuenta.agregarCuenta());
+            btnRegistrarCuenta.setOnAction(e -> controllerCuenta.registrarCuenta());
+            btnGestionarCuentas.setOnAction(e -> controllerCuenta.gestionarCuentas());
+            btnConsultarCuenta.setOnAction(e -> controllerCuenta.consultarCuenta());
+            btnEliminarCuenta.setOnAction(e -> controllerCuenta.eliminarCuenta());
+            btnRegresar.setOnAction(e -> controllerCuenta.regresar());
+            btnCerrarSesion.setOnAction(e -> controllerCuenta.cerrarSesion());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Button getBtnMeterDinero() {

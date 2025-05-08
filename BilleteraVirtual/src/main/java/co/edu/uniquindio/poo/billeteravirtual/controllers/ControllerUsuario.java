@@ -1,5 +1,6 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
+import co.edu.uniquindio.poo.billeteravirtual.entidades.Admin;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Usuario;
 import co.edu.uniquindio.poo.billeteravirtual.servicios.ServicioUsuario;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewUsuario;
@@ -83,9 +84,8 @@ public class ControllerUsuario {
         String clave = view.getClaveIS().getText();
         Usuario usuarioEncontrado = servicioUsuario.obtenerUsuario(cedula);
         if (usuarioEncontrado != null) {
-            Sesion.setUsuarioActual(usuarioEncontrado);
+            Sesion.getInstancia().iniciarSesion(usuarioEncontrado);
         }
-
         return servicioUsuario.autenticarUsuario(cedula, clave);
     }
 
@@ -136,6 +136,17 @@ public class ControllerUsuario {
         }
     }
 
+    public void iniciarDatos(){
+        Usuario usuario = new Usuario.UsuarioBuilder()
+                .Nombre("Andres")
+                .Cedula("1028")
+                .Telefono("321")
+                .Correo("andres@gmail.com")
+                .PalabraClave("Pantera")
+                .ClaveAcceso("1021")
+                .build();
+        servicioUsuario.getUsuariosRegistrados().add(usuario);
+    }
 
 }
 
