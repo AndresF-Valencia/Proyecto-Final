@@ -60,6 +60,17 @@ public class Usuario {
         this.telefono = telefono;
     }
 
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public void setPalabraclave(String palabraclave) {
+        this.palabraclave = palabraclave;
+    }
+    public void setClaveAcceso(String claveAcceso) {
+        this.claveAcceso = claveAcceso;
+    }
+
     public ArrayList<Transaccion> getTransacciones() {
         return transacciones;
     }

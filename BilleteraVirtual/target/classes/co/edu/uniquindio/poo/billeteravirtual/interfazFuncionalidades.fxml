@@ -27,7 +27,6 @@
             <Text fill="WHITE" layoutX="20.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="👤 Mi Cuenta" />
             <Button fx:id="btnVerDatos" layoutX="20.0" layoutY="300.0" prefHeight="35.0" prefWidth="260.0" text="📋 Ver Datos" />
             <Button fx:id="btnCambiarContrasena" layoutX="20.0" layoutY="340.0" prefHeight="35.0" prefWidth="260.0" text="🔒 Cambiar Contraseña" />
-            <Button fx:id="btnActualizarDatos" layoutX="20.0" layoutY="380.0" prefHeight="35.0" prefWidth="260.0" text="✏ Actualizar Datos" />
             <Text fill="WHITE" layoutX="20.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="🏦 Cuentas Bancarias" />
             <Button fx:id="btnAgregarCuenta" layoutX="20.0" layoutY="450.0" prefHeight="35.0" prefWidth="260.0" text="➕ Agregar Cuenta" />
             <Button fx:id="btnGestionarCuentas" layoutX="20.0" layoutY="490.0" prefHeight="35.0" prefWidth="260.0" text="💼 Gestionar Cuentas" />
@@ -40,7 +39,7 @@
       <AnchorPane layoutX="300.0" prefHeight="700.0" prefWidth="1000.0">
          <children>
             <!-- Formulario de registro de cuenta -->
-            <AnchorPane fx:id="anchorPaneRegistroCuenta" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+            <AnchorPane fx:id="anchorPaneRegistroCuenta" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
                <children>
                   <Text layoutX="300.0" layoutY="50.0" text="Registrar Cuenta Bancaria">
                      <font>
@@ -62,7 +61,7 @@
             </AnchorPane>
 
             <!-- Gestionar Cuenta -->
-            <AnchorPane fx:id="anchorPaneGestionarCuenta" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+            <AnchorPane fx:id="anchorPaneGestionarCuenta" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
                <children>
                   <Text layoutX="300.0" layoutY="50.0" text="Gestionar Cuenta Bancaria">
                      <font>
@@ -127,23 +126,22 @@
 
                         <Text layoutX="325.0" layoutY="154.0" text="Teléfono:" />
                         <TextField fx:id="txtTelefonoEditar" layoutX="325.0" layoutY="156.0" prefWidth="250.0" />
-
+                        
                         <Text layoutX="325.0" layoutY="47.0" text="Nombre" />
                         <TextField fx:id="txtNombreEditar" layoutX="325.0" layoutY="51.0" prefWidth="250.0" />
+                        <Button fx:id="btnGuardarCambios" layoutX="325.0" layoutY="275.0" prefWidth="250.0" text="Guardar Cambios" />
 
                      </children>
                   </Pane>
 
-                  <!-- Botones -->
+                        <!-- Botones -->
                   <Button fx:id="btnModificarDatos" layoutX="325.0" layoutY="420.0" prefWidth="250.0" text="Modificar Datos" />
                   <Button fx:id="btnVolverDatosUsuario" layoutX="325.0" layoutY="465.0" prefWidth="250.0" text="Regresar" />
-                  <Button fx:id="btnGuardarCambios" layoutX="325.0" layoutY="420.0" prefWidth="250.0" text="Guardar Cambios" visible="false" />
-                  <Button fx:id="btnGuardarCambios1" layoutX="335.0" layoutY="430.0" prefWidth="250.0" text="Guardar Cambios" visible="false" />
                   <Button fx:id="btnGuardarCambio" layoutX="325.0" layoutY="513.0" prefWidth="250.0" text="Guardar" />
                </children>
             </AnchorPane>
             <!-- Cambiar Contraseña -->
-            <AnchorPane fx:id="anchorPaneCambiarContrasena" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+            <AnchorPane fx:id="anchorPaneCambiarContrasena" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
                <children>
                   <Text layoutX="320.0" layoutY="40.0" text="Cambiar Contraseña">
                      <font>

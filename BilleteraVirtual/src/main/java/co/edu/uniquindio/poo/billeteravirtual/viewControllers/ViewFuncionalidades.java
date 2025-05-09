@@ -1,5 +1,6 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
+import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerCambioClave;
 import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerCuenta;
 import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerDatos;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Cuenta;
@@ -56,6 +57,9 @@ public class ViewFuncionalidades {
 
             //Controller datos
             ControllerDatos controllerDatos = new ControllerDatos(this);
+
+            //Controller de contrasena
+            ControllerCambioClave controllerCambioClave = new ControllerCambioClave(this);
 
             anchorPaneRegistroCuenta.setVisible(false);
             anchorPaneGestionarCuenta.setVisible(false);
