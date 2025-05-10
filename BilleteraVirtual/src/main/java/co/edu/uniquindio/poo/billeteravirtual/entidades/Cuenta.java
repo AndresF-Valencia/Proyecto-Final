@@ -70,4 +70,8 @@ public class Cuenta {
         return bancoCuenta + "-" + numeroCuenta;
     }
 
+    public void agregarSaldo(double cantidad) {
+        this.saldo += cantidad;
+    }
+
 }

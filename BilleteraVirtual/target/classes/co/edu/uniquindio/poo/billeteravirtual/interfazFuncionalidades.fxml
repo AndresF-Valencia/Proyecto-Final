@@ -13,26 +13,23 @@
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@estilos2.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades">
    <children>
       <!-- Panel lateral -->
-      <AnchorPane prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #000000;">
+      <AnchorPane layoutX="8.0" layoutY="6.0" prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #000000;">
          <children>
             <Text fx:id="bienvenidaText" fill="WHITE" layoutX="20.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Bienvenido,  " wrappingWidth="261.25587463378906">
                <font>
                   <Font name="System Bold" size="21.0" />
                </font>
             </Text>
-            <Text fill="WHITE" layoutX="20.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="💰 Dinero" />
-            <Button fx:id="btnMeterDinero" layoutX="20.0" layoutY="110.0" prefHeight="35.0" prefWidth="260.0" text="➕ Meter Dinero" />
-            <Button fx:id="btnSacarDinero" layoutX="20.0" layoutY="150.0" prefHeight="35.0" prefWidth="260.0" text="➖ Sacar Dinero" />
-            <Button fx:id="btnPasarDinero" layoutX="20.0" layoutY="190.0" prefHeight="35.0" prefWidth="260.0" text="🔁 Pasar Dinero" />
-            <Button fx:id="btnVerMovimientos" layoutX="20.0" layoutY="230.0" prefHeight="35.0" prefWidth="260.0" text="📜 Ver Movimientos" />
-            <Text fill="WHITE" layoutX="20.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="👤 Mi Cuenta" />
-            <Button fx:id="btnVerDatos" layoutX="20.0" layoutY="300.0" prefHeight="35.0" prefWidth="260.0" text="📋 Ver Datos" />
-            <Button fx:id="btnCambiarContrasena" layoutX="20.0" layoutY="340.0" prefHeight="35.0" prefWidth="260.0" text="🔒 Cambiar Contraseña" />
-            <Text fill="WHITE" layoutX="20.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="🏦 Cuentas Bancarias" />
-            <Button fx:id="btnAgregarCuenta" layoutX="20.0" layoutY="450.0" prefHeight="35.0" prefWidth="260.0" text="➕ Agregar Cuenta" />
-            <Button fx:id="btnGestionarCuentas" layoutX="20.0" layoutY="490.0" prefHeight="35.0" prefWidth="260.0" text="💼 Gestionar Cuentas" />
-            <Text fill="WHITE" layoutX="20.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="0.0" text="⚙ Opciones" />
-            <Button fx:id="btnCerrarSesion" layoutX="20.0" layoutY="560.0" prefHeight="35.0" prefWidth="260.0" text="🚪 Cerrar Sesión" />
+            <Text fill="WHITE" layoutX="20.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="👤 Mi Cuenta" />
+            <Button fx:id="btnVerDatos" layoutX="14.0" layoutY="142.0" prefHeight="35.0" prefWidth="260.0" text="📋 Ver Datos" />
+            <Button fx:id="btnCambiarContrasena" layoutX="14.0" layoutY="183.0" prefHeight="35.0" prefWidth="260.0" text="🔒 Cambiar Contraseña" />
+            <Text fill="WHITE" layoutX="14.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="🏦 Cuentas Bancarias" />
+            <Button fx:id="btnAgregarCuenta" layoutX="14.0" layoutY="249.0" prefHeight="35.0" prefWidth="260.0" text="➕ Agregar Cuenta" />
+            <Button fx:id="btnGestionarCuentas" layoutX="14.0" layoutY="292.0" prefHeight="35.0" prefWidth="260.0" text="💼 Gestionar Cuentas" />
+            <Text fill="WHITE" layoutX="14.0" layoutY="368.0" strokeType="OUTSIDE" strokeWidth="0.0" text="⚙ Opciones" />
+            <Button fx:id="btnCerrarSesion" layoutX="14.0" layoutY="349.0" prefHeight="35.0" prefWidth="260.0" text="🚪 Cerrar Sesión" />
+            <Button fx:id="btnInicio" layoutX="14.0" layoutY="77.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="260.0" text="Inicio" />
+            <Text fill="WHITE" layoutX="20.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="⌂ Inicio" />
          </children>
       </AnchorPane>
 
@@ -173,6 +170,14 @@
             </AnchorPane>
             <AnchorPane fx:id="anchorPanePrincipal" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
                <children>
+                  <Pane fx:id="PaneMeterDinero" layoutX="1.0" layoutY="38.0" prefHeight="600.0" prefWidth="901.6" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ComboBox fx:id="comboSelecionCuenta" layoutX="14.0" layoutY="14.0" prefHeight="37.0" prefWidth="870.0" promptText="Seleccione su cuenta" />
+                        <TextField fx:id="cantidadIngresar" layoutX="14.0" layoutY="66.0" prefHeight="34.0" prefWidth="260.0" promptText="Ingrese la cantidad" />
+                        <Button fx:id="btnAgregar" layoutX="315.0" layoutY="206.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="250.0" text="Agregar" />
+                        <Button fx:id="btnRegresar1" layoutX="315.0" layoutY="252.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="250.0" text="Regresar" />
+                     </children>
+                  </Pane>
                   <Circle fill="WHITE" layoutX="450.0" layoutY="271.0" radius="111.0" stroke="BLACK" strokeType="INSIDE" />
                   <Text layoutX="408.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuánto tengo?" />
                   <Text fx:id="txtSaldoPrincipal" layoutX="419.0" layoutY="280.0" text="Saldo">
@@ -182,6 +187,18 @@
                   </Text>
                   <Text layoutX="421.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Disponible" />
                   <Button fx:id="btnVermas" blendMode="HARD_LIGHT" layoutX="409.0" layoutY="331.0" mnemonicParsing="false" text="Ver más" underline="true" />
+                  <Button fx:id="btnMeterDinero" layoutX="321.0" layoutY="393.0" prefHeight="35.0" prefWidth="260.0" text="➕ Meter Dinero" />
+                  <Button fx:id="btnSacarDinero" layoutX="319.0" layoutY="441.0" prefHeight="35.0" prefWidth="260.0" text="➖ Sacar Dinero" />
+                  <Button fx:id="btnPasarDinero" layoutX="319.0" layoutY="486.0" prefHeight="35.0" prefWidth="260.0" text="🔁 Pasar Dinero" />
+                  <Text layoutX="13.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="💰 Dinero" />
+                  <Pane fx:id="PaneSacarDinero" layoutX="-2.0" layoutY="-30.0" prefHeight="600.0" prefWidth="901.6">
+                     <children>
+                        <ComboBox fx:id="comboSelecionCuenta1" layoutX="14.0" layoutY="14.0" prefHeight="37.0" prefWidth="870.0" promptText="Seleccione su cuenta" />
+                        <TextField fx:id="cantidadIngresar1" layoutX="14.0" layoutY="66.0" prefHeight="34.0" prefWidth="260.0" promptText="Ingrese la cantidad" />
+                        <Button fx:id="btnGenerarCodigo" layoutX="315.0" layoutY="206.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="250.0" text="Generar Codigo" />
+                        <Button fx:id="btnRegresar11" layoutX="315.0" layoutY="252.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="250.0" text="Regresar" />
+                     </children>
+                  </Pane>
                </children>
             </AnchorPane>
          </children>

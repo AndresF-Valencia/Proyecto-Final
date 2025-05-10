@@ -23,6 +23,5 @@ public class ControllerPrincipal {
         for (Cuenta cuenta : cuentas) {
             saldo += cuenta.getSaldo1();
         }
-
     }
 }

@@ -1,8 +1,6 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
-import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerCuenta;
-import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerDatos;
-import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerPrincipal;
+import co.edu.uniquindio.poo.billeteravirtual.controllers.*;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Cuenta;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,10 +13,10 @@ import javafx.scene.text.Text;
 
 public class ViewFuncionalidades {
     @FXML
-    public Button btnMeterDinero, btnSacarDinero, btnPasarDinero, btnVerMovimientos,
-            btnVerDatos, btnCambiarContrasena, btnAgregarCuenta,
+    public Button btnMeterDinero, btnSacarDinero, btnPasarDinero, btnInicio,
+            btnVerDatos, btnCambiarContrasena, btnAgregarCuenta, btnAgregar, btnGenerarCodigo,btnRegresar11,
             btnGestionarCuentas, btnCerrarSesion, btnRegistrarCuenta,
-            btnConsultarCuenta, btnEliminarCuenta, btnRegresar,
+            btnConsultarCuenta, btnEliminarCuenta, btnRegresar, btnRegresar1,
             btnGuardarCambios, btnModificarDatos, btnVolverDatosUsuario,btnGuardarCambioClave, btnVolverCambioClave, btnVermas;
 
     @FXML
@@ -26,7 +24,7 @@ public class ViewFuncionalidades {
             textNombreUsuario, textCorreoUsuario, textDocumentoUsuario, textTelefonoUsuario;
 
     @FXML
-    public TextField campoTitular, campoNumeroCuenta,
+    public TextField campoTitular, campoNumeroCuenta, cantidadIngresar, cantidadIngresar1,
             txtNombreEditar, txtCorreoEditar, txtTelefonoEditar,txtPalabraClaveActual, txtNuevaPalabraClave;
 
 
@@ -37,17 +35,25 @@ public class ViewFuncionalidades {
     public ComboBox<Cuenta> comboCuentas;
 
     @FXML
+    public ComboBox<Cuenta> comboSelecionCuenta;
+
+    @FXML
+    public ComboBox<Cuenta> comboSelecionCuenta1;
+
+    @FXML
     public AnchorPane anchorPanePrincipal,anchorPaneRegistroCuenta, anchorPaneGestionarCuenta, rootPane, anchorPaneVerDatosUsuario, anchorPaneCambiarContrasena;
 
     @FXML
     public PasswordField pfClaveActual, pfNuevaClave, pfConfirmarClave;
 
     @FXML
-    public Pane camposInformacion, paneEditarInformacion;
+    public Pane camposInformacion, paneEditarInformacion, PaneMeterDinero , PaneSacarDinero;
 
     private ControllerCuenta controllerCuenta;
     private ControllerDatos controllerDatos;
     private ControllerPrincipal controllerPrincipal;
+    private ControllerMeterDinero controllerMeterDinero;
+    private ControllerSacarDinero controllerSacarDinero;
 
     @FXML
     public void initialize() {
@@ -55,6 +61,8 @@ public class ViewFuncionalidades {
             controllerCuenta = new ControllerCuenta(this);;
             controllerDatos = new ControllerDatos(this);
             controllerPrincipal = new ControllerPrincipal(this);
+            controllerMeterDinero = new ControllerMeterDinero(this);
+            controllerSacarDinero = new ControllerSacarDinero(this);
             controllerPrincipal.saldoPrincipal();
             controllerCuenta.cargarCuentas();
 
@@ -63,6 +71,10 @@ public class ViewFuncionalidades {
             anchorPaneGestionarCuenta.setVisible(false);
             anchorPaneVerDatosUsuario.setVisible(false);
             anchorPaneCambiarContrasena.setVisible(false);
+            PaneMeterDinero.setVisible(false);
+            PaneSacarDinero.setVisible(false);
+
+
 
             // Eventos ControllerCuenta
             comboTipoCuenta.getItems().addAll("Cuenta de ahorros", "Cuenta corriente");
@@ -84,6 +96,17 @@ public class ViewFuncionalidades {
             btnVolverCambioClave.setOnAction(e -> controllerCuenta.regresar());
 
             //Eventos controllerPrincipal
+
+            //Eventos ControllerMeterDinero
+            btnMeterDinero.setOnAction(e -> controllerMeterDinero.iniciarVista());
+            btnRegresar1.setOnAction(e -> controllerMeterDinero.restaurarVistaPrincipal());
+            btnAgregar.setOnAction(event -> controllerMeterDinero.agregarDinero());
+
+            //Evento ControllerSacardinero
+            btnSacarDinero.setOnAction(e -> controllerSacarDinero.iniciarVista());
+            btnGenerarCodigo.setOnAction(e -> controllerSacarDinero.retirarDinero());
+            btnRegresar11.setOnAction(e-> controllerSacarDinero.restaurarVistaPrincipal());
+
 
 
         } catch (Exception e) {

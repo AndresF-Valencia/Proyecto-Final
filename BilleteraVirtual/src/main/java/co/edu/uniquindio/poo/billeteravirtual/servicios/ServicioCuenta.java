@@ -17,7 +17,7 @@ public class ServicioCuenta {
         usuario.getCuentas().add(cuenta);
     }
 
-    public List<Cuenta> obtenerCuentasDe(Usuario usuario) {
+    public static List<Cuenta> obtenerCuentasDe(Usuario usuario) {
         List<Cuenta> cuentasDelUsuario = new ArrayList<>();
         for (Cuenta cuenta : usuario.getCuentas()) {
             if (cuenta.getUsuario().equals(usuario)) {
