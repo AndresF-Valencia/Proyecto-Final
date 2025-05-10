@@ -3,6 +3,7 @@ package co.edu.uniquindio.poo.billeteravirtual.controllers;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Usuario;
 import co.edu.uniquindio.poo.billeteravirtual.servicios.ServicioCuenta;
+import co.edu.uniquindio.poo.billeteravirtual.servicios.ServicioUsuario;
 import co.edu.uniquindio.poo.billeteravirtual.utilidades.Logger;
 import co.edu.uniquindio.poo.billeteravirtual.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades;
@@ -18,16 +19,21 @@ public class ControllerCuenta {
     public Usuario usuarioActual;
     public ServicioCuenta servicioCuenta;
     private final ViewFuncionalidades view;
+    public ServicioUsuario servicioUsuario;
 
     public ControllerCuenta(ViewFuncionalidades viewFuncionalidades) {
         this.view = viewFuncionalidades;
         this.servicioCuenta = new ServicioCuenta();
         this.usuarioActual = Sesion.getInstancia().getUsuarioActual();
+        this.servicioUsuario = ServicioUsuario.getInstancia();
     }
 
     public void cambiarVista(String vistaActiva){
         view.anchorPaneGestionarCuenta.setVisible(vistaActiva.equals("Gestionar Cuenta"));
         view.anchorPaneRegistroCuenta.setVisible(vistaActiva.equals("Registrar Cuenta"));
+        view.anchorPaneVerDatosUsuario.setVisible(false);
+        view.anchorPaneCambiarContrasena.setVisible(false);
+        view.anchorPanePrincipal.setVisible(false);
     }
 
     public void agregarCuenta(){
@@ -38,19 +44,34 @@ public class ControllerCuenta {
         cambiarVista("Gestionar Cuenta");
     }
 
+    private boolean camposVacios(String... campos) {
+        for (String campo : campos) {
+            if (campo == null || campo.trim().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void limpiarCamposRegistroCuenta() {
+        view.getCampoNumeroCuenta().clear();
+        view.getCampoTitular().clear();
+        view.getComboTipoCuenta().getSelectionModel().clearSelection();
+    }
+
     public void registrarCuenta() {
         String numeroCuenta = view.getCampoNumeroCuenta().getText();
         String tipoCuenta = view.getComboTipoCuenta().getValue();
         String bancoCuenta = view.getCampoTitular().getText();
 
-        if(numeroCuenta.isEmpty() || tipoCuenta.isEmpty() || bancoCuenta.isEmpty()) {
+        if(camposVacios(numeroCuenta, tipoCuenta, bancoCuenta)) {
             Logger.getInstance().mostrarToast(view.rootPane,"Debe llenar todos los campos");
+            return;
         }
         servicioCuenta.registrarCuenta(numeroCuenta, tipoCuenta, bancoCuenta, usuarioActual);
         cargarCuentas();
         Logger.getInstance().mostrarToast(view.rootPane,"Cuenta Registrada con exito");
-        view.getCampoNumeroCuenta().clear();
-        view.getCampoTitular().clear();
+        limpiarCamposRegistroCuenta();
     }
 
     public void consultarCuenta(){
@@ -72,12 +93,18 @@ public class ControllerCuenta {
         if (cuentaSeleccionada != null) {
             usuarioActual.getCuentas().remove(cuentaSeleccionada);
             cargarCuentas();
+        }else{
+            Logger.getInstance().mostrarToast(view.rootPane,"Debe seleccionar una cuenta");
         }
     }
 
     public void regresar(){
+        view.anchorPanePrincipal.setVisible(true);
         view.anchorPaneRegistroCuenta.setVisible(false);
         view.anchorPaneGestionarCuenta.setVisible(false);
+        view.anchorPaneVerDatosUsuario.setVisible(false);
+        view.anchorPaneRegistroCuenta.setVisible(false);
+        view.anchorPaneCambiarContrasena.setVisible(false);
     }
 
     public void cargarCuentas() {
@@ -88,6 +115,9 @@ public class ControllerCuenta {
 
     public void cerrarSesion() {
         Sesion.getInstancia().cerrarSesion();
+        for(Usuario u: servicioUsuario.getUsuariosRegistrados()){
+            System.out.println(u.toString());
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/billeteravirtual/interfazUsuario.fxml"));
             Parent root = loader.load();
@@ -97,6 +127,7 @@ public class ControllerCuenta {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 

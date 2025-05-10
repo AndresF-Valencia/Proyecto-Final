@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.billeteravirtual.servicios;
 
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.utilidades.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,20 +9,35 @@ import java.util.List;
 import java.util.Map;
 
 public class ServicioUsuario {
+    private static ServicioUsuario instance = new ServicioUsuario();
     public List<Usuario> usuariosRegistrados = new ArrayList<>();
 
     // Registrar un nuevo usuario
     public void registrarUsuario(String nombre, String correo, String telefono, String cedula, String palabraClave, String clave){
-        Usuario usuario = new Usuario.UsuarioBuilder()
-                .Nombre(nombre)
-                .Cedula(cedula)
-                .Telefono(telefono)
-                .Correo(correo)
-                .PalabraClave(palabraClave)
-                .ClaveAcceso(clave)
-                .build();
+        if(!verificarExistenciaUsuario(cedula)) {
+            Usuario usuario = new Usuario.UsuarioBuilder()
+                    .Nombre(nombre)
+                    .Cedula(cedula)
+                    .Telefono(telefono)
+                    .Correo(correo)
+                    .PalabraClave(palabraClave)
+                    .ClaveAcceso(clave)
+                    .build();
 
-        usuariosRegistrados.add(usuario);
+            usuariosRegistrados.add(usuario);
+        } else{
+            System.out.println("Usuario ya existe");
+        }
+    }
+
+    public boolean verificarExistenciaUsuario(String cedula) {
+        boolean existe = false;
+        for(Usuario u: usuariosRegistrados){
+            if(u.getCedula().equals(cedula)){
+                existe = true;
+            }
+        }
+        return existe;
     }
 
     // Obtener un usuario por cédula
@@ -56,7 +72,29 @@ public class ServicioUsuario {
         return autenticado;
     }
 
+    public void actualizarUsuario(Usuario usuarioActualizado) {
+        for (Usuario u : usuariosRegistrados) {
+            if (u.getCedula().equals(usuarioActualizado.getCedula())) {
+                u.setClaveAcceso(usuarioActualizado.getClaveAcceso());
+                u.setPalabraclave(usuarioActualizado.getPalabraclave());
+                break;
+            }
+        }
+    }
+
+    private ServicioUsuario() {}
+    public static ServicioUsuario getInstancia() {
+        if (instance == null) {
+            instance = new ServicioUsuario();
+        }
+        return instance;
+    }
     public List<Usuario> getUsuariosRegistrados() {
         return usuariosRegistrados;
+    }
+
+    public ServicioUsuario setUsuariosRegistrados(List<Usuario> usuariosRegistrados) {
+        this.usuariosRegistrados = usuariosRegistrados;
+        return this;
     }
 }

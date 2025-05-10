@@ -25,7 +25,7 @@ public class ControllerUsuario {
 
     public ControllerUsuario(ViewUsuario view) {
         this.view = view;
-        this.servicioUsuario = new ServicioUsuario();
+        this.servicioUsuario = ServicioUsuario.getInstancia();
     }
 
     private void cambiarVista(String vistaActiva) {
@@ -58,17 +58,17 @@ public class ControllerUsuario {
         String clave = view.getClave().getText();
         String verificarClave = view.getVerificarClave().getText();
 
-        if (nombre.isEmpty() || correo.isEmpty() || telefono.isEmpty() || cedula.isEmpty() || palabraClave.isEmpty()) {
+        if (camposVacios(nombre,correo,telefono,cedula,palabraClave,clave,verificarClave)) {
             Logger.getInstance().mostrarToast(view.rootPane, "Por favor llene todos los campos");
             return;
         }
 
-        if (clave == null || !clave.equals(verificarClave)) {
-            Logger.getInstance().mostrarToast(view.rootPane, "Las contraseñas no coinciden");
-            return;
-        }
+        if(mostrarErrorSi(clave == null || !clave.equals(verificarClave),"Las contraseñas no coinciden")) return;
 
         servicioUsuario.registrarUsuario(nombre,correo,telefono,cedula,palabraClave,clave);
+        limpiarCampos();
+
+        view.getPonerContrasena().setVisible(false);
 
         Logger.getInstance().mostrarToast(view.rootPane, "Usuario registrado con exito");
         cambiarVista("Bienvenida");
@@ -82,11 +82,16 @@ public class ControllerUsuario {
     public boolean iniciarSesion() {
         String cedula = view.getCedulaIS().getText();
         String clave = view.getClaveIS().getText();
-        Usuario usuarioEncontrado = servicioUsuario.obtenerUsuario(cedula);
-        if (usuarioEncontrado != null) {
+
+        boolean autenticado = servicioUsuario.autenticarUsuario(cedula, clave);
+        if (autenticado) {
+            Usuario usuarioEncontrado = servicioUsuario.obtenerUsuario(cedula);
             Sesion.getInstancia().iniciarSesion(usuarioEncontrado);
+        } else{
+            Logger.getInstance().mostrarToast(view.rootPane, "Clave y/o Cedula incorrecta");
         }
-        return servicioUsuario.autenticarUsuario(cedula, clave);
+
+        return autenticado;
     }
 
     public void verificarPalabraClave(){
@@ -137,16 +142,53 @@ public class ControllerUsuario {
     }
 
     public void iniciarDatos(){
-        Usuario usuario = new Usuario.UsuarioBuilder()
-                .Nombre("Andres")
-                .Cedula("1028")
-                .Telefono("321")
-                .Correo("andres@gmail.com")
-                .PalabraClave("Pantera")
-                .ClaveAcceso("1021")
-                .build();
-        servicioUsuario.getUsuariosRegistrados().add(usuario);
+        if (!servicioUsuario.verificarExistenciaUsuario("1028")) {
+            Usuario usuario = new Usuario.UsuarioBuilder()
+                    .Nombre("Andres")
+                    .Cedula("1028")
+                    .Telefono("321")
+                    .Correo("andres@gmail.com")
+                    .PalabraClave("Pantera")
+                    .ClaveAcceso("1021")
+                    .build();
+            Usuario usuario1 = new Usuario.UsuarioBuilder()
+                    .Nombre("Pablo")
+                    .Cedula("1092")
+                    .Telefono("123")
+                    .Correo("juan@gmail.com")
+                    .PalabraClave("marcelo")
+                    .ClaveAcceso("1234")
+                    .build();
+            servicioUsuario.getUsuariosRegistrados().add(usuario);
+            servicioUsuario.getUsuariosRegistrados().add(usuario1);
+        }
     }
 
+    private void limpiarCampos(){
+        view.getTextNombre().clear();
+        view.getTextCorreo().clear();
+        view.getTextTelefono().clear();
+        view.getTextCedula().clear();
+        view.getTextPalabraClave().clear();
+        view.getClave().clear();
+        view.getVerificarClave().clear();
+    }
+
+    private boolean mostrarErrorSi(boolean condicion, String mensaje) {
+        if (condicion) {
+            Logger.getInstance().mostrarToast(view.rootPane, mensaje);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean camposVacios(String... campos) {
+        for (String campo : campos) {
+            if (campo == null || campo.trim().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 

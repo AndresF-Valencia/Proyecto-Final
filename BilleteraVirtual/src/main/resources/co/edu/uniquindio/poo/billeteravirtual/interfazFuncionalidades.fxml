@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -39,7 +40,7 @@
       <AnchorPane layoutX="300.0" prefHeight="700.0" prefWidth="1000.0">
          <children>
             <!-- Formulario de registro de cuenta -->
-            <AnchorPane fx:id="anchorPaneRegistroCuenta" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
+            <AnchorPane fx:id="anchorPaneRegistroCuenta" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
                <children>
                   <Text layoutX="300.0" layoutY="50.0" text="Registrar Cuenta Bancaria">
                      <font>
@@ -61,7 +62,7 @@
             </AnchorPane>
 
             <!-- Gestionar Cuenta -->
-            <AnchorPane fx:id="anchorPaneGestionarCuenta" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
+            <AnchorPane fx:id="anchorPaneGestionarCuenta" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
                <children>
                   <Text layoutX="300.0" layoutY="50.0" text="Gestionar Cuenta Bancaria">
                      <font>
@@ -92,7 +93,7 @@
                </children>
             </AnchorPane>
             <!-- Ver Datos del Usuario -->
-            <AnchorPane fx:id="anchorPaneVerDatosUsuario" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
+            <AnchorPane fx:id="anchorPaneVerDatosUsuario" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
                <children>
                   <Text layoutX="330.0" layoutY="50.0" text="Datos del Usuario">
                      <font>
@@ -101,7 +102,7 @@
                   </Text>
 
                   <!-- Pane solo para visualizar -->
-                  <Pane fx:id="camposInformacion" layoutX="0.0" layoutY="100.0" prefHeight="300.0" prefWidth="900.0">
+                  <Pane fx:id="camposInformacion" layoutX="0.0" layoutY="100.0" prefHeight="300.0" prefWidth="900.0" visible="false">
                      <children>
                         <Text layoutX="290.0" layoutY="20.0" text="Nombre completo:" />
                         <Text fx:id="textNombreUsuario" layoutX="430.0" layoutY="20.0" text="--" />
@@ -129,7 +130,6 @@
                         
                         <Text layoutX="325.0" layoutY="47.0" text="Nombre" />
                         <TextField fx:id="txtNombreEditar" layoutX="325.0" layoutY="51.0" prefWidth="250.0" />
-                        <Button fx:id="btnGuardarCambios" layoutX="325.0" layoutY="275.0" prefWidth="250.0" text="Guardar Cambios" visible="false" />
 
                      </children>
                   </Pane>
@@ -137,11 +137,11 @@
                         <!-- Botones -->
                   <Button fx:id="btnModificarDatos" layoutX="325.0" layoutY="420.0" prefWidth="250.0" text="Modificar Datos" />
                   <Button fx:id="btnVolverDatosUsuario" layoutX="325.0" layoutY="465.0" prefWidth="250.0" text="Regresar" />
-                  <Button fx:id="btnGuardarCambio" layoutX="325.0" layoutY="513.0" prefWidth="250.0" text="Guardar" />
+                  <Button fx:id="btnGuardarCambios" layoutX="325.0" layoutY="420.0" prefWidth="250.0" text="Guardar Cambios" visible="false" />
                </children>
             </AnchorPane>
             <!-- Cambiar Contraseña -->
-            <AnchorPane fx:id="anchorPaneCambiarContrasena" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
+            <AnchorPane fx:id="anchorPaneCambiarContrasena" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
                <children>
                   <Text layoutX="320.0" layoutY="40.0" text="Cambiar Contraseña">
                      <font>
@@ -169,6 +169,19 @@
                   <!-- Botones -->
                   <Button fx:id="btnGuardarCambioClave" layoutX="325.0" layoutY="350.0" prefWidth="250.0" text="Guardar Cambios" />
                   <Button fx:id="btnVolverCambioClave" layoutX="325.0" layoutY="400.0" prefWidth="250.0" text="Regresar" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="anchorPanePrincipal" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
+               <children>
+                  <Circle fill="WHITE" layoutX="450.0" layoutY="271.0" radius="111.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text layoutX="408.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuánto tengo?" />
+                  <Text fx:id="txtSaldoPrincipal" layoutX="419.0" layoutY="280.0" text="Saldo">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="421.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Disponible" />
+                  <Button fx:id="btnVermas" blendMode="HARD_LIGHT" layoutX="409.0" layoutY="331.0" mnemonicParsing="false" text="Ver más" underline="true" />
                </children>
             </AnchorPane>
          </children>

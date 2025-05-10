@@ -34,6 +34,18 @@
     -fx-padding: 4 6;
 }
 
+#btnVermas {
+    -fx-background-color: transparent;
+    -fx-text-fill: #cc0000;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-font-size: 10px;
+    -fx-underline: true;
+    -fx-font-style: italic;
+    -fx-cursor: hand;
+}
+
 .text-field:focused, .combo-box:focused, .combo-box-base:focused {
     -fx-border-color: #cc0000;
     -fx-background-color: #ffffff;
