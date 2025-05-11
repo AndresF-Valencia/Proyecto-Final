@@ -12,9 +12,14 @@ public class ServicioCuenta {
     public List<Cuenta> cuentas = new ArrayList<>();
 
     public void registrarCuenta(String numeroCuenta, String tipoCuenta, String bancoCuenta, Usuario usuario) {
-        String codigo= new GeneradorCodigo().generarCodigo();
+        if (existeNumeroCuenta(numeroCuenta)) {
+            throw new IllegalArgumentException("❌ El número de cuenta ya está en uso.");
+        }
+
+        String codigo = new GeneradorCodigo().generarCodigo();
         Cuenta cuenta = new Cuenta(codigo, numeroCuenta, tipoCuenta, bancoCuenta, usuario);
         usuario.getCuentas().add(cuenta);
+        cuentas.add(cuenta);
     }
 
     public static List<Cuenta> obtenerCuentasDe(Usuario usuario) {
@@ -25,6 +30,21 @@ public class ServicioCuenta {
             }
         }
         return cuentasDelUsuario;
+    }
+
+    public boolean existeNumeroCuenta(String numeroCuenta) {
+        return cuentas.stream().anyMatch(c -> c.getNumeroCuenta().equals(numeroCuenta));
+    }
+
+    public static Cuenta obtenerCuentaPorNumero(String numeroCuenta) {
+        for (Usuario usuario : ServicioUsuario.getInstancia().getUsuariosRegistrados()) {
+            for (Cuenta cuenta : usuario.getCuentas()) {
+                if (cuenta.getNumeroCuenta().equals(numeroCuenta)) {
+                    return cuenta;
+                }
+            }
+        }
+        return null;
     }
 
     public List<Cuenta> getCuentas() {

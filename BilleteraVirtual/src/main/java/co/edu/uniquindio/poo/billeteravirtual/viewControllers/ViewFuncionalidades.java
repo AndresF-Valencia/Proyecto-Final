@@ -13,7 +13,7 @@ import javafx.scene.text.Text;
 
 public class ViewFuncionalidades {
     @FXML
-    public Button btnMeterDinero, btnSacarDinero, btnPasarDinero, btnInicio,
+    public Button btnMeterDinero, btnSacarDinero, btnPasarDinero, btnInicio, btnPasar, btnRegresar12,
             btnVerDatos, btnCambiarContrasena, btnAgregarCuenta, btnAgregar, btnGenerarCodigo,btnRegresar11,
             btnGestionarCuentas, btnCerrarSesion, btnRegistrarCuenta,
             btnConsultarCuenta, btnEliminarCuenta, btnRegresar, btnRegresar1,
@@ -24,7 +24,7 @@ public class ViewFuncionalidades {
             textNombreUsuario, textCorreoUsuario, textDocumentoUsuario, textTelefonoUsuario;
 
     @FXML
-    public TextField campoTitular, campoNumeroCuenta, cantidadIngresar, cantidadIngresar1,
+    public TextField campoTitular, cantidadIngresar2, numeroCuenta, campoNumeroCuenta, cantidadIngresar, cantidadIngresar1,
             txtNombreEditar, txtCorreoEditar, txtTelefonoEditar,txtPalabraClaveActual, txtNuevaPalabraClave;
 
 
@@ -41,19 +41,23 @@ public class ViewFuncionalidades {
     public ComboBox<Cuenta> comboSelecionCuenta1;
 
     @FXML
+    public ComboBox<Cuenta> comboSelecionCuenta2;
+
+    @FXML
     public AnchorPane anchorPanePrincipal,anchorPaneRegistroCuenta, anchorPaneGestionarCuenta, rootPane, anchorPaneVerDatosUsuario, anchorPaneCambiarContrasena;
 
     @FXML
     public PasswordField pfClaveActual, pfNuevaClave, pfConfirmarClave;
 
     @FXML
-    public Pane camposInformacion, paneEditarInformacion, PaneMeterDinero , PaneSacarDinero;
+    public Pane camposInformacion, paneEditarInformacion, PaneMeterDinero , PaneSacarDinero, panePasarDinero;
 
     private ControllerCuenta controllerCuenta;
     private ControllerDatos controllerDatos;
     private ControllerPrincipal controllerPrincipal;
     private ControllerMeterDinero controllerMeterDinero;
     private ControllerSacarDinero controllerSacarDinero;
+    private ControllerPasarDinero controllerPasarDinero;
 
     @FXML
     public void initialize() {
@@ -63,6 +67,8 @@ public class ViewFuncionalidades {
             controllerPrincipal = new ControllerPrincipal(this);
             controllerMeterDinero = new ControllerMeterDinero(this);
             controllerSacarDinero = new ControllerSacarDinero(this);
+            controllerPasarDinero = new ControllerPasarDinero(this);
+
             controllerPrincipal.saldoPrincipal();
             controllerCuenta.cargarCuentas();
 
@@ -73,11 +79,13 @@ public class ViewFuncionalidades {
             anchorPaneCambiarContrasena.setVisible(false);
             PaneMeterDinero.setVisible(false);
             PaneSacarDinero.setVisible(false);
+            panePasarDinero.setVisible(false);
 
 
 
             // Eventos ControllerCuenta
             comboTipoCuenta.getItems().addAll("Cuenta de ahorros", "Cuenta corriente");
+            btnInicio.setOnAction(e -> controllerCuenta.Inicio());
             btnAgregarCuenta.setOnAction(e -> controllerCuenta.agregarCuenta());
             btnRegistrarCuenta.setOnAction(e -> controllerCuenta.registrarCuenta());
             btnGestionarCuentas.setOnAction(e -> controllerCuenta.gestionarCuentas());
@@ -106,6 +114,11 @@ public class ViewFuncionalidades {
             btnSacarDinero.setOnAction(e -> controllerSacarDinero.iniciarVista());
             btnGenerarCodigo.setOnAction(e -> controllerSacarDinero.retirarDinero());
             btnRegresar11.setOnAction(e-> controllerSacarDinero.restaurarVistaPrincipal());
+
+            //Evento ControllerPasarDinero
+            btnPasarDinero.setOnAction(e -> controllerPasarDinero.iniciarVista());
+            btnRegresar12.setOnAction(e -> controllerPasarDinero.restaurarVistaPrincipal());
+            btnPasar.setOnAction(e -> controllerPasarDinero.pasarDinero());
 
 
 

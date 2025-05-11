@@ -65,12 +65,18 @@ public class ControllerCuenta {
         String bancoCuenta = view.getCampoTitular().getText();
 
         if(camposVacios(numeroCuenta, tipoCuenta, bancoCuenta)) {
-            Logger.getInstance().mostrarToast(view.rootPane,"Debe llenar todos los campos");
+            Logger.getInstance().mostrarToast(view.rootPane, "Debe llenar todos los campos");
             return;
         }
+
+        if (servicioCuenta.existeNumeroCuenta(numeroCuenta)) {
+            Logger.getInstance().mostrarToast(view.rootPane, "❌ El número de cuenta ya está en uso.");
+            return;
+        }
+
         servicioCuenta.registrarCuenta(numeroCuenta, tipoCuenta, bancoCuenta, usuarioActual);
         cargarCuentas();
-        Logger.getInstance().mostrarToast(view.rootPane,"Cuenta Registrada con exito");
+        Logger.getInstance().mostrarToast(view.rootPane, "✅ Cuenta registrada con éxito");
         limpiarCamposRegistroCuenta();
     }
 
@@ -96,6 +102,19 @@ public class ControllerCuenta {
         }else{
             Logger.getInstance().mostrarToast(view.rootPane,"Debe seleccionar una cuenta");
         }
+    }
+
+    public void Inicio(){
+        view.anchorPanePrincipal.setVisible(true);
+        view.anchorPaneRegistroCuenta.setVisible(false);
+        view.anchorPaneGestionarCuenta.setVisible(false);
+        view.anchorPaneVerDatosUsuario.setVisible(false);
+        view.anchorPaneRegistroCuenta.setVisible(false);
+        view.anchorPaneCambiarContrasena.setVisible(false);
+        view.panePasarDinero.setVisible(false);
+        view.PaneSacarDinero.setVisible(false);
+        view.PaneMeterDinero.setVisible(false);
+
     }
 
     public void regresar(){
