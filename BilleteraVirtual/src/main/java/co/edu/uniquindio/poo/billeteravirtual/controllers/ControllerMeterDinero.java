@@ -3,6 +3,7 @@ package co.edu.uniquindio.poo.billeteravirtual.controllers;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Usuario;
 import co.edu.uniquindio.poo.billeteravirtual.servicios.ServicioUsuario;
+import co.edu.uniquindio.poo.billeteravirtual.utilidades.Logger;
 import co.edu.uniquindio.poo.billeteravirtual.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades;
 import co.edu.uniquindio.poo.billeteravirtual.servicios.ServicioCuenta;
@@ -25,15 +26,21 @@ public class ControllerMeterDinero {
         cargarCuentas();
     }
 
-    private void ocultarElementosDePrincipalExceptoMeterDinero() {
-        view.anchorPanePrincipal.getChildren().forEach(nodo -> {
+    private void ocultarElementosDePrincipalExceptoMeterDinero(){
+        view.anchorPanePrincipal.getChildren().forEach(nodo ->{
             nodo.setVisible(nodo == view.PaneMeterDinero);
         });
     }
 
     public void restaurarVistaPrincipal() {
-        view.anchorPanePrincipal.getChildren().forEach(nodo -> nodo.setVisible(true));
-        view.PaneMeterDinero.setVisible(false); // Evitar mostrar doble
+        view.PaneTienda.setVisible(false);
+        view.panePasarDinero.setVisible(false);
+        view.PaneMeterDinero.setVisible(false);
+        view.PaneSacarDinero.setVisible(false);
+
+        // Muestra solo el principal
+        view.PanePrincipal.setVisible(true);
+        view.PanePrincipal.toFront(); // Esto asegura que se muestre correctamente
     }
 
     public void cargarCuentas() {
@@ -47,7 +54,7 @@ public class ControllerMeterDinero {
             Cuenta cuentaSeleccionada = view.comboSelecionCuenta.getValue();
 
             if (cuentaSeleccionada == null) {
-                System.out.println("No se ha seleccionado ninguna cuenta.");
+                Logger.getInstance().mostrarToast(view.rootPane, "❌ Complete todos los campos.");
                 return;
             }
 
@@ -55,15 +62,17 @@ public class ControllerMeterDinero {
             double cantidad = Double.parseDouble(textoCantidad);
 
             if (cantidad <= 0) {
-                System.out.println("La cantidad debe ser mayor a 0.");
+                Logger.getInstance().mostrarToast(view.rootPane, "❌ La cantidad debe ser mayor que 0.");
                 return;
             }
 
-            cuentaSeleccionada.agregarSaldo(cantidad); // Asegúrate que exista este método
+            cuentaSeleccionada.agregarSaldo(cantidad);
             System.out.println("Saldo actualizado: " + cuentaSeleccionada.getSaldo());
+
 
             // Limpia el campo
             view.cantidadIngresar.clear();
+
 
         } catch (NumberFormatException e) {
             System.out.println("Cantidad inválida. Ingrese un número.");

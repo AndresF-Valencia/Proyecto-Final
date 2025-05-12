@@ -1,7 +1,9 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
 import co.edu.uniquindio.poo.billeteravirtual.controllers.*;
+import co.edu.uniquindio.poo.billeteravirtual.entidades.CategoriaProducto;
 import co.edu.uniquindio.poo.billeteravirtual.entidades.Cuenta;
+import co.edu.uniquindio.poo.billeteravirtual.entidades.Producto;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -13,9 +15,9 @@ import javafx.scene.text.Text;
 
 public class ViewFuncionalidades {
     @FXML
-    public Button btnMeterDinero, btnSacarDinero, btnPasarDinero, btnInicio, btnPasar, btnRegresar12,
+    public Button btnMeterDinero, btnSacarDinero, btnPasarDinero, btnInicio, btnPasar, btnRegresar12, btnPagarTienda,
             btnVerDatos, btnCambiarContrasena, btnAgregarCuenta, btnAgregar, btnGenerarCodigo,btnRegresar11,
-            btnGestionarCuentas, btnCerrarSesion, btnRegistrarCuenta,
+            btnGestionarCuentas, btnCerrarSesion, btnRegistrarCuenta, btnRegresarTienda, btnTienda,
             btnConsultarCuenta, btnEliminarCuenta, btnRegresar, btnRegresar1,
             btnGuardarCambios, btnModificarDatos, btnVolverDatosUsuario,btnGuardarCambioClave, btnVolverCambioClave, btnVermas;
 
@@ -24,8 +26,8 @@ public class ViewFuncionalidades {
             textNombreUsuario, textCorreoUsuario, textDocumentoUsuario, textTelefonoUsuario;
 
     @FXML
-    public TextField campoTitular, cantidadIngresar2, numeroCuenta, campoNumeroCuenta, cantidadIngresar, cantidadIngresar1,
-            txtNombreEditar, txtCorreoEditar, txtTelefonoEditar,txtPalabraClaveActual, txtNuevaPalabraClave;
+    public TextField campoTitular,cantidadIngresar2, numeroCuenta, campoNumeroCuenta, cantidadIngresar, cantidadIngresar1,
+            txtNombreEditar, txtCorreoEditar, txtTelefonoEditar,txtPalabraClaveActual, txtNuevaPalabraClave, txtCantidad;
 
 
     @FXML
@@ -44,13 +46,22 @@ public class ViewFuncionalidades {
     public ComboBox<Cuenta> comboSelecionCuenta2;
 
     @FXML
+    public ComboBox<Cuenta> comboCuentaTienda;
+
+    @FXML
+    public ComboBox<CategoriaProducto> comboCategorias;
+
+    @FXML
+    public ComboBox<Producto> comboProductos;
+
+    @FXML
     public AnchorPane anchorPanePrincipal,anchorPaneRegistroCuenta, anchorPaneGestionarCuenta, rootPane, anchorPaneVerDatosUsuario, anchorPaneCambiarContrasena;
 
     @FXML
     public PasswordField pfClaveActual, pfNuevaClave, pfConfirmarClave;
 
     @FXML
-    public Pane camposInformacion, paneEditarInformacion, PaneMeterDinero , PaneSacarDinero, panePasarDinero;
+    public Pane camposInformacion, paneEditarInformacion, PaneMeterDinero , PaneSacarDinero, panePasarDinero, PaneTienda, PanePrincipal;
 
     private ControllerCuenta controllerCuenta;
     private ControllerDatos controllerDatos;
@@ -58,6 +69,7 @@ public class ViewFuncionalidades {
     private ControllerMeterDinero controllerMeterDinero;
     private ControllerSacarDinero controllerSacarDinero;
     private ControllerPasarDinero controllerPasarDinero;
+    private TiendaController tiendaController;
 
     @FXML
     public void initialize() {
@@ -68,11 +80,15 @@ public class ViewFuncionalidades {
             controllerMeterDinero = new ControllerMeterDinero(this);
             controllerSacarDinero = new ControllerSacarDinero(this);
             controllerPasarDinero = new ControllerPasarDinero(this);
+            tiendaController = new TiendaController(this);
 
             controllerPrincipal.saldoPrincipal();
             controllerCuenta.cargarCuentas();
+            tiendaController.cargarCategorias();
+            tiendaController.cargarProductosPorCategoria();
 
             anchorPanePrincipal.setVisible(true);
+            PanePrincipal.setVisible(true);
             anchorPaneRegistroCuenta.setVisible(false);
             anchorPaneGestionarCuenta.setVisible(false);
             anchorPaneVerDatosUsuario.setVisible(false);
@@ -80,6 +96,7 @@ public class ViewFuncionalidades {
             PaneMeterDinero.setVisible(false);
             PaneSacarDinero.setVisible(false);
             panePasarDinero.setVisible(false);
+            PaneTienda.setVisible(false);
 
 
 
@@ -119,6 +136,11 @@ public class ViewFuncionalidades {
             btnPasarDinero.setOnAction(e -> controllerPasarDinero.iniciarVista());
             btnRegresar12.setOnAction(e -> controllerPasarDinero.restaurarVistaPrincipal());
             btnPasar.setOnAction(e -> controllerPasarDinero.pasarDinero());
+
+            //Evento ControllerTienda
+            btnTienda.setOnAction(e -> tiendaController.iniciarVista());
+            btnRegresarTienda.setOnAction(e -> tiendaController.restaurarVistaPrincipal());
+            btnPagarTienda.setOnAction(e -> tiendaController.realizarCompra());
 
 
 

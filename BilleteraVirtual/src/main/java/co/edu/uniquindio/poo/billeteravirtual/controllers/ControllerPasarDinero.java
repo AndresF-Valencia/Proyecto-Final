@@ -22,15 +22,23 @@ public void iniciarVista() {
     view.panePasarDinero.setVisible(true);
     cargarCuentas();
 }
-private void ocultarElementoDePrincipalExceptoPasarDinero(){
-    view.anchorPanePrincipal.getChildren().forEach(nodo ->{
-        nodo.setVisible(nodo == view.panePasarDinero);
-    });
-}
-public void restaurarVistaPrincipal(){
-    view.anchorPanePrincipal.getChildren().forEach(nodo -> nodo.setVisible(true));
-    view.panePasarDinero.setVisible(false);
-}
+    private void ocultarElementoDePrincipalExceptoPasarDinero(){
+        view.anchorPanePrincipal.getChildren().forEach(nodo ->{
+            nodo.setVisible(nodo == view.panePasarDinero);
+        });
+    }
+
+    public void restaurarVistaPrincipal() {
+        view.PaneTienda.setVisible(false);
+        view.panePasarDinero.setVisible(false);
+        view.PaneMeterDinero.setVisible(false);
+        view.PaneSacarDinero.setVisible(false);
+
+        // Muestra solo el principal
+        view.PanePrincipal.setVisible(true);
+        view.PanePrincipal.toFront(); // Esto asegura que se muestre correctamente
+    }
+
 
 private void cargarCuentas() {
     List<Cuenta> cuentas = ServicioCuenta.obtenerCuentasDe(usuarioActual);

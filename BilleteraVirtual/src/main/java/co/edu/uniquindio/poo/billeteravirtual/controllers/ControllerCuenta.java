@@ -106,6 +106,7 @@ public class ControllerCuenta {
 
     public void Inicio(){
         view.anchorPanePrincipal.setVisible(true);
+        view.PanePrincipal.setVisible(true);
         view.anchorPaneRegistroCuenta.setVisible(false);
         view.anchorPaneGestionarCuenta.setVisible(false);
         view.anchorPaneVerDatosUsuario.setVisible(false);
@@ -114,6 +115,7 @@ public class ControllerCuenta {
         view.panePasarDinero.setVisible(false);
         view.PaneSacarDinero.setVisible(false);
         view.PaneMeterDinero.setVisible(false);
+        view.PaneTienda.setVisible(false);
 
     }
 

@@ -23,14 +23,21 @@ public class ControllerSacarDinero {
         view.PaneSacarDinero.setVisible(true);
         cargarCuentas();
     }
-    private void ocultarElementosDePrincipalExceptoSacarDinero() {
-        view.anchorPanePrincipal.getChildren().forEach(nodo -> {
+    private void ocultarElementosDePrincipalExceptoSacarDinero(){
+        view.anchorPanePrincipal.getChildren().forEach(nodo ->{
             nodo.setVisible(nodo == view.PaneSacarDinero);
         });
     }
+
     public void restaurarVistaPrincipal() {
-        view.anchorPanePrincipal.getChildren().forEach(nodo -> nodo.setVisible(true));
-        view.PaneSacarDinero.setVisible(false); // Evitar mostrar doble
+        view.PaneTienda.setVisible(false);
+        view.panePasarDinero.setVisible(false);
+        view.PaneMeterDinero.setVisible(false);
+        view.PaneSacarDinero.setVisible(false);
+
+        // Muestra solo el principal
+        view.PanePrincipal.setVisible(true);
+        view.PanePrincipal.toFront(); // Esto asegura que se muestre correctamente
     }
 
     public void cargarCuentas() {

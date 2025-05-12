@@ -53,6 +53,8 @@ public class Cuenta {
         return this;
     }
 
+
+
     public String getSaldo() {
         return String.valueOf(saldo);
     }
@@ -74,4 +76,11 @@ public class Cuenta {
         this.saldo += cantidad;
     }
 
+    public void descontarSaldo(double monto) {
+        if (monto <= saldo) {
+            saldo -= monto;
+        } else {
+            System.out.println("Saldo insuficiente.");
+        }
+    }
 }
