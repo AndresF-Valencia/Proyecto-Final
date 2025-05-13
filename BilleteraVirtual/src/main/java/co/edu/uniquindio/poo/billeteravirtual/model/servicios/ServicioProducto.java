@@ -14,9 +14,9 @@ public class ServicioProducto {
     public static void inicializarProductos() {
         if (listaCategorias.isEmpty()) {
             // Crear categorías
-            CategoriaProducto alimentos = new CategoriaProducto("Alimentos");
-            CategoriaProducto ropa = new CategoriaProducto("Ropa");
-            CategoriaProducto tecnologia = new CategoriaProducto("Tecnología");
+            CategoriaProducto alimentos = new CategoriaProducto("Alimentos", "Leche", "321");
+            CategoriaProducto ropa = new CategoriaProducto("Ropa" , "Camiseta", "123");
+            CategoriaProducto tecnologia = new CategoriaProducto("Tecnología", "celular", "345");
 
             listaCategorias.add(alimentos);
             listaCategorias.add(ropa);

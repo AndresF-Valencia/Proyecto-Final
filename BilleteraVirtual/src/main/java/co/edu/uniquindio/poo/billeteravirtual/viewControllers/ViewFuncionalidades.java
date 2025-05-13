@@ -4,11 +4,9 @@ import co.edu.uniquindio.poo.billeteravirtual.controllers.*;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.CategoriaProducto;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Producto;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -18,7 +16,7 @@ public class ViewFuncionalidades {
     public Button btnMeterDinero, btnSacarDinero, btnPasarDinero, btnInicio, btnPasar, btnRegresar12, btnPagarTienda,
             btnVerDatos, btnCambiarContrasena, btnAgregarCuenta, btnAgregar, btnGenerarCodigo,btnRegresar11,
             btnGestionarCuentas, btnCerrarSesion, btnRegistrarCuenta, btnRegresarTienda, btnTienda,
-            btnConsultarCuenta, btnEliminarCuenta, btnRegresar, btnRegresar1,
+            btnConsultarCuenta, btnEliminarCuenta,btnVolverTransaccion, btnRegresar, btnRegresar1,
             btnGuardarCambios, btnModificarDatos, btnVolverDatosUsuario,btnGuardarCambioClave, btnVolverCambioClave, btnVermas;
 
     @FXML
@@ -55,13 +53,28 @@ public class ViewFuncionalidades {
     public ComboBox<Producto> comboProductos;
 
     @FXML
+    public TableView<Transaccion> tablaTransacciones;
+
+    @FXML
+    public TableColumn<Transaccion, String> columnaFecha;
+
+    @FXML
+    public TableColumn<Transaccion, String> columnaTipo;
+
+    @FXML
+    public TableColumn<Transaccion, Double> columnaMonto;
+
+    @FXML
+    public TableColumn<Transaccion, String> columnaDescripcion;
+
+    @FXML
     public AnchorPane anchorPanePrincipal,anchorPaneRegistroCuenta, anchorPaneGestionarCuenta, rootPane, anchorPaneVerDatosUsuario, anchorPaneCambiarContrasena;
 
     @FXML
     public PasswordField pfClaveActual, pfNuevaClave, pfConfirmarClave;
 
     @FXML
-    public Pane camposInformacion, paneEditarInformacion, PaneMeterDinero , PaneSacarDinero, panePasarDinero, PaneTienda, PanePrincipal;
+    public Pane camposInformacion, paneEditarInformacion, PaneMeterDinero , PaneSacarDinero, panePasarDinero, PaneTienda, PanePrincipal, PaneVerMas;
 
     private ControllerCuenta controllerCuenta;
     private ControllerDatos controllerDatos;
@@ -69,6 +82,7 @@ public class ViewFuncionalidades {
     private ControllerSacarDinero controllerSacarDinero;
     private ControllerPasarDinero controllerPasarDinero;
     private TiendaController tiendaController;
+    private ControllerVerTransacciones controllerVerTransacciones;
 
     @FXML
     public void initialize() {
@@ -79,6 +93,7 @@ public class ViewFuncionalidades {
             controllerSacarDinero = new ControllerSacarDinero(this);
             controllerPasarDinero = new ControllerPasarDinero(this);
             tiendaController = new TiendaController(this);
+            controllerVerTransacciones = new ControllerVerTransacciones(this);
 
 
             controllerCuenta.cargarCuentas();
@@ -95,6 +110,7 @@ public class ViewFuncionalidades {
             PaneSacarDinero.setVisible(false);
             panePasarDinero.setVisible(false);
             PaneTienda.setVisible(false);
+            PaneVerMas.setVisible(false);
 
 
 
@@ -139,6 +155,10 @@ public class ViewFuncionalidades {
             btnTienda.setOnAction(e -> tiendaController.iniciarVista());
             btnRegresarTienda.setOnAction(e -> tiendaController.restaurarVistaPrincipal());
             btnPagarTienda.setOnAction(e -> tiendaController.realizarCompra());
+
+            //Evento ControllerTransacciones
+            btnVermas.setOnAction(e -> controllerVerTransacciones.iniciarVista());
+            btnVolverTransaccion.setOnAction(e-> controllerVerTransacciones.restaurarVistaPrincipal());
 
 
 

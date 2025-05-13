@@ -39,7 +39,9 @@ public class ServicioTransaccion {
         return transaccion;
     }
 
-
+    public static void agregarTransaccion(Transaccion transaccion) {
+        transacciones.put(transaccion.getIdTransaccion(), transaccion);
+    }
 
     // Método opcional para verificar si existe una transacción por ID
     public boolean existeTransaccion(String idTransaccion) {

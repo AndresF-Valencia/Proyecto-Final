@@ -1,12 +1,12 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
-import co.edu.uniquindio.poo.billeteravirtual.entidades.Cuenta;
-import co.edu.uniquindio.poo.billeteravirtual.entidades.Usuario;
-import co.edu.uniquindio.poo.billeteravirtual.servicios.ServicioUsuario;
-import co.edu.uniquindio.poo.billeteravirtual.utilidades.Logger;
-import co.edu.uniquindio.poo.billeteravirtual.utilidades.Sesion;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioUsuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades;
-import co.edu.uniquindio.poo.billeteravirtual.servicios.ServicioCuenta;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
 
 import java.util.List;
 
@@ -37,6 +37,7 @@ public class ControllerMeterDinero {
         view.panePasarDinero.setVisible(false);
         view.PaneMeterDinero.setVisible(false);
         view.PaneSacarDinero.setVisible(false);
+        view.PaneVerMas.setVisible(false);
 
         // Muestra solo el principal
         view.PanePrincipal.setVisible(true);

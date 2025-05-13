@@ -1,13 +1,18 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
-import co.edu.uniquindio.poo.billeteravirtual.entidades.Cuenta;
-import co.edu.uniquindio.poo.billeteravirtual.entidades.Usuario;
-import co.edu.uniquindio.poo.billeteravirtual.servicios.ServicioCuenta;
-import co.edu.uniquindio.poo.billeteravirtual.utilidades.Logger;
-import co.edu.uniquindio.poo.billeteravirtual.utilidades.Sesion;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioTransaccion;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades;
 
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
 public class ControllerPasarDinero{
     private final ViewFuncionalidades view;
     private final Usuario usuarioActual;
@@ -33,6 +38,7 @@ public void iniciarVista() {
         view.panePasarDinero.setVisible(false);
         view.PaneMeterDinero.setVisible(false);
         view.PaneSacarDinero.setVisible(false);
+        view.PaneVerMas.setVisible(false);
 
         // Muestra solo el principal
         view.PanePrincipal.setVisible(true);
@@ -88,6 +94,29 @@ public void pasarDinero() {
     // Transferencia
     cuentaOrigen.agregarSaldo(-cantidad);
     cuentaDestino.agregarSaldo(cantidad);
+
+    Transaccion transaccionSalida = new Transaccion(
+            usuarioActual.getCedula(),                            // ID del usuario que transfiere
+            UUID.randomUUID().toString(),                     // ID único para la transacción
+            new Date(),                                       // Fecha actual
+            "Transferencia salida",                           // Tipo
+            cantidad,                                         // Monto
+            "Transferencia enviada a cuenta " + numeroCuentaDestino // Descripción
+    );
+
+// Crear transacción de entrada para cuenta destino
+    Transaccion transaccionEntrada = new Transaccion(
+            cuentaDestino.getUsuario().getCedula(),               // ID del usuario destino
+            UUID.randomUUID().toString(),                     // Otro ID único
+            new Date(),
+            "Transferencia entrada",
+            cantidad,
+            "Transferencia recibida de cuenta " + cuentaOrigen.getNumeroCuenta()
+    );
+
+// Guardar las transacciones
+    ServicioTransaccion.agregarTransaccion(transaccionSalida);
+    ServicioTransaccion.agregarTransaccion(transaccionEntrada);
 
     Logger.getInstance().mostrarToast(view.rootPane, "✅ Se transfirieron $" + cantidad + " a la cuenta " + numeroCuentaDestino);
 

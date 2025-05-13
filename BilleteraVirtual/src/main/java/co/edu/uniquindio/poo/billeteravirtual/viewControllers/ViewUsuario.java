@@ -1,7 +1,7 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
 import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerUsuario;
-import co.edu.uniquindio.poo.billeteravirtual.utilidades.Logger;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
