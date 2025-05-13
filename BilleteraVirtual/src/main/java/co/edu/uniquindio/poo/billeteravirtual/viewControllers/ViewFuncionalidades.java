@@ -1,9 +1,9 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
 import co.edu.uniquindio.poo.billeteravirtual.controllers.*;
-import co.edu.uniquindio.poo.billeteravirtual.entidades.CategoriaProducto;
-import co.edu.uniquindio.poo.billeteravirtual.entidades.Cuenta;
-import co.edu.uniquindio.poo.billeteravirtual.entidades.Producto;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.CategoriaProducto;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Producto;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -65,7 +65,6 @@ public class ViewFuncionalidades {
 
     private ControllerCuenta controllerCuenta;
     private ControllerDatos controllerDatos;
-    private ControllerPrincipal controllerPrincipal;
     private ControllerMeterDinero controllerMeterDinero;
     private ControllerSacarDinero controllerSacarDinero;
     private ControllerPasarDinero controllerPasarDinero;
@@ -76,13 +75,12 @@ public class ViewFuncionalidades {
         try {
             controllerCuenta = new ControllerCuenta(this);;
             controllerDatos = new ControllerDatos(this);
-            controllerPrincipal = new ControllerPrincipal(this);
             controllerMeterDinero = new ControllerMeterDinero(this);
             controllerSacarDinero = new ControllerSacarDinero(this);
             controllerPasarDinero = new ControllerPasarDinero(this);
             tiendaController = new TiendaController(this);
 
-            controllerPrincipal.saldoPrincipal();
+
             controllerCuenta.cargarCuentas();
             tiendaController.cargarCategorias();
             tiendaController.cargarProductosPorCategoria();

@@ -1,10 +1,10 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
-import co.edu.uniquindio.poo.billeteravirtual.entidades.Admin;
-import co.edu.uniquindio.poo.billeteravirtual.entidades.Usuario;
-import co.edu.uniquindio.poo.billeteravirtual.servicios.ServicioUsuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Admin;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioUsuario;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewUsuario;
-import co.edu.uniquindio.poo.billeteravirtual.utilidades.*;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.*;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

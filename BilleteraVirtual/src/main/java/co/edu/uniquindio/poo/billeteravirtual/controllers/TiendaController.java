@@ -1,13 +1,13 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
-import co.edu.uniquindio.poo.billeteravirtual.entidades.CategoriaProducto;
-import co.edu.uniquindio.poo.billeteravirtual.entidades.Cuenta;
-import co.edu.uniquindio.poo.billeteravirtual.entidades.Producto;
-import co.edu.uniquindio.poo.billeteravirtual.entidades.Usuario;
-import co.edu.uniquindio.poo.billeteravirtual.servicios.ServicioCuenta;
-import co.edu.uniquindio.poo.billeteravirtual.servicios.ServicioProducto;
-import co.edu.uniquindio.poo.billeteravirtual.utilidades.Logger;
-import co.edu.uniquindio.poo.billeteravirtual.utilidades.Sesion;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.CategoriaProducto;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Producto;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioProducto;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
