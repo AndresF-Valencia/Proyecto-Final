@@ -4,6 +4,7 @@ import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioUsuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.GeneradorCodigo;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades;
@@ -146,9 +147,13 @@ public class ControllerCuenta {
     }
 
     public void inicializarCuentas(){
+        String numCuenta1 = new GeneradorCodigo().generarCodigo();
+        String numCuenta2 = new GeneradorCodigo().generarCodigo();
+        String idCuenta = new GeneradorCodigo().generarCodigo();
+        String idCuenta1 = new GeneradorCodigo().generarCodigo();
         if (usuarioActual.getCuentas().isEmpty()) {
-            Cuenta cuenta1 = new Cuenta("3452", "1234", "Cuenta Ahorro", "Davivienda", usuarioActual);
-            Cuenta cuenta2 = new Cuenta("1234", "4321", "Cuenta Ahorro", "Bancolombia", usuarioActual);
+            Cuenta cuenta1 = new Cuenta(idCuenta, numCuenta1, "Cuenta Ahorro", "Davivienda", usuarioActual);
+            Cuenta cuenta2 = new Cuenta(idCuenta1, numCuenta2, "Cuenta Ahorro", "Bancolombia", usuarioActual);
 
             usuarioActual.getCuentas().add(cuenta1);
             usuarioActual.getCuentas().add(cuenta2);

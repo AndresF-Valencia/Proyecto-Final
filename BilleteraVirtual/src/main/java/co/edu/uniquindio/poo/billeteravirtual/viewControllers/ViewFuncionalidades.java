@@ -80,7 +80,6 @@ public class ViewFuncionalidades {
     private ControllerDatos controllerDatos;
     private ControllerTransacciones controllerTransacciones;
     private TiendaController tiendaController;
-    private ControllerVerTransacciones controllerVerTransacciones;
 
     @FXML
     public void initialize() {
@@ -89,12 +88,12 @@ public class ViewFuncionalidades {
             controllerDatos = new ControllerDatos(this);
             controllerTransacciones = new ControllerTransacciones(this);
             tiendaController = new TiendaController(this);
-            controllerVerTransacciones = new ControllerVerTransacciones(this);
 
             controllerCuenta.inicializarCuentas();
             controllerCuenta.cargarCuentas();
             tiendaController.cargarCategorias();
             tiendaController.cargarProductosPorCategoria();
+            controllerTransacciones.cargarTransacciones();
 
             anchorPanePrincipal.setVisible(true);
             PanePrincipal.setVisible(true);
@@ -153,8 +152,8 @@ public class ViewFuncionalidades {
             btnPagarTienda.setOnAction(e -> tiendaController.realizarCompra());
 
             //Evento ControllerTransacciones
-            btnVermas.setOnAction(e -> controllerVerTransacciones.iniciarVista());
-            btnVolverTransaccion.setOnAction(e-> controllerVerTransacciones.restaurarVistaPrincipal());
+            btnVermas.setOnAction(e -> controllerTransacciones.iniciarVista());
+            btnVolverTransaccion.setOnAction(e-> controllerCuenta.Inicio());
 
 
 

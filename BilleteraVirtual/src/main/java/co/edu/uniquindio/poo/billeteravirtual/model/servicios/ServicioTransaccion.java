@@ -65,8 +65,6 @@ public class ServicioTransaccion {
         for (List<Transaccion> transacciones : tipoTransacciones.values()) {
             for (Transaccion transaccion : transacciones) {
 
-                // Obtener la cuenta origen usando el ID de cuenta almacenado en la transacción
-                ServicioCuenta.getInstancia();
                 Cuenta cuentaOrigen = ServicioCuenta.obtenerCuentaPorNumero(transaccion.getCuentaOrigen());
 
                 // Verificar si la cuenta pertenece al cliente indicado
@@ -125,11 +123,7 @@ public class ServicioTransaccion {
     }
 
     public List<Transaccion> getTransacciones() {
-        List<Transaccion> todas = new ArrayList<>();
-        for (List<Transaccion> lista : tipoTransacciones.values()) {
-            todas.addAll(lista);
-        }
-        return todas;
+        return obtenerTodasLasTransacciones();
     }
 
 }

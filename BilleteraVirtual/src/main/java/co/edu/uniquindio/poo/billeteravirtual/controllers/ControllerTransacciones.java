@@ -11,6 +11,8 @@ import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.GeneradorCodigo;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -63,6 +65,7 @@ public class ControllerTransacciones {
             }
 
             transaccionFacade.procesarTransaccion(codigoGenerado, LocalDate.now(),"DEPOSITO", cantidad, "Metio dinero a su cuenta", Transaccion.CUENTAEXTERNA ,cuentaSeleccionada.getIdCuenta());
+            cargarTransacciones();
             Logger.getInstance().mostrarToast(view.rootPane, "Transaccion exitosa");
 
             // Limpia el campo
@@ -104,6 +107,7 @@ public class ControllerTransacciones {
         }
 
         transaccionFacade.procesarTransaccion(codigoGenerado,LocalDate.now(),"TRANSFERENCIA", cantidad,"Paso plata a " + cuentaDestino.getUsuario().getNombre(),cuentaOrigen.getIdCuenta(),cuentaDestino.getIdCuenta());
+        cargarTransacciones();
         Logger.getInstance().mostrarToast(view.rootPane, "Transaccion exitosa");
 
         // Limpiar campos
@@ -133,6 +137,7 @@ public class ControllerTransacciones {
             }
 
             transaccionFacade.procesarTransaccion(codigoGenerado,LocalDate.now(),"RETIRO", cantidad,"Retiro dinero",cuentaSeleccionada.getIdCuenta(), Transaccion.CUENTAEXTERNA);
+            cargarTransacciones();
             String codigoRetiro = new GeneradorCodigo().generarCodigo();
 
             Logger.getInstance().mostrarToast(view.rootPane, "✅ Retiro exitoso. Código de retiro: " + codigoRetiro);
@@ -142,6 +147,32 @@ public class ControllerTransacciones {
             Logger.getInstance().mostrarToast(view.rootPane, "❌ Error al realizar el retiro: " + e.getMessage());
         }
     }
+
+    public void cargarTransacciones() {
+        List<Transaccion> transacciones = ServicioTransaccion.obtenerTransaccionesPorCliente(usuarioActual.getCedula());
+        System.out.println("Transacciones encontradas: " + transacciones.size());
+
+
+        view.columnaFecha.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFecha().toString()));
+        view.columnaTipo.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTipo()));
+        view.columnaMonto.setCellValueFactory(c -> new SimpleDoubleProperty(c.getValue().getMonto()).asObject());
+        view.columnaDescripcion.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDescripcion()));
+
+        view.tablaTransacciones.getItems().setAll(transacciones);
+    }
+
+    public void iniciarVista() {
+        ocultarElementoDePrincipalExceptoVerMas();
+        view.PaneVerMas.setVisible(true);
+        cargarTransacciones();
+    }
+
+    private void ocultarElementoDePrincipalExceptoVerMas(){
+        view.anchorPanePrincipal.getChildren().forEach(nodo ->{
+            nodo.setVisible(nodo == view.PaneVerMas);
+        });
+    }
+
 
     private boolean mostrarErrorSi(boolean condicion, String mensaje) {
         if (condicion) {
