@@ -1,30 +1,37 @@
 package co.edu.uniquindio.poo.billeteravirtual.model.entidades;
 
+import co.edu.uniquindio.poo.billeteravirtual.model.estrategia.EstrategiaTransaccion;
+
+import java.time.LocalDate;
 import java.util.Date;
 
-public class Transaccion implements TransaccionClonable{
-    private String idUsuario;
+public class Transaccion{
     private String idTransaccion;
-    private Date fecha;
+    private LocalDate fecha;
     private String tipo;
     private double monto;
     private String descripcion;
+    private String cuentaOrigen;
+    private String cuentaDestino;
+    private EstrategiaTransaccion estrategia;
+    public static final String CUENTAEXTERNA = "Corresponsal Bancario";
 
     //Constructor de Transacción
-    public Transaccion(String idUsuario, String idTransaccion, Date fecha, String tipo, double monto, String descripcion) {
-        this.idUsuario = idUsuario;
+    public Transaccion(String idTransaccion, LocalDate fecha, String tipo, double monto, String descripcion,String cuentaOrigen, String cuentaDestino) {
         this.idTransaccion = idTransaccion;
-        this.fecha = fecha;
+        this.fecha = LocalDate.now();
         this.tipo = tipo;
         this.monto = monto;
         this.descripcion = descripcion;
+        this.cuentaOrigen = cuentaOrigen;
+        this.cuentaDestino = cuentaDestino;
     }
     //Getters y Setters de Transacción
-    public String getIdUsuario() {
-        return idUsuario;
+    public String getCuentaOrigen() {
+        return cuentaOrigen;
     }
-    public Transaccion setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+    public Transaccion setCuentaOrigen(String cuentaOrigen) {
+        this.cuentaOrigen = cuentaOrigen;
         return this;
     }
     public String getIdTransaccion() {
@@ -33,10 +40,10 @@ public class Transaccion implements TransaccionClonable{
     public void setIdTransaccion(String idTransaccion) {
         this.idTransaccion = idTransaccion;
     }
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
     public String getTipo() {
@@ -58,24 +65,36 @@ public class Transaccion implements TransaccionClonable{
         this.descripcion = descripcion;
     }
 
-    @Override
-    public Transaccion clonar() {
-        try {
-            return (Transaccion) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException("Error al clonar transacción", e);
+    public String getCuentaDestino() {
+        return cuentaDestino;
+    }
+
+    public Transaccion setCuentaDestino(String cuentaDestino) {
+        this.cuentaDestino = cuentaDestino;
+        return this;
+    }
+
+    public void setEstrategia(EstrategiaTransaccion estrategia) {
+        this.estrategia = estrategia;
+    }
+
+
+    public void ejecutar() {
+        if (estrategia != null) {
+            estrategia.procesar(this);
         }
     }
 
-    //Metodo ToString para Transacción
     @Override
     public String toString() {
         return "Transaccion{" +
-                "idTransaccion=" + idTransaccion +
+                "idTransaccion='" + idTransaccion + '\'' +
                 ", fecha=" + fecha +
                 ", tipo='" + tipo + '\'' +
                 ", monto=" + monto +
                 ", descripcion='" + descripcion + '\'' +
+                ", cuentaOrigen='" + cuentaOrigen + '\'' +
+                ", cuentaDestino='" + cuentaDestino + '\'' +
                 '}';
     }
 }

@@ -1,50 +1,135 @@
 package co.edu.uniquindio.poo.billeteravirtual.model.servicios;
 
 
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
-import co.edu.uniquindio.poo.billeteravirtual.model.facade.ValidacionTransaccionFacade;
 
 import java.util.*;
 
 public class ServicioTransaccion {
 
-    private static Map<String, Transaccion> transacciones = new HashMap<>();
+    // Mapa que mantiene las listas de transacciones por tipo
+    private static final Map<String, List<Transaccion>> tipoTransacciones = new HashMap<>();
 
+    // Instancia única del Singleton
+    private static ServicioTransaccion instancia;
+
+    // Constructor privado para evitar la creación de instancias fuera de la clase
+    private ServicioTransaccion() {
+        // Inicializar las listas de transacciones para tipos predefinidos
+        tipoTransacciones.put("TRANSFERENCIA", new ArrayList<>());
+        tipoTransacciones.put("DEPOSITO", new ArrayList<>());
+        tipoTransacciones.put("RETIRO", new ArrayList<>());
+        tipoTransacciones.put("COMPRA", new ArrayList<>());
+    }
+
+    // Método para obtener la instancia del Singleton
+    public static ServicioTransaccion getInstancia() {
+        if (instancia == null) {
+            instancia = new ServicioTransaccion();
+        }
+        return instancia;
+    }
+
+    // Agregar transacción por tipo de transacción
+    public void agregarTransaccionPorTipo(String tipo, Transaccion transaccion) {
+        // Verificar si el tipo de transacción está permitido
+        if (!tipoTransacciones.containsKey(tipo)) {
+            throw new IllegalArgumentException("Tipo de transacción no permitido: " + tipo);
+        }
+
+        // Agregar la transacción a la lista correspondiente del tipo
+        tipoTransacciones.get(tipo).add(transaccion);
+    }
 
     // Obtener todas las transacciones
     public static List<Transaccion> obtenerTodasLasTransacciones() {
-        return new ArrayList<>(transacciones.values());
+        List<Transaccion> todasTransacciones = new ArrayList<>();
+        for (List<Transaccion> transacciones : tipoTransacciones.values()) {
+            todasTransacciones.addAll(transacciones);
+        }
+        return todasTransacciones;
     }
 
-    // Listar todas las transacciones
-    public List<Transaccion> listarTransaciones(){
-        return new ArrayList<Transaccion>(transacciones.values());
+    // Obtener las transacciones de un tipo específico
+    public List<Transaccion> obtenerTransaccionesPorTipo(String tipo) {
+        if (!tipoTransacciones.containsKey(tipo)) {
+            throw new IllegalArgumentException("Tipo de transacción no encontrado: " + tipo);
+        }
+        return tipoTransacciones.get(tipo);
     }
 
-    // Obtener las transacciones de un cliente específico por su idUsuario
     public static List<Transaccion> obtenerTransaccionesPorCliente(String idCliente) {
         List<Transaccion> transaccionesPorCliente = new ArrayList<>();
 
-        for (Transaccion transaccion : transacciones.values()) {
-            if (transaccion.getIdUsuario().equals(idCliente)) {
-                transaccionesPorCliente.add(transaccion);
+        for (List<Transaccion> transacciones : tipoTransacciones.values()) {
+            for (Transaccion transaccion : transacciones) {
+
+                // Obtener la cuenta origen usando el ID de cuenta almacenado en la transacción
+                ServicioCuenta.getInstancia();
+                Cuenta cuentaOrigen = ServicioCuenta.obtenerCuentaPorNumero(transaccion.getCuentaOrigen());
+
+                // Verificar si la cuenta pertenece al cliente indicado
+                if (cuentaOrigen != null && cuentaOrigen.getUsuario().getCedula().equals(idCliente)) {
+                    transaccionesPorCliente.add(transaccion);
+                }
             }
         }
 
         return transaccionesPorCliente;
     }
 
-    public Transaccion obtenerTransaccion(String idTransaccion, String tipo) {
-        Transaccion transaccion = transacciones.get(idTransaccion);
-        return transaccion;
-    }
-
-    public static void agregarTransaccion(Transaccion transaccion) {
-        transacciones.put(transaccion.getIdTransaccion(), transaccion);
-    }
-
-    // Método opcional para verificar si existe una transacción por ID
+    // Método para verificar si existe una transacción por ID
     public boolean existeTransaccion(String idTransaccion) {
-        return transacciones.containsKey(idTransaccion);
+        for (List<Transaccion> transacciones : tipoTransacciones.values()) {
+            for (Transaccion transaccion : transacciones) {
+                if (transaccion.getIdTransaccion().equals(idTransaccion)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
+
+    public Map<String, Integer> contarProductosMasComprados() {
+        Map<String, Integer> conteoProductos = new HashMap<>();
+        List<Transaccion> compras = getCompras();
+
+        for (Transaccion transaccion : compras) {
+            String descripcion = transaccion.getDescripcion();
+
+            if (descripcion.startsWith("Compra exitosa de ")) {
+                String producto = descripcion.replace("Compra exitosa de ", "").trim().toLowerCase();
+                conteoProductos.put(producto, conteoProductos.getOrDefault(producto, 0) + 1);
+            }
+        }
+
+        return conteoProductos;
+    }
+
+    // Métodos adicionales para obtener las listas de transacciones por tipo
+    public List<Transaccion> getTransferencias() {
+        return tipoTransacciones.get("TRANSFERENCIA");
+    }
+
+    public List<Transaccion> getDepositos() {
+        return tipoTransacciones.get("DEPOSITO");
+    }
+
+    public List<Transaccion> getRetiros() {
+        return tipoTransacciones.get("RETIRO");
+    }
+
+    public List<Transaccion> getCompras() {
+        return tipoTransacciones.get("COMPRA");
+    }
+
+    public List<Transaccion> getTransacciones() {
+        List<Transaccion> todas = new ArrayList<>();
+        for (List<Transaccion> lista : tipoTransacciones.values()) {
+            todas.addAll(lista);
+        }
+        return todas;
+    }
+
 }

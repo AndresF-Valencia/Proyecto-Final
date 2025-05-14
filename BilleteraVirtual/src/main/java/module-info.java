@@ -3,7 +3,6 @@ module co.edu.uniquindio.poo.billeteravirtual {
     exports co.edu.uniquindio.poo.billeteravirtual.model.entidades;
     requires javafx.controls;
     requires javafx.fxml;
-    requires junit;
     requires java.desktop;
     requires org.apache.pdfbox;
 

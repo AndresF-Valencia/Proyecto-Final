@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServicioUsuario {
-    private static ServicioUsuario instance = new ServicioUsuario();
+    private static ServicioUsuario instance;
     public List<Usuario> usuariosRegistrados = new ArrayList<>();
 
     // Registrar un nuevo usuario
@@ -81,6 +81,7 @@ public class ServicioUsuario {
     }
 
     private ServicioUsuario() {}
+
     public static ServicioUsuario getInstancia() {
         if (instance == null) {
             instance = new ServicioUsuario();

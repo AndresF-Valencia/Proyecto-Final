@@ -8,8 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServicioCuenta {
-    private Usuario usuario;
+    private static ServicioCuenta instancia;
     public List<Cuenta> cuentas = new ArrayList<>();
+
+    private ServicioCuenta() {
+    }
+
+    public static ServicioCuenta getInstancia() {
+        if (instancia == null) {
+            instancia = new ServicioCuenta();
+        }
+        return instancia;
+    }
 
     public void registrarCuenta(String numeroCuenta, String tipoCuenta, String bancoCuenta, Usuario usuario) {
         if (existeNumeroCuenta(numeroCuenta)) {
@@ -55,4 +65,17 @@ public class ServicioCuenta {
         this.cuentas = cuentas;
         return this;
     }
+
+    public boolean existeCuenta(String idCuenta) {
+        if ("Corresponsal Bancario".equals(idCuenta)) {
+            return true;
+        }
+        for (Cuenta cuenta : cuentas) {
+            if (cuenta.getIdCuenta().equals(idCuenta)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

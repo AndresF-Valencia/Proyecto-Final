@@ -1,26 +1,33 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.CategoriaProducto;
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Producto;
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.*;
+import co.edu.uniquindio.poo.billeteravirtual.model.facade.TransaccionFacade;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioProducto;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioTransaccion;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.GeneradorCodigo;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class TiendaController {
     private final ViewFuncionalidades view;
     private final Usuario usuarioActual;
+    private final TransaccionFacade transaccionFacade;
 
     public TiendaController(ViewFuncionalidades view) {
         this.view = view;
         this.usuarioActual = Sesion.getInstancia().getUsuarioActual();
+        ServicioCuenta servicioCuenta = ServicioCuenta.getInstancia();
+        ServicioTransaccion servicioTransaccion = ServicioTransaccion.getInstancia();
+        TransaccionFactory.setServicioCuenta(servicioCuenta);
+
+        this.transaccionFacade = new TransaccionFacade(servicioCuenta, servicioTransaccion,new TransaccionFactory());
     }
 
     public void iniciarVista() {
@@ -63,21 +70,13 @@ public class TiendaController {
     public void cargarCategorias() {
         List<CategoriaProducto> categorias = ServicioProducto.obtenerCategoriasDisponibles();
         view.comboCategorias.getItems().setAll(categorias);
-
-        // Depuración
-        System.out.println("Categorías cargadas: " + categorias.size());
     }
 
     // Método para cargar los productos correspondientes a la categoría seleccionada
     public void cargarProductosPorCategoria() {
         CategoriaProducto categoriaSeleccionada = view.comboCategorias.getValue();
         if (categoriaSeleccionada != null) {
-            // Obtener productos por categoría
             List<Producto> productos = ServicioProducto.obtenerProductosPorCategoria(categoriaSeleccionada);
-
-            // Depuración
-            System.out.println("Productos encontrados para la categoría " + categoriaSeleccionada.getNombre() + ": " + productos.size());
-
             view.comboProductos.getItems().setAll(productos);
         }
     }
@@ -88,40 +87,41 @@ public class TiendaController {
         CategoriaProducto categoriaProducto = view.comboCategorias.getValue();
         Producto producto = view.comboProductos.getValue();
         String textoCantidad = view.txtCantidad.getText();
+        String codigoGenerado = new GeneradorCodigo().generarCodigo();
 
-        if (cuentaOrigen == null || categoriaProducto == null || producto == null || textoCantidad.isBlank()) {
-            Logger.getInstance().mostrarToast(view.rootPane, "❌ Complete todos los campos.");
+        if (mostrarErrorSi(cuentaOrigen == null || categoriaProducto == null || producto == null || textoCantidad.isEmpty(),"❌ Complete todos los campos.")) {
             return;
         }
 
-        double cantidad;
-        try {
-            cantidad = Double.parseDouble(textoCantidad);
-        } catch (NumberFormatException e) {
-            Logger.getInstance().mostrarToast(view.rootPane, "❌ Cantidad inválida.");
-            return;
-        }
+        double cantidad = Double.parseDouble(textoCantidad);
 
-        if (cantidad <= 0) {
-            Logger.getInstance().mostrarToast(view.rootPane, "❌ La cantidad debe ser mayor que cero.");
+        if (mostrarErrorSi(cantidad <= 0,"❌ La cantidad debe ser mayor que cero.")) {
             return;
         }
 
 
         double saldoOrigen = cuentaOrigen.getSaldo1();
 
-        if (saldoOrigen < cantidad* producto.getPrecio()) {
-            Logger.getInstance().mostrarToast(view.rootPane, "⚠️ Saldo insuficiente.");
+        if (mostrarErrorSi(saldoOrigen < cantidad * producto.getPrecio(),"⚠️ Saldo insuficiente.")) {
             return;
         }
 
         // Realizar la transferencia
         cuentaOrigen.agregarSaldo(-cantidad * producto.getPrecio());
+        transaccionFacade.procesarTransaccion(codigoGenerado, LocalDate.now(),"COMPRA", cantidad* producto.getPrecio(),"Compra exitosa de"+ producto, cuentaOrigen.getIdCuenta(), Transaccion.CUENTAEXTERNA);
 
-        Logger.getInstance().mostrarToast(view.rootPane, "✅ Compra Exitosa ");
+        Logger.getInstance().mostrarToast(view.rootPane, "Transaccion exitosa");
 
         // Limpiar campos
         view.numeroCuenta.clear();
         view.txtCantidad.clear();
+    }
+
+    private boolean mostrarErrorSi(boolean condicion, String mensaje) {
+        if (condicion) {
+            Logger.getInstance().mostrarToast(view.rootPane, mensaje);
+            return true;
+        }
+        return false;
     }
 }

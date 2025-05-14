@@ -78,9 +78,7 @@ public class ViewFuncionalidades {
 
     private ControllerCuenta controllerCuenta;
     private ControllerDatos controllerDatos;
-    private ControllerMeterDinero controllerMeterDinero;
-    private ControllerSacarDinero controllerSacarDinero;
-    private ControllerPasarDinero controllerPasarDinero;
+    private ControllerTransacciones controllerTransacciones;
     private TiendaController tiendaController;
     private ControllerVerTransacciones controllerVerTransacciones;
 
@@ -89,13 +87,11 @@ public class ViewFuncionalidades {
         try {
             controllerCuenta = new ControllerCuenta(this);;
             controllerDatos = new ControllerDatos(this);
-            controllerMeterDinero = new ControllerMeterDinero(this);
-            controllerSacarDinero = new ControllerSacarDinero(this);
-            controllerPasarDinero = new ControllerPasarDinero(this);
+            controllerTransacciones = new ControllerTransacciones(this);
             tiendaController = new TiendaController(this);
             controllerVerTransacciones = new ControllerVerTransacciones(this);
 
-
+            controllerCuenta.inicializarCuentas();
             controllerCuenta.cargarCuentas();
             tiendaController.cargarCategorias();
             tiendaController.cargarProductosPorCategoria();
@@ -122,34 +118,34 @@ public class ViewFuncionalidades {
             btnGestionarCuentas.setOnAction(e -> controllerCuenta.gestionarCuentas());
             btnConsultarCuenta.setOnAction(e -> controllerCuenta.consultarCuenta());
             btnEliminarCuenta.setOnAction(e -> controllerCuenta.eliminarCuenta());
-            btnRegresar.setOnAction(e -> controllerCuenta.regresar());
+            btnRegresar.setOnAction(e -> controllerCuenta.Inicio());
             btnCerrarSesion.setOnAction(e -> controllerCuenta.cerrarSesion());
 
             //Eventos controllerDatos
             btnVerDatos.setOnAction(e -> controllerDatos.verDatosUsuario());
             btnModificarDatos.setOnAction(e -> controllerDatos.mostrarPanelEditarDatos());
-            btnVolverDatosUsuario.setOnAction(e -> controllerCuenta.regresar());
+            btnVolverDatosUsuario.setOnAction(e -> controllerCuenta.Inicio());
             btnGuardarCambios.setOnAction(e -> controllerDatos.editarDatosUsuario());
             btnCambiarContrasena.setOnAction(e -> controllerDatos.mostrarCambiarContrasena());
             btnGuardarCambioClave.setOnAction(e -> controllerDatos.guardarCambioClave());
-            btnVolverCambioClave.setOnAction(e -> controllerCuenta.regresar());
+            btnVolverCambioClave.setOnAction(e -> controllerCuenta.Inicio());
 
             //Eventos controllerPrincipal
 
             //Eventos ControllerMeterDinero
-            btnMeterDinero.setOnAction(e -> controllerMeterDinero.iniciarVista());
-            btnRegresar1.setOnAction(e -> controllerMeterDinero.restaurarVistaPrincipal());
-            btnAgregar.setOnAction(event -> controllerMeterDinero.agregarDinero());
+            btnMeterDinero.setOnAction(e -> controllerTransacciones.meterDinero());
+            btnRegresar1.setOnAction(e -> controllerCuenta.Inicio());
+            btnAgregar.setOnAction(event -> controllerTransacciones.agregarDinero());
 
             //Evento ControllerSacardinero
-            btnSacarDinero.setOnAction(e -> controllerSacarDinero.iniciarVista());
-            btnGenerarCodigo.setOnAction(e -> controllerSacarDinero.retirarDinero());
-            btnRegresar11.setOnAction(e-> controllerSacarDinero.restaurarVistaPrincipal());
+            btnSacarDinero.setOnAction(e -> controllerTransacciones.retirar());
+            btnGenerarCodigo.setOnAction(e -> controllerTransacciones.retirarDinero());
+            btnRegresar11.setOnAction(e-> controllerCuenta.Inicio());
 
             //Evento ControllerPasarDinero
-            btnPasarDinero.setOnAction(e -> controllerPasarDinero.iniciarVista());
-            btnRegresar12.setOnAction(e -> controllerPasarDinero.restaurarVistaPrincipal());
-            btnPasar.setOnAction(e -> controllerPasarDinero.pasarDinero());
+            btnPasarDinero.setOnAction(e -> controllerTransacciones.pasarDinero());
+            btnRegresar12.setOnAction(e -> controllerCuenta.Inicio());
+            btnPasar.setOnAction(e -> controllerTransacciones.transferirDinero());
 
             //Evento ControllerTienda
             btnTienda.setOnAction(e -> tiendaController.iniciarVista());
@@ -167,54 +163,26 @@ public class ViewFuncionalidades {
         }
     }
 
-    public Button getBtnMeterDinero() {
-        return btnMeterDinero;
-    }
-
-    public ViewFuncionalidades setBtnMeterDinero(Button btnMeterDinero) {
-        this.btnMeterDinero = btnMeterDinero;
-        return this;
-    }
 
     public TextField getCampoTitular() {
         return campoTitular;
     }
 
-    public ViewFuncionalidades setCampoTitular(TextField campoTitular) {
-        this.campoTitular = campoTitular;
-        return this;
-    }
 
     public TextField getCampoNumeroCuenta() {
         return campoNumeroCuenta;
     }
 
-    public ViewFuncionalidades setCampoNumeroCuenta(TextField campoNumeroCuenta) {
-        this.campoNumeroCuenta = campoNumeroCuenta;
-        return this;
-    }
 
     public ComboBox<String> getComboTipoCuenta() {
         return comboTipoCuenta;
     }
 
-    public ViewFuncionalidades setComboTipoCuenta(ComboBox<String> comboTipoCuenta) {
-        this.comboTipoCuenta = comboTipoCuenta;
-        return this;
-    }
 
     public ComboBox<Cuenta> getComboCuentas() {
         return comboCuentas;
     }
 
-    public ViewFuncionalidades setComboCuentas(ComboBox<Cuenta> comboCuentas) {
-        this.comboCuentas = comboCuentas;
-        return this;
-    }
-
-    public Button getBtnSacarDinero() {
-        return btnSacarDinero;
-    }
 
     public TextField getTxtCorreoEditar() {
         return txtCorreoEditar;
@@ -228,9 +196,6 @@ public class ViewFuncionalidades {
         return txtNombreEditar;
     }
 
-    public Button getBtnPasarDinero() {
-        return btnPasarDinero;
-    }
 
     public TextField getTxtPalabraClaveActual() {
         return txtPalabraClaveActual;
@@ -254,5 +219,29 @@ public class ViewFuncionalidades {
 
     public Text getTxtSaldoPrincipal() {
         return txtSaldoPrincipal;
+    }
+
+    public Button getBtnMeterDinero() {
+        return btnMeterDinero;
+    }
+
+    public TextField getTxtCantidad() {
+        return txtCantidad;
+    }
+
+    public TextField getCantidadIngresar1() {
+        return cantidadIngresar1;
+    }
+
+    public TextField getCantidadIngresar() {
+        return cantidadIngresar;
+    }
+
+    public TextField getNumeroCuenta() {
+        return numeroCuenta;
+    }
+
+    public TextField getCantidadIngresar2() {
+        return cantidadIngresar2;
     }
 }

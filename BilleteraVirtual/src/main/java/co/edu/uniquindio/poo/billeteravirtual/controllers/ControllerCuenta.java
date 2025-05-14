@@ -23,7 +23,7 @@ public class ControllerCuenta {
 
     public ControllerCuenta(ViewFuncionalidades viewFuncionalidades) {
         this.view = viewFuncionalidades;
-        this.servicioCuenta = new ServicioCuenta();
+        this.servicioCuenta = ServicioCuenta.getInstancia();
         this.usuarioActual = Sesion.getInstancia().getUsuarioActual();
         this.servicioUsuario = ServicioUsuario.getInstancia();
     }
@@ -110,28 +110,22 @@ public class ControllerCuenta {
         view.anchorPaneRegistroCuenta.setVisible(false);
         view.anchorPaneGestionarCuenta.setVisible(false);
         view.anchorPaneVerDatosUsuario.setVisible(false);
-        view.anchorPaneRegistroCuenta.setVisible(false);
         view.anchorPaneCambiarContrasena.setVisible(false);
         view.panePasarDinero.setVisible(false);
         view.PaneSacarDinero.setVisible(false);
         view.PaneMeterDinero.setVisible(false);
         view.PaneTienda.setVisible(false);
+        view.PaneVerMas.setVisible(false);
 
-    }
-
-    public void regresar(){
-        view.anchorPanePrincipal.setVisible(true);
-        view.anchorPaneRegistroCuenta.setVisible(false);
-        view.anchorPaneGestionarCuenta.setVisible(false);
-        view.anchorPaneVerDatosUsuario.setVisible(false);
-        view.anchorPaneRegistroCuenta.setVisible(false);
-        view.anchorPaneCambiarContrasena.setVisible(false);
     }
 
     public void cargarCuentas() {
-        List<Cuenta> cuentasUsuario = servicioCuenta.obtenerCuentasDe(usuarioActual);
-        System.out.println(cuentasUsuario.toString());
+        List<Cuenta> cuentasUsuario = ServicioCuenta.obtenerCuentasDe(usuarioActual);
         view.comboCuentas.getItems().setAll(cuentasUsuario);
+        view.comboSelecionCuenta.getItems().setAll(cuentasUsuario);
+        view.comboSelecionCuenta1.getItems().setAll(cuentasUsuario);
+        view.comboSelecionCuenta2.getItems().setAll(cuentasUsuario);
+
     }
 
     public void cerrarSesion() {
@@ -149,6 +143,19 @@ public class ControllerCuenta {
             e.printStackTrace();
         }
 
+    }
+
+    public void inicializarCuentas(){
+        if (usuarioActual.getCuentas().isEmpty()) {
+            Cuenta cuenta1 = new Cuenta("3452", "1234", "Cuenta Ahorro", "Davivienda", usuarioActual);
+            Cuenta cuenta2 = new Cuenta("1234", "4321", "Cuenta Ahorro", "Bancolombia", usuarioActual);
+
+            usuarioActual.getCuentas().add(cuenta1);
+            usuarioActual.getCuentas().add(cuenta2);
+
+            servicioCuenta.getCuentas().add(cuenta1);
+            servicioCuenta.getCuentas().add(cuenta2);
+        }
     }
 
 

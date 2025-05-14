@@ -7,8 +7,9 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 public class Logger {
-    private static Logger instance = new Logger();
+    private static Logger instance;
     private Logger() {}
+
     public static Logger getInstance() {
         if (instance == null) {
             instance = new Logger();
@@ -16,13 +17,6 @@ public class Logger {
         return instance;
     }
 
-    public void mostrarMensaje(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Mensaje");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.show();
-    }
 
     public void mostrarToast(AnchorPane rootPane, String mensaje) {
         Label label = new Label(mensaje);
