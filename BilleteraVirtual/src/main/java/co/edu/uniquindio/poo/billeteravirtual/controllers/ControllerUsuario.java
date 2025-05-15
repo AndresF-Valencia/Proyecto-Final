@@ -85,14 +85,23 @@ public class ControllerUsuario {
 
         boolean autenticado = servicioUsuario.autenticarUsuario(cedula, clave);
         if (autenticado) {
-            Usuario usuarioEncontrado = servicioUsuario.obtenerUsuario(cedula);
-            Sesion.getInstancia().iniciarSesion(usuarioEncontrado);
-        } else{
+            Usuario usuario = servicioUsuario.obtenerUsuario(cedula);
+            Sesion.getInstancia().iniciarSesion(usuario);
+
+            Stage stage = (Stage) view.rootPane.getScene().getWindow();
+
+            if (usuario instanceof Admin) {
+                cambiarEscena(stage, "/co/edu/uniquindio/poo/billeteravirtual/interfazAdmin.fxml");
+            } else {
+                cambiarEscena(stage, "/co/edu/uniquindio/poo/billeteravirtual/interfazFuncionalidades.fxml");
+            }
+        } else {
             Logger.getInstance().mostrarToast(view.rootPane, "Clave y/o Cedula incorrecta");
         }
 
         return autenticado;
     }
+
 
     public void verificarPalabraClave(){
         String palabraclave = view.getTextRecuperar().getText();
@@ -159,8 +168,19 @@ public class ControllerUsuario {
                     .PalabraClave("marcelo")
                     .ClaveAcceso("1234")
                     .build();
+
+            Admin admin = new Admin.AdminBuilder()
+                    .Nombre("admin")
+                    .Cedula("123")
+                    .Telefono("000")
+                    .Correo("admin@gmail.com")
+                    .PalabraClave("admin123")
+                    .ClaveAcceso("123")
+                    .build();
+
             servicioUsuario.getUsuariosRegistrados().add(usuario);
             servicioUsuario.getUsuariosRegistrados().add(usuario1);
+            servicioUsuario.getUsuariosRegistrados().add(admin);
         }
     }
 
