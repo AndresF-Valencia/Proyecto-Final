@@ -13,9 +13,9 @@ public class EstrategiaDeposito implements EstrategiaTransaccion {
 
     @Override
     public void procesar(Transaccion transaccion) {
-        String idCuentaDestino = transaccion.getCuentaDestino();
+        String numCuentaDestino = transaccion.getCuentaDestino();
         for (Cuenta c : servicioCuenta.getCuentas()){
-            if(c.getIdCuenta().equals(idCuentaDestino)){
+            if(c.getNumeroCuenta().equals(numCuentaDestino)){
                 c.setSaldo(c.getSaldo1() + transaccion.getMonto());
                 break;
             }

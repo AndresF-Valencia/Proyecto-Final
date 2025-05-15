@@ -101,13 +101,16 @@ public class ViewFuncionalidades {
             anchorPaneGestionarCuenta.setVisible(false);
             anchorPaneVerDatosUsuario.setVisible(false);
             anchorPaneCambiarContrasena.setVisible(false);
-            PaneMeterDinero.setVisible(false);
-            PaneSacarDinero.setVisible(false);
+            anchorPanePresupuesto.setVisible(false);
+            PaneCrearPresupuesto.setVisible(false);
+            PaneEstadoPresupuesto.setVisible(false);
+            PaneActualizarPresupuesto.setVisible(false);
+            PaneEliminarPresupuesto.setVisible(false);
             panePasarDinero.setVisible(false);
+            PaneSacarDinero.setVisible(false);
+            PaneMeterDinero.setVisible(false);
             PaneTienda.setVisible(false);
             PaneVerMas.setVisible(false);
-            PaneEliminarPresupuesto.setVisible(false);
-            PaneActualizarPresupuesto.setVisible(false);
 
 
             // Eventos ControllerCuenta

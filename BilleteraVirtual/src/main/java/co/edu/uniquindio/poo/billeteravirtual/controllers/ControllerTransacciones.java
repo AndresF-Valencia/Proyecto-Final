@@ -47,6 +47,7 @@ public class ControllerTransacciones {
         view.anchorPaneRegistroCuenta.setVisible(false);
         view.anchorPaneVerDatosUsuario.setVisible(false);
         view.anchorPaneCambiarContrasena.setVisible(false);
+        view.anchorPanePresupuesto.setVisible(false);
     }
 
     public void agregarDinero() {
@@ -65,19 +66,8 @@ public class ControllerTransacciones {
                 return;
             }
 
-            UsuarioConPresupuesto decorado = null;
-            if (!servicioPresupuesto.obtenerPresupuestos(usuarioActual).isEmpty()) {
-                decorado = servicioPresupuesto.crearUsuarioConPresupuesto(usuarioActual);
-            }
-
-            if (decorado != null) {
-                if (mostrarErrorSi(!decorado.sePuedeRealizarTransaccion(cantidad, Presupuesto.PRESUPUESTO_GENERAL), "❌ Excede el presupuesto de compra.")) {
-                    return;
-                }
-                decorado.registrarGasto(cantidad, Presupuesto.PRESUPUESTO_GENERAL);
-            }
-
             transaccionFacade.procesarTransaccion(codigoGenerado, LocalDate.now(),"DEPOSITO", cantidad, "Metio dinero a su cuenta", cuentaOrigen, cuentaDestino.getNumeroCuenta());
+            System.out.println(cuentaDestino.getSaldo());
             cargarTransacciones();
             Logger.getInstance().mostrarToast(view.rootPane, "Transaccion exitosa");
 
@@ -162,17 +152,6 @@ public class ControllerTransacciones {
                 return;
             }
 
-            UsuarioConPresupuesto decorado = null;
-            if (!servicioPresupuesto.obtenerPresupuestos(usuarioActual).isEmpty()) {
-                decorado = servicioPresupuesto.crearUsuarioConPresupuesto(usuarioActual);
-            }
-
-            if (decorado != null) {
-                if (mostrarErrorSi(!decorado.sePuedeRealizarTransaccion(cantidad, Presupuesto.PRESUPUESTO_GENERAL), "❌ Excede el presupuesto de compra.")) {
-                    return;
-                }
-                decorado.registrarGasto(cantidad, Presupuesto.PRESUPUESTO_GENERAL);
-            }
 
             transaccionFacade.procesarTransaccion(codigoGenerado,LocalDate.now(),"RETIRO", cantidad,"Retiro dinero", cuentaOrigen.getNumeroCuenta(), cuentaDestino);
             cargarTransacciones();

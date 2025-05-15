@@ -7,7 +7,6 @@ import co.edu.uniquindio.poo.billeteravirtual.model.estrategia.EstrategiaTransfe
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class TransaccionFactory {
     private static ServicioCuenta servicioCuenta;
