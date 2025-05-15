@@ -11,7 +11,8 @@ import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.GeneradorCodigo;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades;
-
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 import java.time.LocalDate;
 import java.util.List;
