@@ -11,10 +11,10 @@ public class EstrategiaCompras implements EstrategiaTransaccion{
     }
     @Override
     public void procesar(Transaccion transaccion) {
-        String idCuentaorigen = transaccion.getCuentaOrigen();
+        String numCuentaorigen = transaccion.getCuentaOrigen();
 
         for(Cuenta c: servicioCuenta.getCuentas()){
-            if(c.getIdCuenta().equals(idCuentaorigen)){
+            if(c.getNumeroCuenta().equals(numCuentaorigen)){
                 c.setSaldo(c.getSaldo1() - transaccion.getMonto());
             }
         }

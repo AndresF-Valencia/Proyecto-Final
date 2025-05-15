@@ -150,6 +150,8 @@ public class ControllerCuenta {
         view.anchorPanePresupuesto.setVisible(false);
         view.PaneCrearPresupuesto.setVisible(false);
         view.PaneEstadoPresupuesto.setVisible(false);
+        view.PaneActualizarPresupuesto.setVisible(false);
+        view.PaneEliminarPresupuesto.setVisible(false);
         view.panePasarDinero.setVisible(false);
         view.PaneSacarDinero.setVisible(false);
         view.PaneMeterDinero.setVisible(false);
@@ -159,7 +161,7 @@ public class ControllerCuenta {
     }
 
     public void cargarCuentas() {
-        List<Cuenta> cuentasUsuario = ServicioCuenta.obtenerCuentasDe(usuarioActual);
+        List<Cuenta> cuentasUsuario = servicioCuenta.obtenerCuentasDe(usuarioActual);
         view.comboCuentas.getItems().setAll(cuentasUsuario);
         view.comboSelecionCuenta.getItems().setAll(cuentasUsuario);
         view.comboSelecionCuenta1.getItems().setAll(cuentasUsuario);
@@ -199,6 +201,7 @@ public class ControllerCuenta {
             servicioCuenta.getCuentas().add(cuenta1);
             servicioCuenta.getCuentas().add(cuenta2);
         }
+        cargarCuentas();
     }
 
     public void crearPresupuesto() {

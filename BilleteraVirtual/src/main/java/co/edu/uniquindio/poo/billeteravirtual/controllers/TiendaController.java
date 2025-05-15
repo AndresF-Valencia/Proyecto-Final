@@ -68,7 +68,7 @@ public class TiendaController {
 
 
     private void cargarCuentas() {
-        List<Cuenta> cuentas = ServicioCuenta.obtenerCuentasDe(usuarioActual);
+        List<Cuenta> cuentas = servicioCuenta.obtenerCuentasDe(usuarioActual);
         view.comboCuentaTienda.getItems().setAll(cuentas);
     }
 

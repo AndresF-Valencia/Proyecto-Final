@@ -13,9 +13,9 @@ public class EstrategiaRetiro implements EstrategiaTransaccion {
 
     @Override
     public void procesar(Transaccion transaccion) {
-        String idCuentaOrigen = transaccion.getCuentaOrigen();
+        String numCuentaOrigen = transaccion.getCuentaOrigen();
         for (Cuenta c : servicioCuenta.getCuentas()){
-            if(c.getIdCuenta().equals(idCuentaOrigen)){
+            if(c.getNumeroCuenta().equals(numCuentaOrigen)){
                 c.setSaldo(c.getSaldo1() - transaccion.getMonto());
             }
         }

@@ -32,14 +32,8 @@ public class ServicioCuenta {
         cuentas.add(cuenta);
     }
 
-    public static List<Cuenta> obtenerCuentasDe(Usuario usuario) {
-        List<Cuenta> cuentasDelUsuario = new ArrayList<>();
-        for (Cuenta cuenta : usuario.getCuentas()) {
-            if (cuenta.getUsuario().equals(usuario)) {
-                cuentasDelUsuario.add(cuenta);
-            }
-        }
-        return cuentasDelUsuario;
+    public List<Cuenta> obtenerCuentasDe(Usuario usuario) {
+        return usuario.getCuentas();
     }
 
     public boolean existeNumeroCuenta(String numeroCuenta) {
