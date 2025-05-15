@@ -47,7 +47,7 @@ public class ServicioPresupuesto {
         for (Presupuesto p : presupuestos) {
             if (p.isEsGeneral() && "General".equalsIgnoreCase(categoria)) {
                 return p.getMontoGastado();
-            } else if (p.getNombre().equalsIgnoreCase(categoria)) {
+            } else if (p.getCategoria().equalsIgnoreCase(categoria)) {
                 return p.getMontoGastado();
             }
         }
@@ -59,7 +59,7 @@ public class ServicioPresupuesto {
         for (Presupuesto p : presupuestos) {
             if (p.isEsGeneral() && "General".equalsIgnoreCase(categoria)) {
                 return p.getMontoTotal();
-            } else if (p.getNombre().equalsIgnoreCase(categoria)) {
+            } else if (p.getCategoria().equalsIgnoreCase(categoria)) {
                 return p.getMontoTotal();
             }
         }

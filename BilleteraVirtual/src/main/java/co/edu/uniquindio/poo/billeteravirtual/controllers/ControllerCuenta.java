@@ -54,6 +54,9 @@ public class ControllerCuenta {
     public void gestionarPresupuesto(){
         cambiarVista("Presupuesto");
         view.PaneCrearPresupuesto.setVisible(true);
+        view.PaneEstadoPresupuesto.setVisible(false);
+        view.PaneEliminarPresupuesto.setVisible(false);
+        view.PaneActualizarPresupuesto.setVisible(false);
     }
 
     public void verEstado(){
@@ -209,8 +212,9 @@ public class ControllerCuenta {
         presupuesto.setCategoria(categoria);
 
         servicioPresupuesto.agregarPresupuesto(usuarioActual, presupuesto);
-
         Logger.getInstance().mostrarToast(view.rootPane, "✅Presupuesto creado correctamente");
+        view.campoNombrePresupuesto.clear();
+        view.campoMonto.clear();
     }
 
     public void consultarEstadoPresupuesto() {
@@ -228,10 +232,11 @@ public class ControllerCuenta {
                 double total = servicioPresupuesto.obtenerMontoTotal(usuarioActual, categoria);
                 double disponible = servicioPresupuesto.obtenerMontoDisponible(usuarioActual, categoria);
                 view.txtMontoGastado.setText(String.valueOf(gastado));
-                view.txtMontoDisponible.setText(String.valueOf(total));
+                view.txtMontoAsignado.setText(String.valueOf(total));
                 view.txtMontoDisponible.setText(String.valueOf(disponible));
             }
         }
+        view.campoNombrePresupuesto.clear();
     }
 
     public void eliminarPresupuesto() {
@@ -248,6 +253,7 @@ public class ControllerCuenta {
                 Logger.getInstance().mostrarToast(view.rootPane, "✅ Presupuesto eliminado correctamente.");
             }
         }
+        view.campoNombrePresupuesto.clear();
     }
 
     public void actualizarPresupuesto() {
@@ -281,6 +287,8 @@ public class ControllerCuenta {
         }catch (NumberFormatException e){
         Logger.getInstance().mostrarToast(view.rootPane, "Monto invalido");
         }
+        view.campoNombrePresupuesto.clear();
+        view.campoMontoTotal.clear();
     }
 
 }
