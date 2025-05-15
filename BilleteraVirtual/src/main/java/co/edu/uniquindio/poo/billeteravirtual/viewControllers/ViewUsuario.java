@@ -1,7 +1,10 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
 import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerUsuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Admin;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -46,12 +49,20 @@ public class ViewUsuario {
         buttonFinalizar.setOnAction(e -> controllerUsuario.finalizarRegistro());
         buttonContinuar.setOnAction(e -> controllerUsuario.continuar());
         ingresar.setOnAction(e -> {
+
             boolean valido = controllerUsuario.iniciarSesion();
 
             if (valido) {
+                Usuario usuario = Sesion.getInstancia().getUsuarioActual();
                 Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                controllerUsuario.cambiarEscena(stage, "/co/edu/uniquindio/poo/billeteravirtual/interfazFuncionalidades.fxml");
+
+                if (usuario instanceof Admin) {
+                    controllerUsuario.cambiarEscenaAdmin(stage, "/co/edu/uniquindio/poo/billeteravirtual/interfazAdmin.fxml");
+                } else {
+                    controllerUsuario.cambiarEscena(stage, "/co/edu/uniquindio/poo/billeteravirtual/interfazFuncionalidades.fxml");
+                }
             }
+
         });
         OlvidarClave.setOnAction(e -> controllerUsuario.mostrarRecuperacion());
         enviarCodigo.setOnAction(e -> controllerUsuario.verificarPalabraClave() );

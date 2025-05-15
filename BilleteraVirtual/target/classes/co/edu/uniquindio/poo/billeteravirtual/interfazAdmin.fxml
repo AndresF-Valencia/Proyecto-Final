@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="rootPane" prefHeight="700.0" prefWidth="1300.0" stylesheets="@estilos2.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidadesAdmin">
+    <children>
+        <!-- Panel lateral -->
+        <AnchorPane prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #000000;">
+            <children>
+                <Text fill="WHITE" layoutX="20.0" layoutY="40.0" text="Panel Administrador">
+                    <font><Font name="System Bold" size="21.0" /></font>
+                </Text>
+                <Button fx:id="btnGestionUsuarios" layoutX="14.0" layoutY="80.0" prefHeight="35.0" prefWidth="260.0" text="👥 Gestionar Usuarios" />
+                <Button fx:id="btnGestionCuentas" layoutX="14.0" layoutY="130.0" prefHeight="35.0" prefWidth="260.0" text="🏦 Gestionar Cuentas" />
+                <Button fx:id="btnGestionTransacciones" layoutX="14.0" layoutY="180.0" prefHeight="35.0" prefWidth="260.0" text="💸 Gestionar Transacciones" />
+                <Button fx:id="btnEstadisticas" layoutX="14.0" layoutY="230.0" prefHeight="35.0" prefWidth="260.0" text="📊 Estadísticas" />
+                <Button fx:id="btnCerrarSesion" layoutX="14.0" layoutY="280.0" prefHeight="35.0" prefWidth="260.0" text="🚪 Cerrar Sesión" />
+            </children>
+        </AnchorPane>
+
+        <!-- Panel principal -->
+        <AnchorPane layoutX="300.0" prefHeight="700.0" prefWidth="1000.0">
+            <children>
+
+                <!-- Tabla de Usuarios -->
+                <AnchorPane fx:id="AnchorpaneUsuarios" layoutX="50.0" layoutY="30.0" prefHeight="600.0" prefWidth="900.0">
+               <Pane fx:id="paneBienvenida" prefHeight="610.4" prefWidth="910.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                     <Text layoutX="214.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido, seleccion una opcción">
+                        <font>
+                           <Font name="System Bold" size="30.0" />
+                        </font>
+                     </Text>
+                  </children>
+               </Pane>
+               <Pane fx:id="paneActualizar" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                     <TextField fx:id="txtNombreNuevo" layoutX="39.0" layoutY="30.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese el nuevo nombre" />
+                     <TextField fx:id="txtCorreoNuevo" layoutX="39.0" layoutY="75.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese el nuevo coreo" />
+                     <TextField fx:id="txtTelefonoNuevo" layoutX="39.0" layoutY="119.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese el nuevo telefono" />
+                     <Button fx:id="btnAceptarActualizarUsuario" layoutX="312.0" layoutY="174.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Aceptar" />
+                     <Button fx:id="btnRegresarCrearUsuario" layoutX="312.0" layoutY="222.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Regresar" />
+                  </children>
+               </Pane>
+               <Pane fx:id="paneUsuarios" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                     <Button fx:id="btnCrearUsuario" layoutX="236.0" layoutY="517.0" prefHeight="34.0" prefWidth="133.0" text="Crear" />
+                     <Button fx:id="btnActualizarUsuario" layoutX="583.0" layoutY="517.0" prefHeight="34.0" prefWidth="133.0" text="Actualizar" />
+                          <Button fx:id="btnEliminarUsuario" layoutX="411.0" layoutY="517.0" text="Eliminar Usuario" />
+                          <TableView fx:id="tablaUsuarios" prefHeight="500.0" prefWidth="900.0">
+                              <columns>
+                                  <TableColumn fx:id="colNombre" prefWidth="227.19998168945312" text="Nombre" />
+                                  <TableColumn fx:id="colCedula" prefWidth="222.4000244140625" text="Cédula" />
+                                  <TableColumn fx:id="colCorreo" prefWidth="234.40008544921875" text="Correo" />
+                                  <TableColumn fx:id="colTelefono" prefWidth="219.1998291015625" text="Teléfono" />
+                              </columns>
+                          </TableView>
+                  </children>
+               </Pane>
+               <Pane fx:id="paneCrearUsuario" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+                  <children>
+                     <TextField fx:id="txtNombreNuevo1" layoutX="39.0" layoutY="30.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su nombre" />
+                     <TextField fx:id="txtCorreoNuevo1" layoutX="39.0" layoutY="75.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su correo" />
+                     <TextField fx:id="txtTelefonoNuevo1" layoutX="39.0" layoutY="119.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su telefono" />
+                     <Button fx:id="btnAceptarCrearUsuario1" layoutX="312.0" layoutY="307.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Aceptar" />
+                     <Button fx:id="btnRegresarCrearUsuario1" layoutX="312.0" layoutY="352.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Regresar" />
+                     <TextField fx:id="txtCedulaNuevo1" layoutX="39.0" layoutY="164.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su cedula" />
+                     <TextField fx:id="txtClaveNuevo1" layoutX="39.0" layoutY="205.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su clave" />
+                     <TextField fx:id="txtPalabraClaveNuevo1" layoutX="39.0" layoutY="248.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su pablabra clave" />
+                  </children>
+               </Pane>
+                </AnchorPane>
+
+                <!-- Tabla de Cuentas -->
+                <AnchorPane fx:id="paneCuentas" layoutX="50.0" layoutY="30.0" prefHeight="600.0" prefWidth="900.0">
+                    <TableView fx:id="tablaCuentas" prefHeight="500.0" prefWidth="900.0">
+                        <columns>
+                            <TableColumn fx:id="colIdCuenta" prefWidth="169.5999755859375" text="ID Cuenta" />
+                            <TableColumn fx:id="colNumeroCuenta" prefWidth="198.39990234375" text="Nro Cuenta" />
+                            <TableColumn fx:id="colTipoCuenta" prefWidth="142.40008544921875" text="Tipo" />
+                            <TableColumn fx:id="colBanco" prefWidth="212.0001220703125" text="Banco" />
+                            <TableColumn fx:id="colSaldo" prefWidth="182.39990234375" text="Saldo" />
+                        </columns>
+                    </TableView>
+                    <Button fx:id="btnEliminarCuenta" layoutX="735.0" layoutY="518.0" text="Eliminar Cuenta" />
+               <Button fx:id="btnActualizarCuenta" layoutX="554.0" layoutY="518.0" text="Actualizar Cuenta" />
+               <Button fx:id="btnAgregarCuenta" layoutX="384.0" layoutY="518.0" text="Agrega Cuenta" />
+                </AnchorPane>
+
+                <!-- Tabla de Transacciones -->
+                <AnchorPane fx:id="paneTransacciones" layoutX="50.0" layoutY="30.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+                    <TableView fx:id="tablaTransacciones" layoutX="0.0" layoutY="50.0" prefHeight="500.0" prefWidth="900.0">
+                        <columns>
+                            <TableColumn fx:id="colIdTransaccion" text="ID" />
+                            <TableColumn fx:id="colFecha" text="Fecha" />
+                            <TableColumn fx:id="colTipo" text="Tipo" />
+                            <TableColumn fx:id="colMonto" text="Monto" />
+                            <TableColumn fx:id="colDescripcion" text="Descripción" />
+                        </columns>
+                    </TableView>
+                    <Button fx:id="btnEliminarTransaccion" layoutX="700.0" layoutY="560.0" text="Eliminar Transacción" />
+                </AnchorPane>
+
+                <!-- Gráficas de Estadísticas -->
+                <AnchorPane fx:id="paneEstadisticas" layoutX="50.0" layoutY="30.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+                    <Text layoutX="350.0" layoutY="20.0" text="Estadísticas Generales">
+                        <font><Font name="System Bold" size="20.0" /></font>
+                    </Text>
+                    <PieChart fx:id="graficoGastosComunes" layoutX="0.0" layoutY="40.0" prefHeight="300.0" prefWidth="400.0" />
+                    <BarChart fx:id="graficoUsuariosTransacciones" layoutX="450.0" layoutY="40.0" prefHeight="300.0" prefWidth="400.0">
+                        <xAxis>
+                            <CategoryAxis label="Usuarios" />
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis label="Nro Transacciones" />
+                        </yAxis>
+                    </BarChart>
+                    <Text fx:id="labelSaldoPromedio" layoutX="300.0" layoutY="380.0" text="Saldo promedio: $0.0" />
+                </AnchorPane>
+
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
