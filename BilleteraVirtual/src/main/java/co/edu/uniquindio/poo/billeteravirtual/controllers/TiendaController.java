@@ -1,8 +1,10 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
+import co.edu.uniquindio.poo.billeteravirtual.model.decoradores.UsuarioConPresupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.*;
 import co.edu.uniquindio.poo.billeteravirtual.model.facade.TransaccionFacade;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioPresupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioProducto;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioTransaccion;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.GeneradorCodigo;
@@ -19,12 +21,16 @@ public class TiendaController {
     private final ViewFuncionalidades view;
     private final Usuario usuarioActual;
     private final TransaccionFacade transaccionFacade;
+    public ServicioCuenta servicioCuenta;
+    public ServicioPresupuesto servicioPresupuesto;
+    public ServicioTransaccion servicioTransaccion;
 
     public TiendaController(ViewFuncionalidades view) {
         this.view = view;
         this.usuarioActual = Sesion.getInstancia().getUsuarioActual();
-        ServicioCuenta servicioCuenta = ServicioCuenta.getInstancia();
-        ServicioTransaccion servicioTransaccion = ServicioTransaccion.getInstancia();
+        this.servicioCuenta = ServicioCuenta.getInstancia();
+        this.servicioTransaccion = ServicioTransaccion.getInstancia();
+        this.servicioPresupuesto = ServicioPresupuesto.getInstancia();
         TransaccionFactory.setServicioCuenta(servicioCuenta);
 
         this.transaccionFacade = new TransaccionFacade(servicioCuenta, servicioTransaccion,new TransaccionFactory());
@@ -89,28 +95,37 @@ public class TiendaController {
         String textoCantidad = view.txtCantidad.getText();
         String codigoGenerado = new GeneradorCodigo().generarCodigo();
 
-        if (mostrarErrorSi(cuentaOrigen == null || categoriaProducto == null || producto == null || textoCantidad.isEmpty(),"❌ Complete todos los campos.")) {
+        if (mostrarErrorSi(cuentaOrigen == null || categoriaProducto == null || producto == null || textoCantidad.isEmpty(), "❌ Complete todos los campos.")) {
             return;
         }
 
         double cantidad = Double.parseDouble(textoCantidad);
-
-        if (mostrarErrorSi(cantidad <= 0,"❌ La cantidad debe ser mayor que cero.")) {
+        if (mostrarErrorSi(cantidad <= 0, "❌ La cantidad debe ser mayor que cero.")) {
             return;
         }
 
-
+        double monto = cantidad * producto.getPrecio();
         double saldoOrigen = cuentaOrigen.getSaldo1();
 
-        if (mostrarErrorSi(saldoOrigen < cantidad * producto.getPrecio(),"⚠️ Saldo insuficiente.")) {
+        if (mostrarErrorSi(saldoOrigen < monto, "⚠️ Saldo insuficiente.")) {
             return;
         }
 
-        // Realizar la transferencia
-        cuentaOrigen.agregarSaldo(-cantidad * producto.getPrecio());
-        transaccionFacade.procesarTransaccion(codigoGenerado, LocalDate.now(),"COMPRA", cantidad* producto.getPrecio(),"Compra exitosa de"+ producto, cuentaOrigen.getIdCuenta(), Transaccion.CUENTAEXTERNA);
+        UsuarioConPresupuesto decorado = null;
+        if (!servicioPresupuesto.obtenerPresupuestos(usuarioActual).isEmpty()) {
+            decorado = servicioPresupuesto.crearUsuarioConPresupuesto(usuarioActual);
+        }
 
-        Logger.getInstance().mostrarToast(view.rootPane, "Transaccion exitosa");
+        if (decorado != null) {
+            if (mostrarErrorSi(!decorado.sePuedeRealizarTransaccion(monto, "COMPRA"), "❌ Excede el presupuesto de compra.")) {
+                return;
+            }
+            decorado.registrarGasto(monto, "COMPRA");
+        }
+
+        transaccionFacade.procesarTransaccion(codigoGenerado, LocalDate.now(), "COMPRA", monto, "Compra exitosa de " + producto.getNombre(), cuentaOrigen.getNumeroCuenta(), Transaccion.CUENTAEXTERNA);
+
+        Logger.getInstance().mostrarToast(view.rootPane, "Transacción exitosa");
 
         // Limpiar campos
         view.numeroCuenta.clear();

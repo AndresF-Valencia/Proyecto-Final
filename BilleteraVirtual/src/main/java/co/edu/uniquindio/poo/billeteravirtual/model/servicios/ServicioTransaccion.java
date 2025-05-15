@@ -3,11 +3,12 @@ package co.edu.uniquindio.poo.billeteravirtual.model.servicios;
 
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 
 import java.util.*;
 
 public class ServicioTransaccion {
-
     // Mapa que mantiene las listas de transacciones por tipo
     private static final Map<String, List<Transaccion>> tipoTransacciones = new HashMap<>();
 
@@ -59,16 +60,18 @@ public class ServicioTransaccion {
         return tipoTransacciones.get(tipo);
     }
 
-    public static List<Transaccion> obtenerTransaccionesPorCliente(String idCliente) {
+    public List<Transaccion> obtenerTransaccionesPorCliente(String idCliente) {
         List<Transaccion> transaccionesPorCliente = new ArrayList<>();
 
         for (List<Transaccion> transacciones : tipoTransacciones.values()) {
             for (Transaccion transaccion : transacciones) {
-
                 Cuenta cuentaOrigen = ServicioCuenta.obtenerCuentaPorNumero(transaccion.getCuentaOrigen());
+                Cuenta cuentaDestino = ServicioCuenta.obtenerCuentaPorNumero(transaccion.getCuentaDestino());
 
-                // Verificar si la cuenta pertenece al cliente indicado
-                if (cuentaOrigen != null && cuentaOrigen.getUsuario().getCedula().equals(idCliente)) {
+                boolean esOrigenDelCliente = cuentaOrigen != null && cuentaOrigen.getUsuario().getCedula().equals(idCliente);
+                boolean esDestinoDelCliente = cuentaDestino != null && cuentaDestino.getUsuario().getCedula().equals(idCliente);
+
+                if (esOrigenDelCliente || esDestinoDelCliente) {
                     transaccionesPorCliente.add(transaccion);
                 }
             }

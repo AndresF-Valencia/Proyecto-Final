@@ -11,6 +11,7 @@ public class ReporteCliente extends ReporteBase {
     private final String idCliente;
     private double totalIngresos = 0;
     private double totalGastos = 0;
+    private ServicioTransaccion servicioTransaccion;
 
     public ReporteCliente(ExportadorReporte exportador, String idCliente) {
         super(exportador);
@@ -19,7 +20,7 @@ public class ReporteCliente extends ReporteBase {
 
     @Override
     protected List<Transaccion> obtenerTransacciones() {
-        return ServicioTransaccion.obtenerTransaccionesPorCliente(idCliente);
+        return servicioTransaccion.obtenerTransaccionesPorCliente(idCliente);
     }
 
     @Override

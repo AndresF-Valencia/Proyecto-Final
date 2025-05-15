@@ -1,8 +1,11 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
+import co.edu.uniquindio.poo.billeteravirtual.model.decoradores.UsuarioConPresupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Presupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioPresupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioUsuario;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.GeneradorCodigo;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
@@ -21,17 +24,20 @@ public class ControllerCuenta {
     public ServicioCuenta servicioCuenta;
     private final ViewFuncionalidades view;
     public ServicioUsuario servicioUsuario;
+    public ServicioPresupuesto servicioPresupuesto;
 
     public ControllerCuenta(ViewFuncionalidades viewFuncionalidades) {
         this.view = viewFuncionalidades;
         this.servicioCuenta = ServicioCuenta.getInstancia();
         this.usuarioActual = Sesion.getInstancia().getUsuarioActual();
         this.servicioUsuario = ServicioUsuario.getInstancia();
+        this.servicioPresupuesto = ServicioPresupuesto.getInstancia();
     }
 
     public void cambiarVista(String vistaActiva){
         view.anchorPaneGestionarCuenta.setVisible(vistaActiva.equals("Gestionar Cuenta"));
         view.anchorPaneRegistroCuenta.setVisible(vistaActiva.equals("Registrar Cuenta"));
+        view.anchorPanePresupuesto.setVisible(vistaActiva.equals("Presupuesto"));
         view.anchorPaneVerDatosUsuario.setVisible(false);
         view.anchorPaneCambiarContrasena.setVisible(false);
         view.anchorPanePrincipal.setVisible(false);
@@ -43,6 +49,32 @@ public class ControllerCuenta {
 
     public void gestionarCuentas(){
         cambiarVista("Gestionar Cuenta");
+    }
+
+    public void gestionarPresupuesto(){
+        cambiarVista("Presupuesto");
+        view.PaneCrearPresupuesto.setVisible(true);
+    }
+
+    public void verEstado(){
+        view.PaneCrearPresupuesto.setVisible(false);
+        view.PaneEstadoPresupuesto.setVisible(true);
+        view.PaneEliminarPresupuesto.setVisible(false);
+        view.PaneActualizarPresupuesto.setVisible(false);
+    }
+
+    public void actualizar(){
+        view.PaneActualizarPresupuesto.setVisible(true);
+        view.PaneCrearPresupuesto.setVisible(false);
+        view.PaneEstadoPresupuesto.setVisible(false);
+        view.PaneEliminarPresupuesto.setVisible(false);
+    }
+
+    public void eliminar(){
+        view.PaneEliminarPresupuesto.setVisible(true);
+        view.PaneActualizarPresupuesto.setVisible(false);
+        view.PaneCrearPresupuesto.setVisible(false);
+        view.PaneEstadoPresupuesto.setVisible(false);
     }
 
     private boolean camposVacios(String... campos) {
@@ -112,6 +144,9 @@ public class ControllerCuenta {
         view.anchorPaneGestionarCuenta.setVisible(false);
         view.anchorPaneVerDatosUsuario.setVisible(false);
         view.anchorPaneCambiarContrasena.setVisible(false);
+        view.anchorPanePresupuesto.setVisible(false);
+        view.PaneCrearPresupuesto.setVisible(false);
+        view.PaneEstadoPresupuesto.setVisible(false);
         view.panePasarDinero.setVisible(false);
         view.PaneSacarDinero.setVisible(false);
         view.PaneMeterDinero.setVisible(false);
@@ -163,5 +198,89 @@ public class ControllerCuenta {
         }
     }
 
+    public void crearPresupuesto() {
+        String idPresupuesto = new GeneradorCodigo().generarCodigo();
+        String nombre = view.campoNombrePresupuesto.getText();
+        String categoria = view.comboCategoriaPresupuesto.getValue();
+        String monto = view.campoMonto.getText();
+        double montoTotal = Double.parseDouble(monto);
+        boolean esGeneral = categoria.equals("General");
+        Presupuesto presupuesto = new Presupuesto(idPresupuesto, nombre, montoTotal, esGeneral);
+        presupuesto.setCategoria(categoria);
+
+        servicioPresupuesto.agregarPresupuesto(usuarioActual, presupuesto);
+
+        Logger.getInstance().mostrarToast(view.rootPane, "✅Presupuesto creado correctamente");
+    }
+
+    public void consultarEstadoPresupuesto() {
+        String nombrePresupuesto = view.campoNombrePresupuestoConsultar.getText();
+        List<Presupuesto> presupuestos = servicioPresupuesto.obtenerPresupuestos(usuarioActual);
+
+        if(presupuestos.isEmpty()){
+            Logger.getInstance().mostrarToast(view.rootPane, "No se encontro el presupuesto");
+            return;
+        }
+        for(Presupuesto p: presupuestos){
+            if(p.getNombre().equals(nombrePresupuesto)){
+                String categoria = p.getCategoria();
+                double gastado = servicioPresupuesto.obtenerMontoGastado(usuarioActual, categoria);
+                double total = servicioPresupuesto.obtenerMontoTotal(usuarioActual, categoria);
+                double disponible = servicioPresupuesto.obtenerMontoDisponible(usuarioActual, categoria);
+                view.txtMontoGastado.setText(String.valueOf(gastado));
+                view.txtMontoDisponible.setText(String.valueOf(total));
+                view.txtMontoDisponible.setText(String.valueOf(disponible));
+            }
+        }
+    }
+
+    public void eliminarPresupuesto() {
+        String nombrePresupuesto = view.campoNombrePresupuestoConsultar.getText();
+        List<Presupuesto> presupuestos = servicioPresupuesto.obtenerPresupuestos(usuarioActual);
+
+        if(presupuestos.isEmpty()){
+            Logger.getInstance().mostrarToast(view.rootPane, "No se encontro el presupuesto");
+            return;
+        }
+        for (Presupuesto p: presupuestos){
+            if(p.getNombre().equals(nombrePresupuesto)){
+                servicioPresupuesto.eliminarPresupuesto(usuarioActual, p);
+                Logger.getInstance().mostrarToast(view.rootPane, "✅ Presupuesto eliminado correctamente.");
+            }
+        }
+    }
+
+    public void actualizarPresupuesto() {
+        String nombrePresupuesto = view.campoNombrePresupuestoConsultar.getText();
+        String monto = view.campoMontoTotal.getText();
+        List<Presupuesto> presupuestos = servicioPresupuesto.obtenerPresupuestos(usuarioActual);
+
+        if (presupuestos.isEmpty()) {
+            Logger.getInstance().mostrarToast(view.rootPane, "No se encontro el presupuesto");
+            return;
+        }
+
+        if (monto.isEmpty()) {
+            Logger.getInstance().mostrarToast(view.rootPane, "Llene todos los campos");
+        }
+
+        try {
+            double nuevoMonto = Double.parseDouble(monto);
+            for (Presupuesto p : presupuestos) {
+                if (nuevoMonto < p.getMontoGastado()) {
+                    Logger.getInstance().mostrarToast(view.rootPane, "❌ El nuevo monto no puede ser menor al ya gastado.");
+                    return;
+                }
+                if (p.getNombre().equals(nombrePresupuesto)) {
+                    servicioPresupuesto.actualizarMontoPresupuesto(usuarioActual, p, nuevoMonto);
+                    Logger.getInstance().mostrarToast(view.rootPane, "✅ Presupuesto actualizado correctamente.");
+                }
+
+            }
+
+        }catch (NumberFormatException e){
+        Logger.getInstance().mostrarToast(view.rootPane, "Monto invalido");
+        }
+    }
 
 }

@@ -16,20 +16,20 @@ public class ViewFuncionalidades {
     public Button btnMeterDinero, btnSacarDinero, btnPasarDinero, btnInicio, btnPasar, btnRegresar12, btnPagarTienda,
             btnVerDatos, btnCambiarContrasena, btnAgregarCuenta, btnAgregar, btnGenerarCodigo,btnRegresar11,
             btnGestionarCuentas, btnCerrarSesion, btnRegistrarCuenta, btnRegresarTienda, btnTienda,
-            btnConsultarCuenta, btnEliminarCuenta,btnVolverTransaccion, btnRegresar, btnRegresar1,
-            btnGuardarCambios, btnModificarDatos, btnVolverDatosUsuario,btnGuardarCambioClave, btnVolverCambioClave, btnVermas;
+            btnConsultarCuenta, btnEliminarCuenta,btnVolverTransaccion, btnRegresar, btnRegresar1,btnRegresar13,
+            btnGuardarCambios,btnRegresar15,btnActualizar,btnRegresar16,btnEliminarPresupuesto1,btnEliminarPresupuesto,btnActualizarPresupuesto,btnVerEstado,btnCrearPresupuesto,btnAgregarPresupuesto, btnModificarDatos,btnConsultarPresupuesto, btnRegresar14, btnVolverDatosUsuario,btnGuardarCambioClave, btnVolverCambioClave, btnVermas;
 
     @FXML
     public Text bienvenidaText, textTitular, textNumeroCuenta, textTipoCuenta, textSaldo,txtSaldoPrincipal,
-            textNombreUsuario, textCorreoUsuario, textDocumentoUsuario, textTelefonoUsuario;
+            textNombreUsuario, textCorreoUsuario, textDocumentoUsuario,txtMontoAsignado,txtMontoGastado,txtMontoDisponible, textTelefonoUsuario;
 
     @FXML
     public TextField campoTitular,cantidadIngresar2, numeroCuenta, campoNumeroCuenta, cantidadIngresar, cantidadIngresar1,
-            txtNombreEditar, txtCorreoEditar, txtTelefonoEditar,txtPalabraClaveActual, txtNuevaPalabraClave, txtCantidad;
+            txtNombreEditar,campoNombrePresupuestoActualizar,campoNombrePresupuestoEliminar,campoMontoTotal,campoNombrePresupuestoConsultar,campoNombrePresupuesto,campoMonto, txtCorreoEditar, txtTelefonoEditar,txtPalabraClaveActual, txtNuevaPalabraClave, txtCantidad;
 
 
     @FXML
-    public ComboBox<String> comboTipoCuenta;
+    public ComboBox<String> comboTipoCuenta, comboCategoriaPresupuesto;
 
     @FXML
     public ComboBox<Cuenta> comboCuentas;
@@ -68,13 +68,13 @@ public class ViewFuncionalidades {
     public TableColumn<Transaccion, String> columnaDescripcion;
 
     @FXML
-    public AnchorPane anchorPanePrincipal,anchorPaneRegistroCuenta, anchorPaneGestionarCuenta, rootPane, anchorPaneVerDatosUsuario, anchorPaneCambiarContrasena;
+    public AnchorPane anchorPanePresupuesto,anchorPanePrincipal,anchorPaneRegistroCuenta, anchorPaneGestionarCuenta, rootPane, anchorPaneVerDatosUsuario, anchorPaneCambiarContrasena;
 
     @FXML
     public PasswordField pfClaveActual, pfNuevaClave, pfConfirmarClave;
 
     @FXML
-    public Pane camposInformacion, paneEditarInformacion, PaneMeterDinero , PaneSacarDinero, panePasarDinero, PaneTienda, PanePrincipal, PaneVerMas;
+    public Pane PaneEliminarPresupuesto,camposInformacion,PaneEstadoPresupuesto,PaneCrearPresupuesto, paneEditarInformacion, PaneMeterDinero , PaneSacarDinero, panePasarDinero, PaneTienda, PanePrincipal, PaneVerMas,PaneActualizarPresupuesto;
 
     private ControllerCuenta controllerCuenta;
     private ControllerDatos controllerDatos;
@@ -106,10 +106,12 @@ public class ViewFuncionalidades {
             panePasarDinero.setVisible(false);
             PaneTienda.setVisible(false);
             PaneVerMas.setVisible(false);
-
+            PaneEliminarPresupuesto.setVisible(false);
+            PaneActualizarPresupuesto.setVisible(false);
 
 
             // Eventos ControllerCuenta
+            comboCategoriaPresupuesto.getItems().addAll("General", "Alimentos","Ropa","Tecnologia");
             comboTipoCuenta.getItems().addAll("Cuenta de ahorros", "Cuenta corriente");
             btnInicio.setOnAction(e -> controllerCuenta.Inicio());
             btnAgregarCuenta.setOnAction(e -> controllerCuenta.agregarCuenta());
@@ -119,6 +121,20 @@ public class ViewFuncionalidades {
             btnEliminarCuenta.setOnAction(e -> controllerCuenta.eliminarCuenta());
             btnRegresar.setOnAction(e -> controllerCuenta.Inicio());
             btnCerrarSesion.setOnAction(e -> controllerCuenta.cerrarSesion());
+            btnAgregarPresupuesto.setOnAction(e -> controllerCuenta.gestionarPresupuesto());
+            btnCrearPresupuesto.setOnAction(e -> controllerCuenta.crearPresupuesto());
+            btnVerEstado.setOnAction(e-> controllerCuenta.verEstado() );
+            btnConsultarPresupuesto.setOnAction(e-> controllerCuenta.consultarEstadoPresupuesto());
+            btnRegresar13.setOnAction(e -> controllerCuenta.Inicio());
+            btnRegresar14.setOnAction(e -> controllerCuenta.Inicio());
+            btnActualizarPresupuesto.setOnAction(e -> controllerCuenta.actualizar() );
+            btnActualizar.setOnAction(e -> controllerCuenta.actualizarPresupuesto());
+            btnRegresar15.setOnAction(e -> controllerCuenta.Inicio());
+            btnRegresar16.setOnAction(e -> controllerCuenta.Inicio());
+            btnEliminarPresupuesto.setOnAction(e -> controllerCuenta.eliminar());
+            btnEliminarPresupuesto1.setOnAction(e -> controllerCuenta.eliminarPresupuesto());
+
+
 
             //Eventos controllerDatos
             btnVerDatos.setOnAction(e -> controllerDatos.verDatosUsuario());

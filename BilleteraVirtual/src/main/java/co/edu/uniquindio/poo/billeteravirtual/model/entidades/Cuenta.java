@@ -1,12 +1,16 @@
 package co.edu.uniquindio.poo.billeteravirtual.model.entidades;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cuenta {
     private Usuario usuario;
     private String IdCuenta;
     private String numeroCuenta;
     private String tipoCuenta;
     private String bancoCuenta;
-    public double saldo;
+    private double saldo;
+    public ArrayList<Transaccion> transacciones;
 
     //Contructor De Cuenta
     public Cuenta(String IdCuenta, String numeroCuenta, String tipoCuenta, String bancoCuenta, Usuario usuario) {
@@ -16,6 +20,7 @@ public class Cuenta {
         this.tipoCuenta = tipoCuenta;
         this.bancoCuenta = bancoCuenta;
         this.saldo = 1000000.0;
+        this.transacciones = new ArrayList<>();
     }
     //Getters y Setter de la cuenta
     public String getIdCuenta() {
@@ -53,7 +58,14 @@ public class Cuenta {
         return this;
     }
 
+    public ArrayList<Transaccion> getTransacciones() {
+        return transacciones;
+    }
 
+    public Cuenta setTransacciones(ArrayList<Transaccion> transacciones) {
+        this.transacciones = transacciones;
+        return this;
+    }
 
     public String getSaldo() {
         return String.valueOf(saldo);

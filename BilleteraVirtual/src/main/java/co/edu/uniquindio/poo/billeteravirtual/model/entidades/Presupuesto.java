@@ -1,65 +1,78 @@
 package co.edu.uniquindio.poo.billeteravirtual.model.entidades;
 
-import co.edu.uniquindio.poo.billeteravirtual.model.decoradores.PresupuestoBase;
-
-public class Presupuesto implements PresupuestoBase, Cloneable{
-    private int idPresupuesto;
-    private String descripcion;
+public class Presupuesto implements Cloneable{
+    private String idPresupuesto;
+    private String nombre;
     private Double montoTotal;
     private double montoGastado;
+    public boolean esGeneral;
+    private String categoria;
+    public static final String PRESUPUESTO_GENERAL = "General";
 
     //Constructor de presupuesto
-    public Presupuesto(int idPresupuesto, String descripcion, Double montoTotal, double montoGastado) {
+    public Presupuesto(String idPresupuesto, String nombre, Double montoTotal, boolean esGeneral) {
         this.idPresupuesto = idPresupuesto;
-        this.descripcion = descripcion;
+        this.nombre = nombre;
         this.montoTotal = montoTotal;
-        this.montoGastado = montoGastado;
+        this.montoGastado = 0.0;
+        this.esGeneral = esGeneral;
+        this.categoria = "";
     }
     //Getters y Setters de Presupuesto
 
 
-    public int getIdPresupuesto() {
+    public String getIdPresupuesto() {
         return idPresupuesto;
     }
 
-    @Override
-    public double getMontoTotal() {
+    public Presupuesto setIdPresupuesto(String idPresupuesto) {
+        this.idPresupuesto = idPresupuesto;
+        return this;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Presupuesto setNombre(String nombre) {
+        this.nombre = nombre;
+        return this;
+    }
+
+    public Double getMontoTotal() {
         return montoTotal;
     }
 
-    @Override
+    public Presupuesto setMontoTotal(Double montoTotal) {
+        this.montoTotal = montoTotal;
+        return this;
+    }
+
     public double getMontoGastado() {
         return montoGastado;
     }
 
-    @Override
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    @Override
-    public void agregarGasto(double monto) {
-        this.montoGastado += monto;
-    }
-
-    public void setMontoTotal(double montoTotal) {
-        this.montoTotal = montoTotal;
-    }
-
-    public void setIdPresupuesto(int idPresupuesto) {
-        this.idPresupuesto = idPresupuesto;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public void setMontoTotal(Double montoTotal) {
-        this.montoTotal = montoTotal;
-    }
-
-    public void setMontoGastado(double montoGastado) {
+    public Presupuesto setMontoGastado(double montoGastado) {
         this.montoGastado = montoGastado;
+        return this;
+    }
+
+    public boolean isEsGeneral() {
+        return esGeneral;
+    }
+
+    public Presupuesto setEsGeneral(boolean esGeneral) {
+        this.esGeneral = esGeneral;
+        return this;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public Presupuesto setCategoria(String categoria) {
+        this.categoria = categoria;
+        return this;
     }
 
     @Override
@@ -75,7 +88,6 @@ public class Presupuesto implements PresupuestoBase, Cloneable{
     public String toString() {
         return "Presupuesto{" +
                 "idPresupuesto=" + idPresupuesto +
-                ", descripcion='" + descripcion + '\'' +
                 ", montoTotal=" + montoTotal +
                 ", montoGastado=" + montoGastado +
                 '}';

@@ -15,7 +15,7 @@
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" stylesheets="@estilos2.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades">
    <children>
       <!-- Panel lateral -->
-      <AnchorPane layoutX="8.0" layoutY="6.0" prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #000000;">
+      <AnchorPane prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #000000;">
          <children>
             <Text fx:id="bienvenidaText" fill="WHITE" layoutX="20.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¡Bienvenido,  " wrappingWidth="261.25587463378906">
                <font>
@@ -28,10 +28,11 @@
             <Text fill="WHITE" layoutX="14.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="🏦 Cuentas Bancarias" />
             <Button fx:id="btnAgregarCuenta" layoutX="14.0" layoutY="249.0" prefHeight="35.0" prefWidth="260.0" text="➕ Agregar Cuenta" />
             <Button fx:id="btnGestionarCuentas" layoutX="14.0" layoutY="292.0" prefHeight="35.0" prefWidth="260.0" text="💼 Gestionar Cuentas" />
-            <Text fill="WHITE" layoutX="14.0" layoutY="368.0" strokeType="OUTSIDE" strokeWidth="0.0" text="⚙ Opciones" />
-            <Button fx:id="btnCerrarSesion" layoutX="14.0" layoutY="349.0" prefHeight="35.0" prefWidth="260.0" text="🚪 Cerrar Sesión" />
+            <Text fill="WHITE" layoutX="14.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" text="⚙ Opciones" />
+            <Button fx:id="btnCerrarSesion" layoutX="14.0" layoutY="404.0" prefHeight="35.0" prefWidth="260.0" text="🚪 Cerrar Sesión" />
             <Button fx:id="btnInicio" layoutX="14.0" layoutY="77.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="260.0" text="Inicio" />
             <Text fill="WHITE" layoutX="20.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="⌂ Inicio" />
+            <Button fx:id="btnAgregarPresupuesto" layoutX="11.0" layoutY="335.0" prefHeight="35.0" prefWidth="260.0" text="➕ Agregar Presupuesto" />
          </children>
       </AnchorPane>
 
@@ -170,7 +171,7 @@
                   <Button fx:id="btnVolverCambioClave" layoutX="325.0" layoutY="400.0" prefWidth="250.0" text="Regresar" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPanePrincipal" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
+            <AnchorPane fx:id="anchorPanePrincipal" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
                <children>
                   <Pane fx:id="PaneVerMas" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -182,7 +183,7 @@
                               <TableColumn fx:id="columnaDescripcion" prefWidth="300.0" text="Descripción" />
                           </columns>
                         </TableView>
-                        <Button fx:id="btnVolverTransaccion" layoutX="308.0" layoutY="335.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="300.0" text="Volver" />
+                        <Button fx:id="btnVolverTransaccion" layoutX="308.0" layoutY="335.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="300.0" text="Regresar" />
                      </children>
                   </Pane>
                   <Pane fx:id="panePasarDinero" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="912.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -239,6 +240,77 @@
                         <TextField fx:id="cantidadIngresar" layoutX="14.0" layoutY="66.0" prefHeight="34.0" prefWidth="260.0" promptText="Ingrese la cantidad" />
                         <Button fx:id="btnAgregar" layoutX="315.0" layoutY="206.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="250.0" text="Agregar" />
                         <Button fx:id="btnRegresar1" layoutX="315.0" layoutY="252.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="250.0" text="Regresar" />
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="anchorPanePresupuesto" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
+               <children>
+                  <Pane fx:id="PaneEliminarPresupuesto" layoutX="273.0" layoutY="92.0" prefHeight="392.0" prefWidth="365.0" visible="false">
+                     <children>
+                        <Text layoutX="58.0" layoutY="40.0" text="Eliminar Presupuesto">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="campoNombrePresupuestoEliminar" layoutX="52.0" layoutY="86.0" prefWidth="250.0" />
+                        <Button fx:id="btnRegresar16" layoutX="52.0" layoutY="290.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="250.0" text="Regresar" />
+                        <Text layoutX="53.0" layoutY="82.0" text="Nombre:" />
+                        <Button fx:id="btnEliminarPresupuesto1" layoutX="51.0" layoutY="245.0" prefWidth="250.0" text="Eliminar" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="PaneEstadoPresupuesto" layoutX="273.0" layoutY="51.0" prefHeight="392.0" prefWidth="365.0" visible="false">
+                     <children>
+                        <Text layoutX="65.0" layoutY="40.0" text="Estado Presupuesto">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="campoNombrePresupuestoConsultar" layoutX="52.0" layoutY="86.0" prefWidth="250.0" />
+                        <Text layoutX="65.0" layoutY="135.0" text="Monto Asignado:" />
+                        <Text layoutX="65.0" layoutY="166.0" text="Monto Gastado:" />
+                        <Text layoutX="65.0" layoutY="193.0" text="Monto Disponible:" />
+                        <Text fx:id="txtMontoAsignado" layoutX="177.0" layoutY="136.0" text="--" />
+                        <Text fx:id="txtMontoGastado" layoutX="173.0" layoutY="166.0" text="--" />
+                        <Text fx:id="txtMontoDisponible" layoutX="182.0" layoutY="193.0" text="--" />
+                        <Button fx:id="btnRegresar14" layoutX="52.0" layoutY="290.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="250.0" text="Regresar" />
+                        <Text layoutX="53.0" layoutY="82.0" text="Nombre:" />
+                        <Button fx:id="btnConsultarPresupuesto" layoutX="51.0" layoutY="245.0" prefWidth="250.0" text="Consultar" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="PaneCrearPresupuesto" layoutX="166.0" layoutY="45.0" prefHeight="507.0" prefWidth="495.0" visible="false">
+                     <children>
+                        <Text layoutX="154.0" layoutY="32.0" text="Añadir un presupuesto">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                        <Text layoutX="161.0" layoutY="90.0" text="Nombre:" />
+                        <Text layoutX="162.0" layoutY="216.0" text="Monto asignado:" />
+                        <TextField fx:id="campoMonto" layoutX="158.0" layoutY="220.0" prefWidth="250.0" />
+                        <Button fx:id="btnCrearPresupuesto" layoutX="158.0" layoutY="261.0" prefWidth="250.0" text="Crear Presupuesto" />
+                        <Button fx:id="btnRegresar13" layoutX="159.0" layoutY="432.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="250.0" text="Regresar" />
+                        <Text layoutX="162.0" layoutY="142.0" text="Categoria:" />
+                        <ComboBox fx:id="comboCategoriaPresupuesto" layoutX="158.0" layoutY="145.0" prefHeight="39.0" prefWidth="250.0" />
+                        <Button fx:id="btnVerEstado" layoutX="159.0" layoutY="302.0" prefWidth="250.0" text="Ver Estado" />
+                        <Button fx:id="btnEliminarPresupuesto" layoutX="159.0" layoutY="343.0" prefWidth="250.0" text="Eliminar Presupuesto" />
+                        <Button fx:id="btnActualizarPresupuesto" layoutX="159.0" layoutY="387.0" prefWidth="250.0" text="Actualizar Presupuesto" />
+                        <TextField fx:id="campoNombrePresupuesto" layoutX="158.0" layoutY="93.0" prefWidth="250.0" />
+                     </children>
+                  </Pane>
+                  <Pane fx:id="PaneActualizarPresupuesto" layoutX="267.0" layoutY="92.0" prefHeight="392.0" prefWidth="365.0">
+                     <children>
+                        <Text layoutX="47.0" layoutY="40.0" text="Actualizar Presupuesto">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="campoNombrePresupuestoActualizar" layoutX="52.0" layoutY="86.0" prefWidth="250.0" />
+                        <Button fx:id="btnRegresar15" layoutX="52.0" layoutY="290.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="250.0" text="Regresar" />
+                        <Text layoutX="53.0" layoutY="82.0" text="Nombre:" />
+                        <Button fx:id="btnActualizar" layoutX="51.0" layoutY="245.0" prefWidth="250.0" text="Actualizar" />
+                        <Text layoutX="53.0" layoutY="133.0" text="Monto total:" />
+                        <TextField fx:id="campoMontoTotal" layoutX="51.0" layoutY="138.0" prefWidth="250.0" />
                      </children>
                   </Pane>
                </children>

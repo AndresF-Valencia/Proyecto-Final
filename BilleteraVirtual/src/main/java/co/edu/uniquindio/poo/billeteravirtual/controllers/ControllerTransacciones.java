@@ -1,12 +1,12 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.TransaccionFactory;
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.decoradores.UsuarioConPresupuesto;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.*;
 import co.edu.uniquindio.poo.billeteravirtual.model.facade.TransaccionFacade;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioPresupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioTransaccion;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioUsuario;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.GeneradorCodigo;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
@@ -15,9 +15,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 public class ControllerTransacciones {
     public Usuario usuarioActual;
@@ -25,12 +23,14 @@ public class ControllerTransacciones {
     private final ViewFuncionalidades view;
     private final TransaccionFacade transaccionFacade;
     private final ServicioCuenta servicioCuenta;
+    private final ServicioPresupuesto servicioPresupuesto;
 
     public ControllerTransacciones(ViewFuncionalidades view) {
         this.view = view;
         this.servicioTransaccion = ServicioTransaccion.getInstancia();
         this.servicioCuenta = ServicioCuenta.getInstancia();
         this.usuarioActual = Sesion.getInstancia().getUsuarioActual();
+        this.servicioPresupuesto = ServicioPresupuesto.getInstancia();
         TransaccionFactory.setServicioCuenta(servicioCuenta);
 
         this.transaccionFacade = new TransaccionFacade(servicioCuenta,servicioTransaccion,new TransaccionFactory());
@@ -51,12 +51,13 @@ public class ControllerTransacciones {
 
     public void agregarDinero() {
         try {
-            Cuenta cuentaSeleccionada = view.comboSelecionCuenta.getValue();
+            Cuenta cuentaDestino = view.comboSelecionCuenta.getValue();
             String textoCantidad = view.getCantidadIngresar().getText();
             double cantidad = Double.parseDouble(textoCantidad);
             String codigoGenerado = new GeneradorCodigo().generarCodigo();
+            String cuentaOrigen = Transaccion.CUENTAEXTERNA;
 
-            if (mostrarErrorSi(cuentaSeleccionada == null,"❌ Complete todos los campos.")) {
+            if (mostrarErrorSi(cuentaDestino == null,"❌ Complete todos los campos.")) {
                 return;
             }
 
@@ -64,7 +65,19 @@ public class ControllerTransacciones {
                 return;
             }
 
-            transaccionFacade.procesarTransaccion(codigoGenerado, LocalDate.now(),"DEPOSITO", cantidad, "Metio dinero a su cuenta", Transaccion.CUENTAEXTERNA ,cuentaSeleccionada.getIdCuenta());
+            UsuarioConPresupuesto decorado = null;
+            if (!servicioPresupuesto.obtenerPresupuestos(usuarioActual).isEmpty()) {
+                decorado = servicioPresupuesto.crearUsuarioConPresupuesto(usuarioActual);
+            }
+
+            if (decorado != null) {
+                if (mostrarErrorSi(!decorado.sePuedeRealizarTransaccion(cantidad, Presupuesto.PRESUPUESTO_GENERAL), "❌ Excede el presupuesto de compra.")) {
+                    return;
+                }
+                decorado.registrarGasto(cantidad, Presupuesto.PRESUPUESTO_GENERAL);
+            }
+
+            transaccionFacade.procesarTransaccion(codigoGenerado, LocalDate.now(),"DEPOSITO", cantidad, "Metio dinero a su cuenta", cuentaOrigen, cuentaDestino.getNumeroCuenta());
             cargarTransacciones();
             Logger.getInstance().mostrarToast(view.rootPane, "Transaccion exitosa");
 
@@ -106,7 +119,19 @@ public class ControllerTransacciones {
             return;
         }
 
-        transaccionFacade.procesarTransaccion(codigoGenerado,LocalDate.now(),"TRANSFERENCIA", cantidad,"Paso plata a " + cuentaDestino.getUsuario().getNombre(),cuentaOrigen.getIdCuenta(),cuentaDestino.getIdCuenta());
+        UsuarioConPresupuesto decorado = null;
+        if (!servicioPresupuesto.obtenerPresupuestos(usuarioActual).isEmpty()) {
+            decorado = servicioPresupuesto.crearUsuarioConPresupuesto(usuarioActual);
+        }
+
+        if (decorado != null) {
+            if (mostrarErrorSi(!decorado.sePuedeRealizarTransaccion(cantidad, Presupuesto.PRESUPUESTO_GENERAL), "❌ Excede el presupuesto de compra.")) {
+                return;
+            }
+            decorado.registrarGasto(cantidad, Presupuesto.PRESUPUESTO_GENERAL);
+        }
+
+        transaccionFacade.procesarTransaccion(codigoGenerado,LocalDate.now(),"TRANSFERENCIA", cantidad,"Paso plata a " + cuentaDestino.getUsuario().getNombre(),cuentaOrigen.getNumeroCuenta(),cuentaDestino.getNumeroCuenta());
         cargarTransacciones();
         Logger.getInstance().mostrarToast(view.rootPane, "Transaccion exitosa");
 
@@ -117,16 +142,17 @@ public class ControllerTransacciones {
 
     public void retirarDinero() {
         try {
-            Cuenta cuentaSeleccionada = view.comboSelecionCuenta1.getValue();
+            Cuenta cuentaOrigen = view.comboSelecionCuenta1.getValue();
             String textoCantidad = view.cantidadIngresar1.getText();
             String codigoGenerado = new GeneradorCodigo().generarCodigo();
             double cantidad = Double.parseDouble(textoCantidad);
+            String cuentaDestino = Transaccion.CUENTAEXTERNA;
 
-            if (mostrarErrorSi(cuentaSeleccionada == null,"❌ No se ha seleccionado ninguna cuenta.")) {
+            if (mostrarErrorSi(cuentaOrigen == null,"❌ No se ha seleccionado ninguna cuenta.")) {
                 return;
             }
 
-            double saldoCuenta = cuentaSeleccionada.getSaldo1();
+            double saldoCuenta = cuentaOrigen.getSaldo1();
 
             if (mostrarErrorSi(cantidad <= 0,"❌ La cantidad debe ser mayor a 0.")) {
                 return;
@@ -136,7 +162,19 @@ public class ControllerTransacciones {
                 return;
             }
 
-            transaccionFacade.procesarTransaccion(codigoGenerado,LocalDate.now(),"RETIRO", cantidad,"Retiro dinero",cuentaSeleccionada.getIdCuenta(), Transaccion.CUENTAEXTERNA);
+            UsuarioConPresupuesto decorado = null;
+            if (!servicioPresupuesto.obtenerPresupuestos(usuarioActual).isEmpty()) {
+                decorado = servicioPresupuesto.crearUsuarioConPresupuesto(usuarioActual);
+            }
+
+            if (decorado != null) {
+                if (mostrarErrorSi(!decorado.sePuedeRealizarTransaccion(cantidad, Presupuesto.PRESUPUESTO_GENERAL), "❌ Excede el presupuesto de compra.")) {
+                    return;
+                }
+                decorado.registrarGasto(cantidad, Presupuesto.PRESUPUESTO_GENERAL);
+            }
+
+            transaccionFacade.procesarTransaccion(codigoGenerado,LocalDate.now(),"RETIRO", cantidad,"Retiro dinero", cuentaOrigen.getNumeroCuenta(), cuentaDestino);
             cargarTransacciones();
             String codigoRetiro = new GeneradorCodigo().generarCodigo();
 
@@ -149,9 +187,7 @@ public class ControllerTransacciones {
     }
 
     public void cargarTransacciones() {
-        List<Transaccion> transacciones = ServicioTransaccion.obtenerTransaccionesPorCliente(usuarioActual.getCedula());
-        System.out.println("Transacciones encontradas: " + transacciones.size());
-
+        List<Transaccion> transacciones = servicioTransaccion.obtenerTransaccionesPorCliente(usuarioActual.getCedula());
 
         view.columnaFecha.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFecha().toString()));
         view.columnaTipo.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTipo()));

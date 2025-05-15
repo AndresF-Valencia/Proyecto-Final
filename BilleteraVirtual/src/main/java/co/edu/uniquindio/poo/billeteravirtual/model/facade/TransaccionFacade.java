@@ -6,7 +6,6 @@ import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioTransaccion;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public class TransaccionFacade {
     private ServicioCuenta servicioCuenta;
@@ -19,7 +18,7 @@ public class TransaccionFacade {
         this.transaccionFactory = transaccionFactory;
     }
 
-    public void procesarTransaccion(String idTransaccion, LocalDate fecha, String tipo, double monto, String descripcion,String cuentaOrigen, String cuentaDestino) {
+    public void procesarTransaccion(String idTransaccion, LocalDate fecha, String tipo, double monto, String descripcion, String cuentaOrigen, String cuentaDestino) {
         try {
             validarCuentas(cuentaOrigen, cuentaDestino);
             validarMonto(monto);

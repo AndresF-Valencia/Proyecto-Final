@@ -66,12 +66,12 @@ public class ServicioCuenta {
         return this;
     }
 
-    public boolean existeCuenta(String idCuenta) {
-        if ("Corresponsal Bancario".equals(idCuenta)) {
+    public boolean existeCuenta(String numCuenta) {
+        if ("Corresponsal Bancario".equals(numCuenta)) {
             return true;
         }
         for (Cuenta cuenta : cuentas) {
-            if (cuenta.getIdCuenta().equals(idCuenta)) {
+            if (cuenta.getNumeroCuenta().equals(numCuenta)) {
                 return true;
             }
         }
