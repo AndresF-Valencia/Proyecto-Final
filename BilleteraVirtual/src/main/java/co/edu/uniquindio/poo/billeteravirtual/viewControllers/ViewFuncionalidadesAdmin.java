@@ -237,11 +237,20 @@ public class ViewFuncionalidadesAdmin {
     public void initialize(){
         try {
             controllerGestionUsuarios = new ControllerGestionUsuarios(this);
-            ControllerCuentaAdmin controllerCuentaAdmin = new ControllerCuentaAdmin(this);
+            controllerCuentaAdmin = new ControllerCuentaAdmin(this);
 
             controllerGestionUsuarios.cargarUsuarios();
             controllerCuentaAdmin.cargarCuentasTabla();
             controllerCuentaAdmin.cargarComboCuentas();
+
+            paneBienvenida.setVisible(true);
+            paneUsuarios.setVisible(false);
+            paneCrearUsuario.setVisible(false);
+            paneCuentas.setVisible(false);
+            paneStats.setVisible(false);
+            paneActualizar.setVisible(false);
+            paneAgregarCuenta.setVisible(false);
+            paneActualizarCuenta.setVisible(false);
 
             colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             colCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
@@ -254,15 +263,7 @@ public class ViewFuncionalidadesAdmin {
             colBanco.setCellValueFactory(new PropertyValueFactory<>("banco"));
             colSaldo.setCellValueFactory(new PropertyValueFactory<>("saldo"));
 
-            paneBienvenida.setVisible(true);
-            paneUsuarios.setVisible(false);
-            paneCrearUsuario.setVisible(false);
-            paneCuentas.setVisible(false);
-            paneStats.setVisible(false);
-            paneActualizar.setVisible(false);
-            paneAgregarCuenta.setVisible(false);
-            paneActualizarCuenta.setVisible(false);
-            paneCrearTransaccion.setVisible(false);
+
 
 
             btnGestionUsuarios.setOnAction(e-> controllerGestionUsuarios.mostrarGestionUsuarios());
