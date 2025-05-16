@@ -226,4 +226,10 @@ public class ControllerTransacciones implements Observador {
         view.txtSaldoPrincipal.setText("$" + String.format("%.2f", saldoTotal));
     }
 
+    public String actualizarSaldoInicio(){
+        double saldo = servicioCuenta.obtenerSaldo(usuarioActual);
+        String saldoTotal = String.format("%.2f", saldo);
+        return saldoTotal;
+    }
+
 }

@@ -1,10 +1,8 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
 import co.edu.uniquindio.poo.billeteravirtual.controllers.*;
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.CategoriaProducto;
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Producto;
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.*;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -82,21 +80,29 @@ public class ViewFuncionalidades {
     private ControllerDatos controllerDatos;
     private ControllerTransacciones controllerTransacciones;
     private TiendaController tiendaController;
+    private Usuario usuarioActual = Sesion.getInstancia().getUsuarioActual();
 
     @FXML
     public void initialize() {
         try {
-            controllerCuenta = new ControllerCuenta(this);;
+            controllerCuenta = new ControllerCuenta(this);
+            ;
             controllerDatos = new ControllerDatos(this);
             controllerTransacciones = new ControllerTransacciones(this);
             tiendaController = new TiendaController(this);
 
             controllerCuenta.inicializarCuentas();
             controllerCuenta.cargarCuentas();
-            controllerTransacciones.actualizarSaldo();
             tiendaController.cargarCategorias();
             tiendaController.cargarProductosPorCategoria();
             controllerTransacciones.cargarTransacciones();
+            
+            bienvenidaText.setText(bienvenidaText.getText() + usuarioActual.getNombre() + "!");
+            String saldo = controllerTransacciones.actualizarSaldoInicio();
+            txtSaldoPrincipal.setText(saldo);
+
+
+
 
             anchorPanePrincipal.setVisible(true);
             PanePrincipal.setVisible(true);

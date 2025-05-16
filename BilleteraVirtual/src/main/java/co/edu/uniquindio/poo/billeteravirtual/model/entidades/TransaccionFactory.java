@@ -30,6 +30,7 @@ public class TransaccionFactory {
                 break;
             case "COMPRA":
                 t.setEstrategia(new EstrategiaCompras(servicioCuenta));
+                break;
             default:
                 throw new IllegalArgumentException("Tipo de transacción no soportado.");
         }
