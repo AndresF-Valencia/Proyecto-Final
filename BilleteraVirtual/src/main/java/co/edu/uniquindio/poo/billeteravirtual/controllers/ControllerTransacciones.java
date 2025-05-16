@@ -3,6 +3,8 @@ package co.edu.uniquindio.poo.billeteravirtual.controllers;
 import co.edu.uniquindio.poo.billeteravirtual.model.decoradores.UsuarioConPresupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.*;
 import co.edu.uniquindio.poo.billeteravirtual.model.facade.TransaccionFacade;
+import co.edu.uniquindio.poo.billeteravirtual.model.observer.Observador;
+import co.edu.uniquindio.poo.billeteravirtual.model.observer.SujetoObservable;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioPresupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioTransaccion;
@@ -16,8 +18,9 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Observer;
 
-public class ControllerTransacciones {
+public class ControllerTransacciones implements Observador {
     public Usuario usuarioActual;
     public ServicioTransaccion servicioTransaccion;
     private final ViewFuncionalidades view;
@@ -32,6 +35,7 @@ public class ControllerTransacciones {
         this.usuarioActual = Sesion.getInstancia().getUsuarioActual();
         this.servicioPresupuesto = ServicioPresupuesto.getInstancia();
         TransaccionFactory.setServicioCuenta(servicioCuenta);
+        SujetoObservable.agregarObservador(this);
 
         this.transaccionFacade = new TransaccionFacade(servicioCuenta,servicioTransaccion,new TransaccionFactory());
     }
@@ -67,8 +71,8 @@ public class ControllerTransacciones {
             }
 
             transaccionFacade.procesarTransaccion(codigoGenerado, LocalDate.now(),"DEPOSITO", cantidad, "Metio dinero a su cuenta", cuentaOrigen, cuentaDestino.getNumeroCuenta());
-            System.out.println(cuentaDestino.getSaldo());
-            cargarTransacciones();
+            SujetoObservable.notificarObservadores();
+            SujetoObservable.notificarSaldo();
             Logger.getInstance().mostrarToast(view.rootPane, "Transaccion exitosa");
 
             // Limpia el campo
@@ -122,7 +126,8 @@ public class ControllerTransacciones {
         }
 
         transaccionFacade.procesarTransaccion(codigoGenerado,LocalDate.now(),"TRANSFERENCIA", cantidad,"Paso plata a " + cuentaDestino.getUsuario().getNombre(),cuentaOrigen.getNumeroCuenta(),cuentaDestino.getNumeroCuenta());
-        cargarTransacciones();
+        SujetoObservable.notificarObservadores();
+        SujetoObservable.notificarSaldo();
         Logger.getInstance().mostrarToast(view.rootPane, "Transaccion exitosa");
 
         // Limpiar campos
@@ -154,7 +159,8 @@ public class ControllerTransacciones {
 
 
             transaccionFacade.procesarTransaccion(codigoGenerado,LocalDate.now(),"RETIRO", cantidad,"Retiro dinero", cuentaOrigen.getNumeroCuenta(), cuentaDestino);
-            cargarTransacciones();
+            SujetoObservable.notificarObservadores();
+            SujetoObservable.notificarSaldo();
             String codigoRetiro = new GeneradorCodigo().generarCodigo();
 
             Logger.getInstance().mostrarToast(view.rootPane, "✅ Retiro exitoso. Código de retiro: " + codigoRetiro);
@@ -208,4 +214,16 @@ public class ControllerTransacciones {
     public void retirar(){
         cambiarVista("Sacar");
     }
+
+    @Override
+    public void actualizar() {
+        cargarTransacciones();
+    }
+
+    @Override
+    public void actualizarSaldo() {
+        double saldoTotal = servicioCuenta.obtenerSaldo(usuarioActual);
+        view.txtSaldoPrincipal.setText("$" + String.format("%.2f", saldoTotal));
+    }
+
 }

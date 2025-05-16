@@ -91,6 +91,7 @@ public class ViewFuncionalidades {
 
             controllerCuenta.inicializarCuentas();
             controllerCuenta.cargarCuentas();
+            controllerTransacciones.actualizarSaldo();
             tiendaController.cargarCategorias();
             tiendaController.cargarProductosPorCategoria();
             controllerTransacciones.cargarTransacciones();

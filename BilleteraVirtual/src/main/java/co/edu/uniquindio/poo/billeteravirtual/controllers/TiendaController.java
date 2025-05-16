@@ -3,6 +3,7 @@ package co.edu.uniquindio.poo.billeteravirtual.controllers;
 import co.edu.uniquindio.poo.billeteravirtual.model.decoradores.UsuarioConPresupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.*;
 import co.edu.uniquindio.poo.billeteravirtual.model.facade.TransaccionFacade;
+import co.edu.uniquindio.poo.billeteravirtual.model.observer.SujetoObservable;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioPresupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioProducto;
@@ -117,14 +118,15 @@ public class TiendaController {
         }
 
         if (decorado != null) {
-            if (mostrarErrorSi(!decorado.sePuedeRealizarTransaccion(monto, "COMPRA"), "❌ Excede el presupuesto de compra.")) {
+            if (mostrarErrorSi(!decorado.sePuedeRealizarTransaccion(monto, categoriaProducto.getNombre()), "❌ Excede el presupuesto de compra.")) {
                 return;
             }
-            decorado.registrarGasto(monto, "COMPRA");
+            decorado.registrarGasto(monto, categoriaProducto.getNombre());
         }
 
         transaccionFacade.procesarTransaccion(codigoGenerado, LocalDate.now(), "COMPRA", monto, "Compra exitosa de " + producto.getNombre(), cuentaOrigen.getNumeroCuenta(), Transaccion.CUENTAEXTERNA);
-
+        SujetoObservable.notificarObservadores();
+        SujetoObservable.notificarSaldo();
         Logger.getInstance().mostrarToast(view.rootPane, "Transacción exitosa");
 
         // Limpiar campos

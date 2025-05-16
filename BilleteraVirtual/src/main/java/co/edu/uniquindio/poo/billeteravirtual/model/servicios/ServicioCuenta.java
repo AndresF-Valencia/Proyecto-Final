@@ -51,6 +51,15 @@ public class ServicioCuenta {
         return null;
     }
 
+    public double obtenerSaldo(Usuario usuario) {
+        List<Cuenta> cuentas = obtenerCuentasDe(usuario);
+        double total = 0;
+        for (Cuenta cuenta : cuentas) {
+            total += cuenta.getSaldo1();
+        }
+        return total;
+    }
+
     public List<Cuenta> getCuentas() {
         return cuentas;
     }
