@@ -5,6 +5,7 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootPane" prefHeight="700.0" prefWidth="1300.0" stylesheets="@estilos2.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidadesAdmin">
+<AnchorPane fx:id="rootPane" prefHeight="700.0" prefWidth="1300.0" stylesheets="@estilos2.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidadesAdmin">
     <children>
         <!-- Panel lateral -->
         <AnchorPane prefHeight="700.0" prefWidth="300.0" style="-fx-background-color: #000000;">
@@ -42,6 +43,51 @@
                            <Font name="System Bold" size="30.0" />
                         </font>
                      </Text>
+         
+                                  <!-- Tabla de Cuentas -->
+                         <AnchorPane fx:id="paneCuentas" layoutX="5.0" layoutY="5.0" prefHeight="600.0" prefWidth="900.0">
+                        <Pane fx:id="paneGestionCuentas" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                                   <TableView fx:id="tablaCuentas" prefHeight="500.0" prefWidth="900.0">
+                                       <columns>
+                                           <TableColumn fx:id="colIdCuenta" prefWidth="169.5999755859375" text="ID Cuenta" />
+                                           <TableColumn fx:id="colNumeroCuenta" prefWidth="198.39990234375" text="Nro Cuenta" />
+                                           <TableColumn fx:id="colTipoCuenta" prefWidth="142.40008544921875" text="Tipo" />
+                                           <TableColumn fx:id="colBanco" prefWidth="212.0001220703125" text="Banco" />
+                                           <TableColumn fx:id="colSaldo" prefWidth="182.39990234375" text="Saldo" />
+                                       </columns>
+                                   </TableView>
+                                   <Button fx:id="btnEliminarCuenta" layoutX="356.0" layoutY="518.0" text="Eliminar Cuenta" />
+                              <Button fx:id="btnActualizarCuenta" layoutX="179.0" layoutY="518.0" text="Actualizar Cuenta" />
+                              <Button fx:id="btnAgregarCuenta" layoutX="27.0" layoutY="518.0" text="Agrega Cuenta" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="paneAgregarCuenta" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Text layoutX="255.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AgregarCuentaBancaria">
+                                 <font>
+                                    <Font name="System Bold" size="35.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="txtBanco" layoutX="259.0" layoutY="160.0" prefHeight="27.0" prefWidth="400.0" />
+                              <TextField fx:id="txtNumeroCuenta" layoutX="259.0" layoutY="216.0" prefHeight="27.0" prefWidth="400.0" />
+                              <ComboBox fx:id="comboTipoCuenta" layoutX="259.0" layoutY="281.0" prefHeight="37.0" prefWidth="400.0" />
+                              <Text layoutX="259.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Banco:" />
+                              <Text layoutX="255.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero De la Cuenta:" />
+                              <Text layoutX="259.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de Cuenta" />
+                              <Button fx:id="btnRegistrarCuenta" layoutX="321.0" layoutY="362.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="RegistrarCuenta" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="paneActualizarCuenta" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <ComboBox fx:id="comboActualizarTipoCuenta" layoutX="26.0" layoutY="106.0" prefHeight="37.0" prefWidth="376.0" promptText="Seleccione el tipo de cuenta" />
+                              <Button fx:id="btnActualizarCuenta1" layoutX="346.0" layoutY="480.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="260.0" text="Actualizar" />
+                              <Text layoutX="26.0" layoutY="102.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo cuenta" />
+                              <ComboBox fx:id="comboSeleccionCuenta" layoutX="26.0" layoutY="44.0" prefHeight="37.0" prefWidth="376.0" promptText="Seleccione su cuenta" />
+                              <Text layoutX="26.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cuenta" />
+                           </children>
+                        </Pane>
+                         </AnchorPane>
                   </children>
                </Pane>
                <Pane fx:id="paneActualizar" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -68,7 +114,7 @@
                           </TableView>
                   </children>
                </Pane>
-               <Pane fx:id="paneCrearUsuario" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+               <Pane fx:id="paneCrearUsuario" disable="true" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="900.0" visible="false">
                   <children>
                      <TextField fx:id="txtNombreNuevo1" layoutX="39.0" layoutY="30.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su nombre" />
                      <TextField fx:id="txtCorreoNuevo1" layoutX="39.0" layoutY="75.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su correo" />
@@ -82,51 +128,27 @@
                </Pane>
                 </AnchorPane>
 
-                <!-- Tabla de Cuentas -->
-                <AnchorPane fx:id="paneCuentas" layoutX="50.0" layoutY="30.0" prefHeight="600.0" prefWidth="900.0">
-                    <TableView fx:id="tablaCuentas" prefHeight="500.0" prefWidth="900.0">
-                        <columns>
-                            <TableColumn fx:id="colIdCuenta" prefWidth="169.5999755859375" text="ID Cuenta" />
-                            <TableColumn fx:id="colNumeroCuenta" prefWidth="198.39990234375" text="Nro Cuenta" />
-                            <TableColumn fx:id="colTipoCuenta" prefWidth="142.40008544921875" text="Tipo" />
-                            <TableColumn fx:id="colBanco" prefWidth="212.0001220703125" text="Banco" />
-                            <TableColumn fx:id="colSaldo" prefWidth="182.39990234375" text="Saldo" />
-                        </columns>
-                    </TableView>
-                    <Button fx:id="btnEliminarCuenta" layoutX="735.0" layoutY="518.0" text="Eliminar Cuenta" />
-               <Button fx:id="btnActualizarCuenta" layoutX="554.0" layoutY="518.0" text="Actualizar Cuenta" />
-               <Button fx:id="btnAgregarCuenta" layoutX="384.0" layoutY="518.0" text="Agrega Cuenta" />
-                </AnchorPane>
-
-                <!-- Tabla de Transacciones -->
-                <AnchorPane fx:id="paneTransacciones" layoutX="50.0" layoutY="30.0" prefHeight="600.0" prefWidth="900.0" visible="false">
-                    <TableView fx:id="tablaTransacciones" layoutX="0.0" layoutY="50.0" prefHeight="500.0" prefWidth="900.0">
-                        <columns>
-                            <TableColumn fx:id="colIdTransaccion" text="ID" />
-                            <TableColumn fx:id="colFecha" text="Fecha" />
-                            <TableColumn fx:id="colTipo" text="Tipo" />
-                            <TableColumn fx:id="colMonto" text="Monto" />
-                            <TableColumn fx:id="colDescripcion" text="Descripción" />
-                        </columns>
-                    </TableView>
-                    <Button fx:id="btnEliminarTransaccion" layoutX="700.0" layoutY="560.0" text="Eliminar Transacción" />
-                </AnchorPane>
-
                 <!-- Gráficas de Estadísticas -->
-                <AnchorPane fx:id="paneEstadisticas" layoutX="50.0" layoutY="30.0" prefHeight="600.0" prefWidth="900.0" visible="false">
-                    <Text layoutX="350.0" layoutY="20.0" text="Estadísticas Generales">
-                        <font><Font name="System Bold" size="20.0" /></font>
-                    </Text>
-                    <PieChart fx:id="graficoGastosComunes" layoutX="0.0" layoutY="40.0" prefHeight="300.0" prefWidth="400.0" />
-                    <BarChart fx:id="graficoUsuariosTransacciones" layoutX="450.0" layoutY="40.0" prefHeight="300.0" prefWidth="400.0">
-                        <xAxis>
-                            <CategoryAxis label="Usuarios" />
-                        </xAxis>
-                        <yAxis>
-                            <NumberAxis label="Nro Transacciones" />
-                        </yAxis>
-                    </BarChart>
-                    <Text fx:id="labelSaldoPromedio" layoutX="300.0" layoutY="380.0" text="Saldo promedio: $0.0" />
+                <AnchorPane fx:id="AnchorpaneEstadisticas" layoutX="50.0" layoutY="30.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+               <Pane fx:id="paneStats" layoutX="14.0" layoutY="24.0" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="-24.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="-14.0" AnchorPane.topAnchor="24.0">
+                  <children>
+                          <PieChart fx:id="graficoGastosComunes" layoutX="183.0" layoutY="308.0" prefHeight="259.0" prefWidth="547.0" />
+                          <BarChart fx:id="graficoUsuariosTransacciones" layoutX="15.0" layoutY="80.0" prefHeight="229.0" prefWidth="833.0">
+                              <xAxis>
+                                  <CategoryAxis label="Usuarios" />
+                              </xAxis>
+                              <yAxis>
+                                  <NumberAxis label="Nro Transacciones" />
+                              </yAxis>
+                          </BarChart>
+                          <Text layoutX="10.0" layoutY="72.0" text="Estadísticas Generales">
+                              <font>
+                           <Font name="System Bold" size="20.0" />
+                        </font>
+                          </Text>
+                          <Text fx:id="labelSaldoPromedio" layoutX="32.0" layoutY="313.0" text="Saldo promedio: $0.0" />
+                  </children>
+               </Pane>
                 </AnchorPane>
 
             </children>

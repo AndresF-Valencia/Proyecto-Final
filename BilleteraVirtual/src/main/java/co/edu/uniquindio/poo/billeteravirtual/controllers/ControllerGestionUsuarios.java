@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioUsuario;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidadesAdmin;
@@ -11,11 +12,13 @@ public class ControllerGestionUsuarios {
 
     private final ViewFuncionalidadesAdmin view;
     private final ServicioUsuario servicioUsuario;
+    private final ServicioCuenta servicioCuenta;
     private ObservableList<Usuario> listaUsuarios;
 
     public ControllerGestionUsuarios(ViewFuncionalidadesAdmin viewFuncionalidadesAdmin) {
         this.view = viewFuncionalidadesAdmin;
         this.servicioUsuario = ServicioUsuario.getInstancia();
+        this.servicioCuenta = ServicioCuenta.getInstancia();
         this.listaUsuarios = FXCollections.observableArrayList();
     }
 
@@ -27,6 +30,7 @@ public class ControllerGestionUsuarios {
         view.paneTransacciones.setVisible(vistaActiva.equals("Transacciones"));
         view.paneEstadisticas.setVisible(vistaActiva.equals("Estadisticas"));
         view.paneActualizar.setVisible(vistaActiva.equals("Actualizar Usuario"));
+        view.paneActualizarUsuario.setVisible(vistaActiva.equals("Actualizar Usuario"));
     }
 
     public void mostrarGestionUsuarios() {

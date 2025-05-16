@@ -1,6 +1,8 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
+import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerCuentaAdmin;
 import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerGestionUsuarios;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
 import javafx.fxml.FXML;
@@ -17,28 +19,28 @@ public class ViewFuncionalidadesAdmin {
 
 
     @FXML
-    private AnchorPane AnchorpaneUsuarios;
+    public AnchorPane AnchorpaneUsuarios;
 
     @FXML
-    private Button btnAceptarActualizarUsuario;
+    public Button btnAceptarActualizarUsuario;
 
     @FXML
-    private Button btnActualizarUsuario;
+    public Button btnActualizarUsuario;
 
     @FXML
     public Button btnCerrarSesion;
 
     @FXML
-    private Button btnCrearUsuario;
+    public Button btnCrearUsuario;
 
     @FXML
-    private Button btnEliminarCuenta;
+    public Button btnEliminarCuenta;
 
     @FXML
-    private Button btnEliminarTransaccion;
+    public Button btnEliminarTransaccion;
 
     @FXML
-    private Button btnEliminarUsuario;
+    public Button btnEliminarUsuario;
 
     @FXML
     public Button btnEstadisticas;
@@ -56,13 +58,13 @@ public class ViewFuncionalidadesAdmin {
     public Button btnGestionUsuarios;
 
     @FXML
-    private Button btnRegresarCrearUsuario;
+    public Button btnRegresarCrearUsuario;
 
     @FXML
-    private Button btnRegresarCrearUsuario1;
+    public Button btnRegresarCrearUsuario1;
 
     @FXML
-    private TableColumn<?, ?> colBanco;
+    public TableColumn<Cuenta, String>  colBanco;
 
     @FXML
     public TableColumn<Usuario, String> colCedula;
@@ -71,43 +73,43 @@ public class ViewFuncionalidadesAdmin {
     public TableColumn<Usuario, String> colCorreo;
 
     @FXML
-    public TableColumn<?, ?> colDescripcion;
+    public TableColumn<Transaccion, String> colDescripcion;
 
     @FXML
-    public TableColumn<?, ?> colFecha;
+    public TableColumn<Transaccion, String>colFecha;
 
     @FXML
-    public TableColumn<?, ?> colIdCuenta;
+    public TableColumn<Cuenta, String> colIdCuenta;
 
     @FXML
-    public TableColumn<?, ?> colIdTransaccion;
+    public TableColumn<Transaccion, String> colIdTransaccion;
 
     @FXML
-    public TableColumn<?, ?> colMonto;
+    public TableColumn<Transaccion, String>colMonto;
 
     @FXML
     public TableColumn<Usuario, String>  colNombre;
 
     @FXML
-    public TableColumn<?, ?> colNumeroCuenta;
+    public TableColumn<Cuenta, String> colNumeroCuenta;
 
     @FXML
-    public TableColumn<?, ?> colSaldo;
+    public TableColumn<Cuenta, String>  colSaldo;
 
     @FXML
     public TableColumn<Usuario, String>  colTelefono;
 
     @FXML
-    public TableColumn<?, ?> colTipo;
+    public TableColumn<Transaccion, String> colTipo;
 
     @FXML
-    public TableColumn<?, ?> colTipoCuenta;
+    public TableColumn<Cuenta, String> colTipoCuenta;
 
     @FXML
     public PieChart graficoGastosComunes;
 
     @FXML
-    public BarChart<?, ?> graficoUsuariosTransacciones;
+    public BarChart<Transaccion, String> graficoUsuariosTransacciones;
 
     @FXML
     public Text labelSaldoPromedio;
@@ -119,6 +121,9 @@ public class ViewFuncionalidadesAdmin {
     public AnchorPane paneEstadisticas;
 
     @FXML
+    public  Pane paneStats;
+
+    @FXML
     public AnchorPane paneTransacciones;
 
     @FXML
@@ -128,10 +133,7 @@ public class ViewFuncionalidadesAdmin {
     public AnchorPane rootPane;
 
     @FXML
-    public TableView<?> tablaCuentas;
-
-    @FXML
-    public TableView<?> tablaTransacciones;
+    public TableView<Cuenta> tablaCuentas;
 
     @FXML
     public TableView<Usuario> tablaUsuarios;
@@ -179,40 +181,33 @@ public class ViewFuncionalidadesAdmin {
     public AnchorPane AnchorpaneEstadisticas;
 
     @FXML
-    public Pane PaneTransacciones;
-
-    @FXML
-    public AnchorPane anchorpaneTransacciones;
-
-    @FXML
     public Button btnActualizarCuenta;
 
     @FXML
     public Button btnAgregarCuenta;
 
     @FXML
-    public Button btnCrearTransaccion;
+    public Button btnActualizarCuenta1;
 
-    @FXML
-    public Button btnPasarTransaccion;
 
     @FXML
     public Button btnRegistrarCuenta;
 
     @FXML
-    public Button btnRegresarTransaccion;
+    public ComboBox<Cuenta> comboActualizarTipoCuenta;
+
 
     @FXML
-    public ComboBox<?> comboActualizarTipoCuenta;
+    public ComboBox<Cuenta> comboTipoCuenta;
 
     @FXML
-    public ComboBox<?> comboCuentaTransaccion;
-
-    @FXML
-    public ComboBox<?> comboTipoCuenta;
+    public ComboBox<Cuenta> comboSeleccionCuenta;
 
     @FXML
     public Pane paneActualizarCuenta;
+
+    @FXML
+    public AnchorPane transacciones;
 
     @FXML
     public Pane paneAgregarCuenta;
@@ -236,25 +231,39 @@ public class ViewFuncionalidadesAdmin {
     public TextField txtNumeroDestino;
 
     private ControllerGestionUsuarios controllerGestionUsuarios;
+    private ControllerCuentaAdmin controllerCuentaAdmin;
 
     @FXML
     public void initialize(){
         try {
             controllerGestionUsuarios = new ControllerGestionUsuarios(this);
+            ControllerCuentaAdmin controllerCuentaAdmin = new ControllerCuentaAdmin(this);
+
+            controllerGestionUsuarios.cargarUsuarios();
+            controllerCuentaAdmin.cargarCuentasTabla();
+            controllerCuentaAdmin.cargarComboCuentas();
+
             colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             colCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
             colCedula.setCellValueFactory(new PropertyValueFactory<>("cedula"));
             colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
 
+            colIdCuenta.setCellValueFactory(new PropertyValueFactory<>("idCuenta"));
+            colNumeroCuenta.setCellValueFactory(new PropertyValueFactory<>("numeroCuenta"));
+            colTipoCuenta.setCellValueFactory(new PropertyValueFactory<>("tipoCuenta"));
+            colBanco.setCellValueFactory(new PropertyValueFactory<>("banco"));
+            colSaldo.setCellValueFactory(new PropertyValueFactory<>("saldo"));
+
             paneBienvenida.setVisible(true);
             paneUsuarios.setVisible(false);
             paneCrearUsuario.setVisible(false);
             paneCuentas.setVisible(false);
-            paneTransacciones.setVisible(false);
-            paneEstadisticas.setVisible(false);
+            paneStats.setVisible(false);
             paneActualizar.setVisible(false);
+            paneAgregarCuenta.setVisible(false);
+            paneActualizarCuenta.setVisible(false);
+            paneCrearTransaccion.setVisible(false);
 
-            controllerGestionUsuarios.cargarUsuarios();
 
             btnGestionUsuarios.setOnAction(e-> controllerGestionUsuarios.mostrarGestionUsuarios());
             btnCrearUsuario.setOnAction(e-> controllerGestionUsuarios.mostrarCrearUsuario());
@@ -265,11 +274,19 @@ public class ViewFuncionalidadesAdmin {
             btnRegresarCrearUsuario.setOnAction(e-> controllerGestionUsuarios.regresar());
             btnEliminarUsuario.setOnAction(e-> controllerGestionUsuarios.eliminarUsuario());
 
+
+            btnGestionCuentas.setOnAction(e-> controllerCuentaAdmin.mostrarCuenta());
+            btnAgregarCuenta.setOnAction(e-> controllerCuentaAdmin.crearCuenta());
+            btnActualizarCuenta.setOnAction(e-> controllerCuentaAdmin.actualizarCuenta());
+            btnEliminarCuenta.setOnAction(e-> controllerCuentaAdmin.eliminarCuenta());
+            btnActualizarCuenta1.setOnAction(e-> controllerCuentaAdmin.actualizarTipoCuenta());
+            btnRegistrarCuenta.setOnAction(e-> controllerCuentaAdmin.registrarCuenta());
+
+
     } catch (Exception e) {
         e.printStackTrace();
     }
 }
-
-    }
+}
 
 
