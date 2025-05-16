@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 public class ViewFuncionalidades {
@@ -75,6 +76,7 @@ public class ViewFuncionalidades {
 
     @FXML
     public Pane PaneEliminarPresupuesto,camposInformacion,PaneEstadoPresupuesto,PaneCrearPresupuesto, paneEditarInformacion, PaneMeterDinero , PaneSacarDinero, panePasarDinero, PaneTienda, PanePrincipal, PaneVerMas,PaneActualizarPresupuesto;
+    public Circle circle;
 
     private ControllerCuenta controllerCuenta;
     private ControllerDatos controllerDatos;
