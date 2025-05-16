@@ -141,6 +141,24 @@ public class ControllerUsuario {
         }
     }
 
+    public void cambiarEscenaAdmin(Stage stage, String rutaFXML) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(rutaFXML));
+            Parent root = loader.load();
+            FadeTransition fadeIn = new FadeTransition(Duration.millis(500), root);
+            fadeIn.setFromValue(0);
+            fadeIn.setToValue(1);
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            fadeIn.play();
+        } catch (IOException e) {
+            Logger.getInstance().mostrarToast(view.rootPane, "Cedula y/o clave incorrecta");
+        }
+    }
+
     public void iniciarDatos(){
         if (!servicioUsuario.verificarExistenciaUsuario("1028")) {
             Usuario usuario = new Usuario.UsuarioBuilder()
@@ -159,6 +177,17 @@ public class ControllerUsuario {
                     .PalabraClave("marcelo")
                     .ClaveAcceso("1234")
                     .build();
+            Admin admin = (Admin) new Admin.AdminBuilder()
+                    .Nombre("admin")
+                    .Cedula("123")
+                    .Telefono("40029592")
+                    .Correo("admin@gmail.com")
+                    .PalabraClave("admin")
+                    .ClaveAcceso("123")
+                    .build();
+
+            servicioUsuario.getUsuariosRegistrados().add(admin);
+
             servicioUsuario.getUsuariosRegistrados().add(usuario);
             servicioUsuario.getUsuariosRegistrados().add(usuario1);
         }

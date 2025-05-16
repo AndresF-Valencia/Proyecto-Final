@@ -51,8 +51,7 @@ public class ServicioUsuario {
 
     // Eliminar un usuario
     public void eliminarUsuario(String cedula) {
-
-        System.out.println("Usuario eliminado exitosamente.");
+        usuariosRegistrados.removeIf(u -> u.getCedula().equals(cedula));
     }
 
 
@@ -88,6 +87,7 @@ public class ServicioUsuario {
         }
         return instance;
     }
+
     public List<Usuario> getUsuariosRegistrados() {
         return usuariosRegistrados;
     }
