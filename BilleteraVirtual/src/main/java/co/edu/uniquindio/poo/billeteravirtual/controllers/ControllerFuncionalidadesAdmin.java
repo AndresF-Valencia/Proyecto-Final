@@ -26,7 +26,6 @@ public class ControllerFuncionalidadesAdmin {
     private void inicializarEventos() {
         view.btnGestionUsuarios.setOnAction(e -> mostrarUsuarios());
         view.btnGestionCuentas.setOnAction(e -> mostrarCuentas());
-        view.btnGestionTransacciones.setOnAction(e -> mostrarTransacciones());
         view.btnEstadisticas.setOnAction(e -> mostrarEstadisticas());
         view.btnCerrarSesion.setOnAction(e -> cerrarSesion());
     }
@@ -43,15 +42,9 @@ public class ControllerFuncionalidadesAdmin {
         // Cargar cuentas en la tabla
     }
 
-    private void mostrarTransacciones() {
-        ocultarTodosLosPanes();
-        view.paneTransacciones.setVisible(true);
-        // Cargar transacciones en la tabla
-    }
-
     private void mostrarEstadisticas() {
         ocultarTodosLosPanes();
-        view.paneEstadisticas.setVisible(true);
+        view.paneStats.setVisible(true);
         // Llenar gráficos y estadística
     }
 
@@ -63,8 +56,7 @@ public class ControllerFuncionalidadesAdmin {
     private void ocultarTodosLosPanes() {
         view.paneUsuarios.setVisible(false);
         view.paneCuentas.setVisible(false);
-        view.paneTransacciones.setVisible(false);
-        view.paneEstadisticas.setVisible(false);
+        view.paneStats.setVisible(false);
     }
 }
 

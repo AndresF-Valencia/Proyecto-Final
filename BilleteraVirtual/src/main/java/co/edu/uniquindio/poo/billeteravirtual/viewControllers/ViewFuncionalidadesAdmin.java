@@ -1,12 +1,16 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
 import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerCuentaAdmin;
+import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerEstadisticas;
 import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerGestionUsuarios;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.GestorUsuarios;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -109,7 +113,7 @@ public class ViewFuncionalidadesAdmin {
     public PieChart graficoGastosComunes;
 
     @FXML
-    public BarChart<Transaccion, String> graficoUsuariosTransacciones;
+    public BarChart<String, Number> graficoUsuariosTransacciones;
 
     @FXML
     public Text labelSaldoPromedio;
@@ -118,13 +122,10 @@ public class ViewFuncionalidadesAdmin {
     public AnchorPane paneCuentas;
 
     @FXML
-    public AnchorPane paneEstadisticas;
+    public AnchorPane AnchorpaneEstadisticas;
 
     @FXML
-    public  Pane paneStats;
-
-    @FXML
-    public AnchorPane paneTransacciones;
+    public Pane paneStats;
 
     @FXML
     public Pane paneUsuarios;
@@ -169,88 +170,62 @@ public class ViewFuncionalidadesAdmin {
     public Pane paneCrearUsuario;
 
     @FXML
-    public Pane paneActualizarUsuario;
-
-    @FXML
     public Pane paneBienvenida;
 
     @FXML
     public Pane paneActualizar;
 
     @FXML
-    public AnchorPane AnchorpaneEstadisticas;
-
-    @FXML
-    public Button btnActualizarCuenta;
-
-    @FXML
     public Button btnAgregarCuenta;
 
     @FXML
-    public Button btnActualizarCuenta1;
+    public Button btnRegresarCuenta;
 
+    @FXML
+    public Button btnActualizarCuenta1;
 
     @FXML
     public Button btnRegistrarCuenta;
 
     @FXML
-    public ComboBox<Cuenta> comboActualizarTipoCuenta;
-
+    public Text labelBienvenida;
 
     @FXML
-    public ComboBox<Cuenta> comboTipoCuenta;
+    public ComboBox<String> comboTipoCuenta;
 
     @FXML
     public ComboBox<Cuenta> comboSeleccionCuenta;
 
     @FXML
-    public Pane paneActualizarCuenta;
+    public Pane paneAgregarCuenta, paneGestionCuentas;
 
     @FXML
-    public AnchorPane transacciones;
-
-    @FXML
-    public Pane paneAgregarCuenta;
-
-    @FXML
-    public Pane paneCrearTransaccion;
-
-    @FXML
-    public Pane paneGestionCuentas;
-
-    @FXML
-    public TextField txtBanco;
-
-    @FXML
-    public TextField txtCantidad;
-
-    @FXML
-    public TextField txtNumeroCuenta;
-
-    @FXML
-    public TextField txtNumeroDestino;
+    public TextField txtBanco, txtCantidad, txtNumeroCuenta,txtNumeroDestino;
 
     private ControllerGestionUsuarios controllerGestionUsuarios;
     private ControllerCuentaAdmin controllerCuentaAdmin;
+    private ControllerEstadisticas controllerEstadisticas;
 
     @FXML
     public void initialize(){
         try {
             controllerGestionUsuarios = new ControllerGestionUsuarios(this);
             controllerCuentaAdmin = new ControllerCuentaAdmin(this);
+            controllerEstadisticas = new ControllerEstadisticas(this);
+
 
             controllerGestionUsuarios.cargarUsuarios();
             controllerCuentaAdmin.cargarCuentasTabla();
-            controllerCuentaAdmin.cargarComboCuentas();
+            controllerEstadisticas.cargarEstadisticas();
 
             paneBienvenida.setVisible(true);
             paneUsuarios.setVisible(false);
             paneCrearUsuario.setVisible(false);
+            paneGestionCuentas.setVisible(false);
             paneCuentas.setVisible(false);
             paneStats.setVisible(false);
             paneActualizar.setVisible(false);
             paneAgregarCuenta.setVisible(false);
-            paneActualizarCuenta.setVisible(false);
 
             colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             colCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
@@ -260,8 +235,23 @@ public class ViewFuncionalidadesAdmin {
             colIdCuenta.setCellValueFactory(new PropertyValueFactory<>("idCuenta"));
             colNumeroCuenta.setCellValueFactory(new PropertyValueFactory<>("numeroCuenta"));
             colTipoCuenta.setCellValueFactory(new PropertyValueFactory<>("tipoCuenta"));
-            colBanco.setCellValueFactory(new PropertyValueFactory<>("banco"));
+            colBanco.setCellValueFactory(new PropertyValueFactory<>("bancoCuenta"));
             colSaldo.setCellValueFactory(new PropertyValueFactory<>("saldo"));
+
+            // Configurar el gráfico de barras
+            CategoryAxis ejeX = (CategoryAxis) graficoUsuariosTransacciones.getXAxis();
+            NumberAxis ejeY = (NumberAxis) graficoUsuariosTransacciones.getYAxis();
+
+            ejeX.setLabel("Usuarios");
+            ejeY.setLabel("Cantidad de Transacciones");
+
+            graficoUsuariosTransacciones.setTitle("Transacciones por Usuario");
+            graficoUsuariosTransacciones.setLegendVisible(false);
+
+            // Configurar el gráfico de pastel
+            graficoGastosComunes.setTitle("Gastos por Categoría");
+            graficoGastosComunes.setLegendVisible(true);
+            graficoGastosComunes.setLabelsVisible(true);
 
 
 
@@ -278,10 +268,11 @@ public class ViewFuncionalidadesAdmin {
 
             btnGestionCuentas.setOnAction(e-> controllerCuentaAdmin.mostrarCuenta());
             btnAgregarCuenta.setOnAction(e-> controllerCuentaAdmin.crearCuenta());
-            btnActualizarCuenta.setOnAction(e-> controllerCuentaAdmin.actualizarCuenta());
+            btnRegresarCuenta.setOnAction(e-> controllerCuentaAdmin.mostrarCuenta());
             btnEliminarCuenta.setOnAction(e-> controllerCuentaAdmin.eliminarCuenta());
-            btnActualizarCuenta1.setOnAction(e-> controllerCuentaAdmin.actualizarTipoCuenta());
             btnRegistrarCuenta.setOnAction(e-> controllerCuentaAdmin.registrarCuenta());
+
+            btnEstadisticas.setOnAction(e-> controllerEstadisticas.mostrarEstadisticas());
 
 
     } catch (Exception e) {

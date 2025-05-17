@@ -7,6 +7,8 @@ import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioUsuario;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidadesAdmin;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.List;
 
@@ -27,27 +29,31 @@ public class ControllerCuentaAdmin {
     public void cambiarVistaCuenta(String vistaActiva) {
         view.paneGestionCuentas.setVisible(vistaActiva.equals("Gestion Cuentas"));
         view.paneAgregarCuenta.setVisible(vistaActiva.equals("Agregar Cuenta"));
-        view.paneActualizarCuenta.setVisible(vistaActiva.equals("Actualizar Cuenta"));
 
     }
     // Carga todas las cuentas en la tabla
     public void cargarCuentasTabla() {
         List<Cuenta> cuentas = servicioCuenta.getCuentas();
-        view.tablaCuentas.getItems().setAll(cuentas);
+        ObservableList<Cuenta> observableCuentas = FXCollections.observableArrayList(cuentas);
+        view.tablaCuentas.setItems(observableCuentas);
+        view.tablaCuentas.refresh(); // Fuerza el refresco
     }
 
+    public void cargarComboCuentas() {
+        ObservableList<String> tipos = FXCollections.observableArrayList("Ahorros", "Corriente");
+        view.comboTipoCuenta.setItems(tipos);
+    }
 
     public void mostrarCuenta() {
+        view.paneCuentas.setVisible(true);
         cambiarVistaCuenta("Gestion Cuentas");
     }
 
     public void crearCuenta() {
         cambiarVistaCuenta("Agregar Cuenta");
+        view.labelBienvenida.setVisible(false);
     }
 
-    public void actualizarCuenta() {
-        cambiarVistaCuenta("Actualizar Cuenta");
-    }
 
     // Elimina una cuenta seleccionada de la tabla
     public void eliminarCuenta() {
@@ -90,28 +96,7 @@ public class ControllerCuentaAdmin {
 
         servicioCuenta.registrarCuenta(numeroCuenta, tipoCuenta, bancoCuenta, usuarioActual);
         Logger.getInstance().mostrarToast(view.rootPane, "✅ Cuenta registrada con éxito");
-    }
-
-
-    // Actualiza el tipo de una cuenta seleccionada
-    public void actualizarTipoCuenta() {
-        Cuenta cuenta = view.comboSeleccionCuenta.getValue();
-        String nuevoTipo = String.valueOf(view.comboActualizarTipoCuenta.getValue());
-
-        if (cuenta == null || nuevoTipo == null) {
-            Logger.getInstance().mostrarToast(view.paneCuentas, "❌ Seleccione una cuenta y un tipo");
-            return;
-        }
-
-        cuenta.setTipoCuenta(nuevoTipo);
-        Logger.getInstance().mostrarToast(view.paneCuentas, "✅ Tipo de cuenta actualizado");
         cargarCuentasTabla();
-    }
-
-    // Carga las cuentas al ComboBox del paneActualizarCuenta
-    public void cargarComboCuentas() {
-        List<Cuenta> cuentas = servicioCuenta.getCuentas();
-        view.comboSeleccionCuenta.getItems().setAll(cuentas);
     }
 
     private void limpiarCamposAgregarCuenta() {

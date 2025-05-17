@@ -27,10 +27,8 @@ public class ControllerGestionUsuarios {
         view.paneUsuarios.setVisible(vistaActiva.equals("Gestion Usuarios"));
         view.paneCrearUsuario.setVisible(vistaActiva.equals("Crear Usuario"));
         view.paneCuentas.setVisible(vistaActiva.equals("Cuentas"));
-        view.paneTransacciones.setVisible(vistaActiva.equals("Transacciones"));
-        view.paneEstadisticas.setVisible(vistaActiva.equals("Estadisticas"));
-        view.paneActualizar.setVisible(vistaActiva.equals("Actualizar Usuario"));
-        view.paneActualizarUsuario.setVisible(vistaActiva.equals("Actualizar Usuario"));
+        view.paneStats.setVisible(vistaActiva.equals("Estadisticas"));
+        view.paneActualizar.setVisible(vistaActiva.equals("Actualizar Usuario"));;
     }
 
     public void mostrarGestionUsuarios() {
