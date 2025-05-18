@@ -26,11 +26,19 @@ public class ControllerCuentaAdmin {
         cargarComboCuentas();
     }
 
-    public void cambiarVistaCuenta(String vistaActiva) {
-        view.paneGestionCuentas.setVisible(vistaActiva.equals("Gestion Cuentas"));
+    public void cambiarVista(String vistaActiva) {
+        view.paneBienvenida.setVisible(vistaActiva.equals("Bienvenida"));
+        view.paneUsuarios.setVisible(vistaActiva.equals("Gestion Usuarios"));
+        view.paneCrearUsuario.setVisible(vistaActiva.equals("Crear Usuario"));
+        view.paneStats.setVisible(vistaActiva.equals("Estadisticas"));
+        view.paneActualizar.setVisible(vistaActiva.equals("Actualizar Usuario"));;
         view.paneAgregarCuenta.setVisible(vistaActiva.equals("Agregar Cuenta"));
-
+        view.paneTransacciones.setVisible(vistaActiva.equals("Transacciones"));
+        view.AnchorpaneEstadisticas.setVisible(vistaActiva.equals("Estadisticas"));
+        view.anchorPaneTransacciones.setVisible(vistaActiva.equals("Transacciones"));
+        view.paneGestionCuentas.setVisible(vistaActiva.equals("Gestion Cuentas"));
     }
+
     // Carga todas las cuentas en la tabla
     public void cargarCuentasTabla() {
         List<Cuenta> cuentas = servicioCuenta.getCuentas();
@@ -46,11 +54,11 @@ public class ControllerCuentaAdmin {
 
     public void mostrarCuenta() {
         view.paneCuentas.setVisible(true);
-        cambiarVistaCuenta("Gestion Cuentas");
+        cambiarVista("Gestion Cuentas");
     }
 
     public void crearCuenta() {
-        cambiarVistaCuenta("Agregar Cuenta");
+        cambiarVista("Agregar Cuenta");
         view.labelBienvenida.setVisible(false);
     }
 

@@ -34,51 +34,53 @@
         <AnchorPane layoutX="300.0" prefHeight="700.0" prefWidth="1000.0">
             <children>
 
+                <!-- Gráficas de Estadísticas -->
+                <AnchorPane fx:id="AnchorpaneEstadisticas" layoutX="50.0" layoutY="30.0" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <Pane fx:id="paneStats" layoutX="14.0" layoutY="24.0" prefHeight="700.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                          <Text fx:id="labelSaldoPromedio" layoutX="31.0" layoutY="368.0" text="Saldo promedio: $0.0" />
+                          <Text layoutX="14.0" layoutY="36.0" text="Estadísticas Generales">
+                              <font>
+                           <Font name="System Bold" size="20.0" />
+                        </font>
+                          </Text>
+                          <PieChart fx:id="graficoGastosComunes" labelLineLength="2.0" layoutX="183.0" layoutY="337.0" prefHeight="230.0" prefWidth="547.0" style="-fx-background-color: white;" />
+                          <BarChart fx:id="graficoUsuariosTransacciones" alternativeColumnFillVisible="true" animated="false" barGap="2.0" categoryGap="2.0" layoutX="15.0" layoutY="44.0" legendSide="TOP" prefHeight="288.0" prefWidth="833.0">
+                              <xAxis>
+                                  <CategoryAxis label="Usuarios" prefHeight="10.0" prefWidth="755.0" />
+                              </xAxis>
+                              <yAxis>
+                                  <NumberAxis label="Nro Transacciones" />
+                              </yAxis>
+                          </BarChart>
+                  </children>
+               </Pane>
+                </AnchorPane>
+
                 <!-- Tabla de Usuarios -->
-                <AnchorPane fx:id="AnchorpaneUsuarios" layoutX="50.0" layoutY="30.0" prefHeight="600.0" prefWidth="900.0">
-               <Pane fx:id="paneBienvenida" prefHeight="610.4" prefWidth="910.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="AnchorpaneUsuarios" layoutX="50.0" layoutY="30.0" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <Pane fx:id="paneBienvenida" prefHeight="610.4" prefWidth="910.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
                      <Text fx:id="labelBienvenida" layoutX="214.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido, seleccion una opcción">
                         <font>
                            <Font name="System Bold" size="30.0" />
                         </font>
                      </Text>
-         
-                                  <!-- Tabla de Cuentas -->
-                         <AnchorPane fx:id="paneCuentas" layoutX="5.0" layoutY="5.0" prefHeight="600.0" prefWidth="900.0">
-                        <Pane fx:id="paneGestionCuentas" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                                   <TableView fx:id="tablaCuentas" prefHeight="500.0" prefWidth="900.0">
-                                       <columns>
-                                           <TableColumn fx:id="colIdCuenta" prefWidth="169.5999755859375" text="ID Cuenta" />
-                                           <TableColumn fx:id="colNumeroCuenta" prefWidth="198.39990234375" text="Nro Cuenta" />
-                                           <TableColumn fx:id="colTipoCuenta" prefWidth="142.40008544921875" text="Tipo" />
-                                           <TableColumn fx:id="colBanco" prefWidth="212.0001220703125" text="Banco" />
-                                           <TableColumn fx:id="colSaldo" prefWidth="182.39990234375" text="Saldo" />
-                                       </columns>
-                                   </TableView>
-                                   <Button fx:id="btnEliminarCuenta" layoutX="189.0" layoutY="518.0" text="Eliminar Cuenta" />
-                              <Button fx:id="btnAgregarCuenta" layoutX="27.0" layoutY="518.0" text="Agrega Cuenta" />
-                           </children>
-                        </Pane>
-                        <Pane fx:id="paneAgregarCuenta" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Text layoutX="245.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AgregarCuentaBancaria" wrappingWidth="449.93896484375">
-                                 <font>
-                                    <Font name="System Bold" size="35.0" />
-                                 </font>
-                              </Text>
-                              <TextField fx:id="txtBanco" layoutX="259.0" layoutY="160.0" prefHeight="27.0" prefWidth="400.0" />
-                              <TextField fx:id="txtNumeroCuenta" layoutX="259.0" layoutY="216.0" prefHeight="27.0" prefWidth="400.0" />
-                              <ComboBox fx:id="comboTipoCuenta" layoutX="259.0" layoutY="281.0" prefHeight="37.0" prefWidth="400.0" />
-                              <Text layoutX="259.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Banco:" />
-                              <Text layoutX="255.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero De la Cuenta:" />
-                              <Text layoutX="259.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de Cuenta" />
-                              <Button fx:id="btnRegistrarCuenta" layoutX="321.0" layoutY="362.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="RegistrarCuenta" />
-                              <Button fx:id="btnRegresarCuenta" layoutX="321.0" layoutY="408.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Regresar" />
-                           </children>
-                        </Pane>
-                         </AnchorPane>
+                  </children>
+               </Pane>
+               <Pane fx:id="paneUsuarios" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                     <Button fx:id="btnCrearUsuario" layoutX="236.0" layoutY="541.0" prefHeight="34.0" prefWidth="133.0" text="Crear" />
+                     <Button fx:id="btnActualizarUsuario" layoutX="585.0" layoutY="541.0" prefHeight="34.0" prefWidth="133.0" text="Actualizar" />
+                          <Button fx:id="btnEliminarUsuario" layoutX="411.0" layoutY="541.0" text="Eliminar Usuario" />
+                          <TableView fx:id="tablaUsuarios" layoutX="66.0" layoutY="26.0" prefHeight="500.0" prefWidth="900.0">
+                              <columns>
+                                  <TableColumn fx:id="colNombre" prefWidth="227.19998168945312" text="Nombre" />
+                                  <TableColumn fx:id="colCedula" prefWidth="222.4000244140625" text="Cédula" />
+                                  <TableColumn fx:id="colCorreo" prefWidth="234.40008544921875" text="Correo" />
+                                  <TableColumn fx:id="colTelefono" prefWidth="219.1998291015625" text="Teléfono" />
+                              </columns>
+                          </TableView>
                   </children>
                </Pane>
                <Pane fx:id="paneActualizar" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -90,22 +92,7 @@
                      <Button fx:id="btnRegresarCrearUsuario" layoutX="312.0" layoutY="222.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Regresar" />
                   </children>
                </Pane>
-               <Pane fx:id="paneUsuarios" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                  <children>
-                     <Button fx:id="btnCrearUsuario" layoutX="236.0" layoutY="517.0" prefHeight="34.0" prefWidth="133.0" text="Crear" />
-                     <Button fx:id="btnActualizarUsuario" layoutX="583.0" layoutY="517.0" prefHeight="34.0" prefWidth="133.0" text="Actualizar" />
-                          <Button fx:id="btnEliminarUsuario" layoutX="411.0" layoutY="517.0" text="Eliminar Usuario" />
-                          <TableView fx:id="tablaUsuarios" prefHeight="500.0" prefWidth="900.0">
-                              <columns>
-                                  <TableColumn fx:id="colNombre" prefWidth="227.19998168945312" text="Nombre" />
-                                  <TableColumn fx:id="colCedula" prefWidth="222.4000244140625" text="Cédula" />
-                                  <TableColumn fx:id="colCorreo" prefWidth="234.40008544921875" text="Correo" />
-                                  <TableColumn fx:id="colTelefono" prefWidth="219.1998291015625" text="Teléfono" />
-                              </columns>
-                          </TableView>
-                  </children>
-               </Pane>
-               <Pane fx:id="paneCrearUsuario" disable="true" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+               <Pane fx:id="paneCrearUsuario" layoutY="6.0" prefHeight="700.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="-5.2000000000000455" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="6.0">
                   <children>
                      <TextField fx:id="txtNombreNuevo1" layoutX="39.0" layoutY="30.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su nombre" />
                      <TextField fx:id="txtCorreoNuevo1" layoutX="39.0" layoutY="75.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su correo" />
@@ -118,26 +105,55 @@
                   </children>
                </Pane>
                 </AnchorPane>
+            <AnchorPane fx:id="anchorPaneTransacciones" prefHeight="700.0" prefWidth="1000.0">
+               <children>
+                  <Pane fx:id="paneTransacciones" layoutY="-12.8" prefHeight="698.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-13.0">
+                     <children>
+                        <TableView fx:id="tablaTransacciones" layoutX="14.0" layoutY="30.0" prefHeight="500.0" prefWidth="972.0">
+                          <columns>
+                            <TableColumn fx:id="columnaFecha" prefWidth="251.20001220703125" text="Fecha" />
+                            <TableColumn fx:id="columnaTipo" prefWidth="252.79998779296875" text="Tipo" />
+                              <TableColumn fx:id="columnaMonto" prefWidth="240.800048828125" text="Monto" />
+                              <TableColumn fx:id="columnaDescripcion" prefWidth="284.800048828125" text="Descripción" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+               </children>
+            </AnchorPane>
 
-                <!-- Gráficas de Estadísticas -->
-                <AnchorPane fx:id="AnchorpaneEstadisticas" layoutX="50.0" layoutY="30.0" prefHeight="600.0" prefWidth="900.0">
-               <Pane fx:id="paneStats" layoutX="14.0" layoutY="24.0" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="-24.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="-14.0" AnchorPane.topAnchor="24.0">
+                                  <!-- Tabla de Cuentas -->
+                <AnchorPane fx:id="paneCuentas" prefHeight="600.0" prefWidth="900.0">
+               <Pane fx:id="paneGestionCuentas" prefHeight="698.0" prefWidth="1000.0" AnchorPane.bottomAnchor="-98.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-100.0" AnchorPane.topAnchor="0.0">
                   <children>
-                          <PieChart fx:id="graficoGastosComunes" layoutX="183.0" layoutY="337.0" prefHeight="230.0" prefWidth="547.0" />
-                          <BarChart fx:id="graficoUsuariosTransacciones" layoutX="15.0" layoutY="80.0" prefHeight="251.0" prefWidth="833.0">
-                              <xAxis>
-                                  <CategoryAxis label="Usuarios" prefHeight="10.0" prefWidth="755.0" />
-                              </xAxis>
-                              <yAxis>
-                                  <NumberAxis label="Nro Transacciones" />
-                              </yAxis>
-                          </BarChart>
-                          <Text layoutX="10.0" layoutY="72.0" text="Estadísticas Generales">
-                              <font>
-                           <Font name="System Bold" size="20.0" />
+                          <TableView fx:id="tablaCuentas" layoutX="44.0" layoutY="26.0" prefHeight="500.0" prefWidth="900.0">
+                              <columns>
+                                  <TableColumn fx:id="colIdCuenta" prefWidth="169.5999755859375" text="ID Cuenta" />
+                                  <TableColumn fx:id="colNumeroCuenta" prefWidth="198.39990234375" text="Nro Cuenta" />
+                                  <TableColumn fx:id="colTipoCuenta" prefWidth="142.40008544921875" text="Tipo" />
+                                  <TableColumn fx:id="colBanco" prefWidth="212.0001220703125" text="Banco" />
+                                  <TableColumn fx:id="colSaldo" prefWidth="182.39990234375" text="Saldo" />
+                              </columns>
+                          </TableView>
+                          <Button fx:id="btnEliminarCuenta" layoutX="192.0" layoutY="535.0" text="Eliminar Cuenta" />
+                     <Button fx:id="btnAgregarCuenta" layoutX="27.0" layoutY="535.0" text="Agrega Cuenta" />
+                  </children>
+               </Pane>
+               <Pane fx:id="paneAgregarCuenta" prefHeight="600.0" prefWidth="989.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-89.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                     <Text layoutX="245.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AgregarCuentaBancaria" wrappingWidth="449.93896484375">
+                        <font>
+                           <Font name="System Bold" size="35.0" />
                         </font>
-                          </Text>
-                          <Text fx:id="labelSaldoPromedio" layoutX="31.0" layoutY="368.0" text="Saldo promedio: $0.0" />
+                     </Text>
+                     <TextField fx:id="txtBanco" layoutX="259.0" layoutY="160.0" prefHeight="27.0" prefWidth="400.0" />
+                     <TextField fx:id="txtNumeroCuenta" layoutX="259.0" layoutY="216.0" prefHeight="27.0" prefWidth="400.0" />
+                     <ComboBox fx:id="comboTipoCuenta" layoutX="259.0" layoutY="281.0" prefHeight="37.0" prefWidth="400.0" />
+                     <Text layoutX="259.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Banco:" />
+                     <Text layoutX="255.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero De la Cuenta:" />
+                     <Text layoutX="259.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de Cuenta" />
+                     <Button fx:id="btnRegistrarCuenta" layoutX="321.0" layoutY="362.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="RegistrarCuenta" />
+                     <Button fx:id="btnRegresarCuenta" layoutX="321.0" layoutY="408.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Regresar" />
                   </children>
                </Pane>
                 </AnchorPane>

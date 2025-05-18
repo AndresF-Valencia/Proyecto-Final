@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 public class ViewUsuario {
     @FXML
-    public Button buttonRegistro, buttonIS, ingresar, OlvidarClave, buttonContinuar, buttonFinalizar, enviarCodigo, iniciarSesionPorRecuperacion;
+    public Button buttonRegistro, regresar, buttonIS, ingresar, OlvidarClave, buttonContinuar, buttonFinalizar, enviarCodigo, iniciarSesionPorRecuperacion;
     @FXML
     public TextField CedulaIS, ClaveIS, textNombre, textCedula, textCorreo, textTelefono, textPalabraClave,textRecuperar, textCodigo;
     @FXML
@@ -48,6 +48,7 @@ public class ViewUsuario {
         buttonIS.setOnAction(e -> controllerUsuario.mostrarInicioSesion());
         buttonFinalizar.setOnAction(e -> controllerUsuario.finalizarRegistro());
         buttonContinuar.setOnAction(e -> controllerUsuario.continuar());
+        regresar.setOnAction(e-> controllerUsuario.volverBienvenida());
         ingresar.setOnAction(e -> {
 
             boolean valido = controllerUsuario.iniciarSesion();

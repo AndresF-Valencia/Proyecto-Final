@@ -3,6 +3,7 @@ package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerCuentaAdmin;
 import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerEstadisticas;
 import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerGestionUsuarios;
+import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerTransaccionesAdmin;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
@@ -188,6 +189,27 @@ public class ViewFuncionalidadesAdmin {
     public Button btnRegistrarCuenta;
 
     @FXML
+    public TableView<Transaccion> tablaTransacciones;
+
+    @FXML
+    public TableColumn<Transaccion, String> columnaFecha;
+
+    @FXML
+    public TableColumn<Transaccion, String> columnaTipo;
+
+    @FXML
+    public TableColumn<Transaccion, String> columnaMonto;
+
+    @FXML
+    public Button btnRegresarTransaferencia;
+
+    @FXML
+    public TableColumn<Transaccion, String> columnaDescripcion;
+
+    @FXML
+    public AnchorPane anchorPaneTransacciones;
+
+    @FXML
     public Text labelBienvenida;
 
     @FXML
@@ -197,7 +219,7 @@ public class ViewFuncionalidadesAdmin {
     public ComboBox<Cuenta> comboSeleccionCuenta;
 
     @FXML
-    public Pane paneAgregarCuenta, paneGestionCuentas;
+    public Pane paneAgregarCuenta, paneGestionCuentas, paneTransacciones;
 
     @FXML
     public TextField txtBanco, txtCantidad, txtNumeroCuenta,txtNumeroDestino;
@@ -205,6 +227,7 @@ public class ViewFuncionalidadesAdmin {
     private ControllerGestionUsuarios controllerGestionUsuarios;
     private ControllerCuentaAdmin controllerCuentaAdmin;
     private ControllerEstadisticas controllerEstadisticas;
+    private ControllerTransaccionesAdmin controllerTransaccionesAdmin;
 
     @FXML
     public void initialize(){
@@ -212,20 +235,23 @@ public class ViewFuncionalidadesAdmin {
             controllerGestionUsuarios = new ControllerGestionUsuarios(this);
             controllerCuentaAdmin = new ControllerCuentaAdmin(this);
             controllerEstadisticas = new ControllerEstadisticas(this);
+            controllerTransaccionesAdmin = new ControllerTransaccionesAdmin(this);
 
 
             controllerGestionUsuarios.cargarUsuarios();
             controllerCuentaAdmin.cargarCuentasTabla();
-            controllerEstadisticas.cargarEstadisticas();
+            controllerEstadisticas.mostrarEstadisticas();
+            controllerTransaccionesAdmin.cargarTransacciones();
+
 
             paneBienvenida.setVisible(true);
             paneUsuarios.setVisible(false);
             paneCrearUsuario.setVisible(false);
             paneGestionCuentas.setVisible(false);
-            paneCuentas.setVisible(false);
             paneStats.setVisible(false);
             paneActualizar.setVisible(false);
             paneAgregarCuenta.setVisible(false);
+            paneTransacciones.setVisible(false);
 
             colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             colCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
@@ -246,7 +272,7 @@ public class ViewFuncionalidadesAdmin {
             ejeY.setLabel("Cantidad de Transacciones");
 
             graficoUsuariosTransacciones.setTitle("Transacciones por Usuario");
-            graficoUsuariosTransacciones.setLegendVisible(false);
+            graficoUsuariosTransacciones.setLegendVisible(true);
 
             // Configurar el gráfico de pastel
             graficoGastosComunes.setTitle("Gastos por Categoría");
@@ -262,7 +288,7 @@ public class ViewFuncionalidadesAdmin {
             btnRegresarCrearUsuario1.setOnAction(e-> controllerGestionUsuarios.regresar());
             btnActualizarUsuario.setOnAction(e-> controllerGestionUsuarios.actualizar());
             btnAceptarActualizarUsuario.setOnAction(e-> controllerGestionUsuarios.actualizarUsuario());
-            btnRegresarCrearUsuario.setOnAction(e-> controllerGestionUsuarios.regresar());
+            btnRegresarCrearUsuario.setOnAction(e-> controllerGestionUsuarios.regresoTotal());
             btnEliminarUsuario.setOnAction(e-> controllerGestionUsuarios.eliminarUsuario());
 
 
@@ -273,6 +299,9 @@ public class ViewFuncionalidadesAdmin {
             btnRegistrarCuenta.setOnAction(e-> controllerCuentaAdmin.registrarCuenta());
 
             btnEstadisticas.setOnAction(e-> controllerEstadisticas.mostrarEstadisticas());
+
+            btnGestionTransacciones.setOnAction(e-> controllerTransaccionesAdmin.iniciarVista());
+            btnRegresarTransaferencia.setOnAction(e-> controllerGestionUsuarios.regresoTotal());
 
 
     } catch (Exception e) {

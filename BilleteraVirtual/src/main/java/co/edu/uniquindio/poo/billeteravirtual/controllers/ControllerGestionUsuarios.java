@@ -29,6 +29,10 @@ public class ControllerGestionUsuarios {
         view.paneCuentas.setVisible(vistaActiva.equals("Cuentas"));
         view.paneStats.setVisible(vistaActiva.equals("Estadisticas"));
         view.paneActualizar.setVisible(vistaActiva.equals("Actualizar Usuario"));;
+        view.paneTransacciones.setVisible(vistaActiva.equals("Transacciones"));
+        view.AnchorpaneEstadisticas.setVisible(vistaActiva.equals("Estadisticas"));
+        view.anchorPaneTransacciones.setVisible(vistaActiva.equals("Transacciones"));
+        view.paneGestionCuentas.setVisible(vistaActiva.equals("Gestion Cuentas"));
     }
 
     public void mostrarGestionUsuarios() {
@@ -37,6 +41,7 @@ public class ControllerGestionUsuarios {
     }
 
     public void mostrarCrearUsuario() {
+        view.AnchorpaneUsuarios.setVisible(true);
         cambiarVista("Crear Usuario");
     }
     public void actualizar(){
@@ -45,6 +50,9 @@ public class ControllerGestionUsuarios {
 
     public void regresar(){
         cambiarVista("Gestion Usuarios");
+    }
+
+    public void regresoTotal(){ cambiarVista("Bienvenida");
     }
 
 

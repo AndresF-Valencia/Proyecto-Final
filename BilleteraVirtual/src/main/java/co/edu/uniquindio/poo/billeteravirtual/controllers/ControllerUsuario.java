@@ -219,5 +219,10 @@ public class ControllerUsuario {
         }
         return false;
     }
+
+    public void volverBienvenida(){
+        view.Bienvenida.setVisible(true);
+        view.IniciarSesion.setVisible(false);
+    }
 }
 
