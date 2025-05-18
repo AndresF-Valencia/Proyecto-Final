@@ -63,7 +63,7 @@
             </Button>
             <Text layoutX="226.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cedula" />
             <Text layoutX="226.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña" />
-            <Button fx:id="regresar" blendMode="HARD_LIGHT" contentDisplay="CENTER" layoutX="303.0" layoutY="373.0" mnemonicParsing="false" text="Regresar" textOverrun="CENTER_ELLIPSIS">
+            <Button fx:id="regresar" blendMode="HARD_LIGHT" contentDisplay="CENTER" layoutX="298.0" layoutY="371.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="71.0" text="Regresar" textOverrun="CENTER_ELLIPSIS">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

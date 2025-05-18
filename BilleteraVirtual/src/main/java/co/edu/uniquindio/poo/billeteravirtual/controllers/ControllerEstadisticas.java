@@ -3,6 +3,7 @@ package co.edu.uniquindio.poo.billeteravirtual.controllers;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioEstadisticas;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioUsuario;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidadesAdmin;
@@ -22,8 +23,8 @@ public class ControllerEstadisticas {
     private final Usuario usuarioActual;
     private final ServicioUsuario servicioUsuario;
 
-    public ControllerEstadisticas(ViewFuncionalidadesAdmin view) {
-        this.view = view;
+    public ControllerEstadisticas(ViewFuncionalidadesAdmin viewFuncionalidadesAdmin) {
+        this.view = viewFuncionalidadesAdmin;
         this.usuarioActual = Sesion.getInstancia().getUsuarioActual();
         this.servicioUsuario = ServicioUsuario.getInstancia();
         cargarEstadisticas();
@@ -54,26 +55,19 @@ public class ControllerEstadisticas {
     }
 
 
-    private void cargarGraficoPie() {
-        Map<String, Double> categorias = new HashMap<>();
+    public void cargarGraficoPie() {
+        ServicioEstadisticas servicioEstadisticas = new ServicioEstadisticas();
+        Map<String, Double> categorias = servicioEstadisticas.obtenerGastosPorCategoria();
 
-        for (Cuenta cuenta : usuarioActual.getCuentas()) {
-            for (Transaccion t : cuenta.getTransacciones()) {
-                if ("Gasto".equalsIgnoreCase(t.getTipo())) {
-                    String categoria = t.getDescripcion();
-                    categorias.put(categoria, categorias.getOrDefault(categoria, 0.0) + t.getMonto());
-                }
-            }
-        }
+        // Limpia datos previos
+        view.graficoGastosComunes.getData().clear();
 
-        ObservableList<PieChart.Data> datos = FXCollections.observableArrayList();
         for (Map.Entry<String, Double> entry : categorias.entrySet()) {
-            datos.add(new PieChart.Data(entry.getKey(), entry.getValue()));
+            PieChart.Data slice = new PieChart.Data(entry.getKey(), entry.getValue());
+            view.graficoGastosComunes.getData().add(slice);
         }
-
-        view.graficoGastosComunes.setData(null);
-        view.graficoGastosComunes.setData(datos);
     }
+
 
 
     private void cargarGraficoBarra() {
@@ -85,28 +79,37 @@ public class ControllerEstadisticas {
             for (Cuenta cuenta : usuario.getCuentas()) {
                 total += cuenta.getTransacciones().size();
             }
+            System.out.println(usuario.getNombre() + " -> " + total + " transacciones");
             series.getData().add(new XYChart.Data<>(usuario.getNombre(), total));
         }
 
-        view.graficoUsuariosTransacciones.getData().clear();
-        view.graficoUsuariosTransacciones.getData().add(series);
+        view.graficoBarras.getData().clear();
+        view.graficoBarras.getData().add(series);
+        System.out.println("Series agregada con " + series.getData().size() + " datos.");
     }
 
-    private void mostrarSaldoPromedio() {
-        List<Cuenta> cuentas = usuarioActual.getCuentas();
 
-        if (cuentas.isEmpty()) {
+    private void mostrarSaldoPromedio() {
+        List<Usuario> usuarios = servicioUsuario.getUsuariosRegistrados();
+        List<Cuenta> todasLasCuentas = new ArrayList<>();
+
+        for (Usuario usuario : usuarios) {
+            todasLasCuentas.addAll(usuario.getCuentas());
+        }
+
+        if (todasLasCuentas.isEmpty()) {
             view.labelSaldoPromedio.setText("Saldo promedio: $0.0");
             return;
         }
 
         double suma = 0;
-        for (Cuenta cuenta : cuentas) {
+        for (Cuenta cuenta : todasLasCuentas) {
             suma += cuenta.getSaldo1();
         }
 
-        double promedio = suma / cuentas.size();
+        double promedio = suma / todasLasCuentas.size();
         view.labelSaldoPromedio.setText(String.format("Saldo promedio: $%.2f", promedio));
     }
 }
+
 

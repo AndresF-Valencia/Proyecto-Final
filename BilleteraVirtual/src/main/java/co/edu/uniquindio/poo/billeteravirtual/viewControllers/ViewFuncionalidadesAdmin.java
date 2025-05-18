@@ -1,9 +1,6 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
-import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerCuentaAdmin;
-import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerEstadisticas;
-import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerGestionUsuarios;
-import co.edu.uniquindio.poo.billeteravirtual.controllers.ControllerTransaccionesAdmin;
+import co.edu.uniquindio.poo.billeteravirtual.controllers.*;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
@@ -114,7 +111,7 @@ public class ViewFuncionalidadesAdmin {
     public PieChart graficoGastosComunes;
 
     @FXML
-    public BarChart<String, Number> graficoUsuariosTransacciones;
+    public BarChart<String, Number> graficoBarras;
 
     @FXML
     public Text labelSaldoPromedio;
@@ -201,9 +198,6 @@ public class ViewFuncionalidadesAdmin {
     public TableColumn<Transaccion, String> columnaMonto;
 
     @FXML
-    public Button btnRegresarTransaferencia;
-
-    @FXML
     public TableColumn<Transaccion, String> columnaDescripcion;
 
     @FXML
@@ -245,7 +239,6 @@ public class ViewFuncionalidadesAdmin {
 
 
             paneBienvenida.setVisible(true);
-            paneUsuarios.setVisible(false);
             paneCrearUsuario.setVisible(false);
             paneGestionCuentas.setVisible(false);
             paneStats.setVisible(false);
@@ -265,21 +258,19 @@ public class ViewFuncionalidadesAdmin {
             colSaldo.setCellValueFactory(new PropertyValueFactory<>("saldo"));
 
             // Configurar el gráfico de barras
-            CategoryAxis ejeX = (CategoryAxis) graficoUsuariosTransacciones.getXAxis();
-            NumberAxis ejeY = (NumberAxis) graficoUsuariosTransacciones.getYAxis();
+            CategoryAxis ejeX = (CategoryAxis) graficoBarras.getXAxis();
+            NumberAxis ejeY = (NumberAxis) graficoBarras.getYAxis();
 
             ejeX.setLabel("Usuarios");
             ejeY.setLabel("Cantidad de Transacciones");
 
-            graficoUsuariosTransacciones.setTitle("Transacciones por Usuario");
-            graficoUsuariosTransacciones.setLegendVisible(true);
+            graficoBarras.setTitle("Transacciones por Usuario");
+            graficoBarras.setLegendVisible(true);
 
             // Configurar el gráfico de pastel
             graficoGastosComunes.setTitle("Gastos por Categoría");
             graficoGastosComunes.setLegendVisible(true);
             graficoGastosComunes.setLabelsVisible(true);
-
-
 
 
             btnGestionUsuarios.setOnAction(e-> controllerGestionUsuarios.mostrarGestionUsuarios());
@@ -293,6 +284,7 @@ public class ViewFuncionalidadesAdmin {
 
 
             btnGestionCuentas.setOnAction(e-> controllerCuentaAdmin.mostrarCuenta());
+            btnCerrarSesion.setOnAction(e-> controllerCuentaAdmin.cerrarSesion());
             btnAgregarCuenta.setOnAction(e-> controllerCuentaAdmin.crearCuenta());
             btnRegresarCuenta.setOnAction(e-> controllerCuentaAdmin.mostrarCuenta());
             btnEliminarCuenta.setOnAction(e-> controllerCuentaAdmin.eliminarCuenta());
@@ -301,7 +293,6 @@ public class ViewFuncionalidadesAdmin {
             btnEstadisticas.setOnAction(e-> controllerEstadisticas.mostrarEstadisticas());
 
             btnGestionTransacciones.setOnAction(e-> controllerTransaccionesAdmin.iniciarVista());
-            btnRegresarTransaferencia.setOnAction(e-> controllerGestionUsuarios.regresoTotal());
 
 
     } catch (Exception e) {

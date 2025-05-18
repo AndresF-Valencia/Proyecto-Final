@@ -16,7 +16,9 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TiendaController {
     private final ViewFuncionalidades view;
@@ -25,6 +27,7 @@ public class TiendaController {
     public ServicioCuenta servicioCuenta;
     public ServicioPresupuesto servicioPresupuesto;
     public ServicioTransaccion servicioTransaccion;
+
 
     public TiendaController(ViewFuncionalidades view) {
         this.view = view;
@@ -35,6 +38,7 @@ public class TiendaController {
         TransaccionFactory.setServicioCuenta(servicioCuenta);
 
         this.transaccionFacade = new TransaccionFacade(servicioCuenta, servicioTransaccion,new TransaccionFactory());
+
     }
 
     public void iniciarVista() {

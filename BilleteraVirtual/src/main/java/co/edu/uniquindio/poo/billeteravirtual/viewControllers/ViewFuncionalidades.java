@@ -148,6 +148,8 @@ public class ViewFuncionalidades {
 
 
 
+
+
             //Eventos controllerDatos
             btnVerDatos.setOnAction(e -> controllerDatos.verDatosUsuario());
             btnModificarDatos.setOnAction(e -> controllerDatos.mostrarPanelEditarDatos());

@@ -36,12 +36,12 @@ public class ControllerGestionUsuarios {
     }
 
     public void mostrarGestionUsuarios() {
+        view.AnchorpaneUsuarios.setVisible(true);
         cambiarVista("Gestion Usuarios");
         cargarUsuarios();
     }
 
     public void mostrarCrearUsuario() {
-        view.AnchorpaneUsuarios.setVisible(true);
         cambiarVista("Crear Usuario");
     }
     public void actualizar(){

@@ -9,7 +9,12 @@ import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidadesAdmin;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
 
 public class ControllerCuentaAdmin {
@@ -17,11 +22,13 @@ public class ControllerCuentaAdmin {
     public Usuario usuarioActual;
     private final ViewFuncionalidadesAdmin view;
     private final ServicioCuenta servicioCuenta;
+    private final ServicioUsuario servicioUsuario;
 
     public ControllerCuentaAdmin(ViewFuncionalidadesAdmin ViewFuncionalidadesAdmin) {
         this.view = ViewFuncionalidadesAdmin;
         this.servicioCuenta = ServicioCuenta.getInstancia();
         this.usuarioActual = Sesion.getInstancia().getUsuarioActual();
+        this.servicioUsuario = ServicioUsuario.getInstancia();
         cargarCuentasTabla();
         cargarComboCuentas();
     }
@@ -112,4 +119,25 @@ public class ControllerCuentaAdmin {
         view.txtNumeroCuenta.clear();
         view.comboTipoCuenta.setValue(null);
     }
+
+    public void cerrarSesion() {
+        Sesion.getInstancia().cerrarSesion();
+        System.out.println("Sesión cerrada, usuario actual: " + Sesion.getInstancia().getUsuarioActual());
+
+        // Solo si quieres debug de los usuarios registrados
+        for (Usuario u : servicioUsuario.getUsuariosRegistrados()) {
+            System.out.println(u);
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/billeteravirtual/interfazUsuario.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) view.btnCerrarSesion.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

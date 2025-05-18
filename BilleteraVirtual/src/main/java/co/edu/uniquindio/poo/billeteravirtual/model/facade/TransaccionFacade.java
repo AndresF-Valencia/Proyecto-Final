@@ -1,5 +1,6 @@
 package co.edu.uniquindio.poo.billeteravirtual.model.facade;
 
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.TransaccionFactory;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
@@ -23,16 +24,31 @@ public class TransaccionFacade {
             validarCuentas(cuentaOrigen, cuentaDestino);
             validarMonto(monto);
 
-            Transaccion transaccion = TransaccionFactory.crear(idTransaccion,fecha,tipo, monto,descripcion,cuentaOrigen, cuentaDestino);
-
+            Transaccion transaccion = TransaccionFactory.crear(idTransaccion, fecha, tipo, monto, descripcion, cuentaOrigen, cuentaDestino);
             transaccion.ejecutar();
 
+            // Guarda en el servicio general
             servicioTransaccion.agregarTransaccionPorTipo(tipo, transaccion);
+
+            // También guarda en la cuenta de origen
+            Cuenta cuenta = ServicioCuenta.obtenerCuentaPorNumero(cuentaOrigen);
+            if (cuenta != null) {
+                cuenta.getTransacciones().add(transaccion);
+            }
+
+            // Si es una transferencia, guarda en la cuenta destino también
+            if (!cuentaOrigen.equals(cuentaDestino)) {
+                Cuenta cuentaDest = ServicioCuenta.obtenerCuentaPorNumero(cuentaDestino);
+                if (cuentaDest != null) {
+                    cuentaDest.getTransacciones().add(transaccion);
+                }
+            }
 
         } catch (IllegalArgumentException e) {
             System.err.println("Error en la transacción: " + e.getMessage());
         }
     }
+
 
     private void validarCuentas(String origen, String destino) {
         if (!servicioCuenta.existeCuenta(origen) || !servicioCuenta.existeCuenta(destino)) {
