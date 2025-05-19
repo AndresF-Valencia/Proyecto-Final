@@ -15,16 +15,13 @@ public class ServicioTransaccion {
     // Instancia única del Singleton
     private static ServicioTransaccion instancia;
 
-    // Constructor privado para evitar la creación de instancias fuera de la clase
     private ServicioTransaccion() {
-        // Inicializar las listas de transacciones para tipos predefinidos
         tipoTransacciones.put("TRANSFERENCIA", new ArrayList<>());
         tipoTransacciones.put("DEPOSITO", new ArrayList<>());
         tipoTransacciones.put("RETIRO", new ArrayList<>());
         tipoTransacciones.put("COMPRA", new ArrayList<>());
     }
 
-    // Método para obtener la instancia del Singleton
     public static ServicioTransaccion getInstancia() {
         if (instancia == null) {
             instancia = new ServicioTransaccion();
@@ -32,18 +29,14 @@ public class ServicioTransaccion {
         return instancia;
     }
 
-    // Agregar transacción por tipo de transacción
     public void agregarTransaccionPorTipo(String tipo, Transaccion transaccion) {
-        // Verificar si el tipo de transacción está permitido
         if (!tipoTransacciones.containsKey(tipo)) {
             throw new IllegalArgumentException("Tipo de transacción no permitido: " + tipo);
         }
 
-        // Agregar la transacción a la lista correspondiente del tipo
         tipoTransacciones.get(tipo).add(transaccion);
     }
 
-    // Obtener todas las transacciones
     public static List<Transaccion> obtenerTodasLasTransacciones() {
         List<Transaccion> todasTransacciones = new ArrayList<>();
         for (List<Transaccion> transacciones : tipoTransacciones.values()) {
@@ -52,7 +45,6 @@ public class ServicioTransaccion {
         return todasTransacciones;
     }
 
-    // Obtener las transacciones de un tipo específico
     public List<Transaccion> obtenerTransaccionesPorTipo(String tipo) {
         if (!tipoTransacciones.containsKey(tipo)) {
             throw new IllegalArgumentException("Tipo de transacción no encontrado: " + tipo);
@@ -80,7 +72,6 @@ public class ServicioTransaccion {
         return transaccionesPorCliente;
     }
 
-    // Método para verificar si existe una transacción por ID
     public boolean existeTransaccion(String idTransaccion) {
         for (List<Transaccion> transacciones : tipoTransacciones.values()) {
             for (Transaccion transaccion : transacciones) {

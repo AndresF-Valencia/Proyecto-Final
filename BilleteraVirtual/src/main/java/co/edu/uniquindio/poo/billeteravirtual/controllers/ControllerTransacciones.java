@@ -1,5 +1,9 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
+import co.edu.uniquindio.poo.billeteravirtual.model.adapter.EstadisticasReporte;
+import co.edu.uniquindio.poo.billeteravirtual.model.adapter.ExportadorReporte;
+import co.edu.uniquindio.poo.billeteravirtual.model.adapter.ExportadorReporteCSV;
+import co.edu.uniquindio.poo.billeteravirtual.model.adapter.ExportadorReportePDF;
 import co.edu.uniquindio.poo.billeteravirtual.model.decoradores.UsuarioConPresupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.*;
 import co.edu.uniquindio.poo.billeteravirtual.model.facade.TransaccionFacade;
@@ -9,9 +13,7 @@ import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioPresupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioTransaccion;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioUsuario;
-import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.GeneradorCodigo;
-import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
-import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.*;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -232,4 +234,49 @@ public class ControllerTransacciones implements Observador {
         return saldoTotal;
     }
 
+    public void generarReporteUsuario(){
+        String rutaArchivo = "C:/Users/andre/OneDrive/Documents/user.pdf";
+        ExportadorReportePDF exportador = new ExportadorReportePDF();
+        ReporteCliente reporte = new ReporteCliente(exportador, usuarioActual.getCedula());
+
+        double ingresos = reporte.getTotalIngresos();
+        double gastos = reporte.getTotalGastos();
+
+        exportador.setTotalesCliente(ingresos, gastos);
+
+        reporte.generar(rutaArchivo);
+    }
+
+    public void generarReporteAdmin(EstadisticasReporte estadisticasReporte){
+        String rutaArchivo = "C:/Users/andre/OneDrive/Documents/admin.pdf";
+        ExportadorReportePDF exportador = new ExportadorReportePDF();
+
+        exportador.setEstadisticas(estadisticasReporte);
+
+        ReporteAdmin reporte = new ReporteAdmin(exportador);
+        reporte.generar(rutaArchivo);
+    }
+
+    public void generarReporteAdminCSV(EstadisticasReporte estadisticasReporte) {
+        String rutaArchivo = "C:/Users/andre/OneDrive/Documents/admin.csv"; // O la ruta que prefieras
+        ExportadorReporteCSV exportador = new ExportadorReporteCSV();
+
+        exportador.setEstadisticas(estadisticasReporte);
+
+        ReporteAdmin reporte = new ReporteAdmin(exportador);
+        reporte.generar(rutaArchivo);
+    }
+
+    public void generarReporteUsuarioCSV() {
+        String rutaArchivo = "C:/Users/andre/OneDrive/Documents/user.csv";
+        ExportadorReporteCSV exportador = new ExportadorReporteCSV();
+
+        ReporteCliente reporte = new ReporteCliente(exportador, usuarioActual.getCedula());
+
+        double ingresos = reporte.getTotalIngresos();
+        double gastos = reporte.getTotalGastos();
+        exportador.setTotalesCliente(ingresos, gastos);
+
+        reporte.generar(rutaArchivo);
+    }
 }
