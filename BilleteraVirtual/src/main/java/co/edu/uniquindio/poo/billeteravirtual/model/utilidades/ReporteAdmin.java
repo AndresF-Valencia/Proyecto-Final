@@ -1,16 +1,23 @@
 package co.edu.uniquindio.poo.billeteravirtual.model.utilidades;
 
+import co.edu.uniquindio.poo.billeteravirtual.model.adapter.EstadisticasReporte;
 import co.edu.uniquindio.poo.billeteravirtual.model.adapter.ExportadorReporte;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioEstadisticas;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioTransaccion;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioUsuario;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 public class ReporteAdmin extends ReporteBase {
-
-    private double totalIngresos = 0;
-    private double totalGastos = 0;
+    private ServicioUsuario servicioUsuario;
+    private ServicioEstadisticas servicioEstadisticas;
+    int maxTransacciones;
+    double maxGasto = 0.0;
 
     public ReporteAdmin(ExportadorReporte exportador) {
         super(exportador);
@@ -23,24 +30,25 @@ public class ReporteAdmin extends ReporteBase {
 
     @Override
     protected void procesarDatos(List<Transaccion> transacciones) {
-        // Ordenar por fecha descendente
+        EstadisticasReporte estadisticas = new EstadisticasReporte();
+        Map<String, Double> categorias = servicioEstadisticas.obtenerGastosPorCategoria();
         transacciones.sort(Comparator.comparing(Transaccion::getFecha).reversed());
-
-        // Calcular métricas
-        for (Transaccion transaccion : transacciones) {
-            if (transaccion.getMonto() > 0) {
-                totalIngresos += transaccion.getMonto();
-            } else {
-                totalGastos += Math.abs(transaccion.getMonto());
+        for (Usuario usuario : servicioUsuario.getUsuariosRegistrados()) {
+            int total = 0;
+            for (Cuenta cuenta : usuario.getCuentas()) {
+                total += cuenta.getTransacciones().size();
+            }
+            if (total > maxTransacciones) {
+                maxTransacciones = total;
+                estadisticas.usuarioMasActivo = usuario;
             }
         }
 
-        double saldo = totalIngresos - totalGastos;
-
-        System.out.println("==== MÉTRICAS DEL REPORTE ADMIN ====");
-        System.out.printf("🟢 Total Ingresos: $%,.2f\n", totalIngresos);
-        System.out.printf("🔴 Total Gastos:   $%,.2f\n", totalGastos);
-        System.out.printf("⚖️  Saldo Neto:     $%,.2f\n", saldo);
-        System.out.println("====================================");
+        for (Map.Entry<String, Double> entrada : categorias.entrySet()) {
+            if (entrada.getValue() > maxGasto) {
+                maxGasto = entrada.getValue();
+                estadisticas.categoriaMasUsada = entrada.getKey();
+            }
+        }
     }
 }

@@ -25,24 +25,24 @@ public class ReporteCliente extends ReporteBase {
 
     @Override
     protected void procesarDatos(List<Transaccion> transacciones) {
-        // Ordenar por fecha descendente
         transacciones.sort(Comparator.comparing(Transaccion::getFecha).reversed());
 
-        // Calcular totales simples
-        for (Transaccion t : transacciones) {
-            if (t.getMonto() > 0) {
-                totalIngresos += t.getMonto();
-            } else {
-                totalGastos += Math.abs(t.getMonto());
+        for (Transaccion transaccion : transacciones) {
+            if(transaccion.getTipo().equalsIgnoreCase("Deposito")){
+                totalIngresos++;
+            } else if(transaccion.getTipo().equalsIgnoreCase("Retiro") || transaccion.getTipo().equalsIgnoreCase("Transferencia")|| transaccion.getTipo().equalsIgnoreCase("Compra")){
+                totalGastos++;
             }
+
         }
 
-        double saldo = totalIngresos - totalGastos;
+    }
 
-        System.out.println("=== Resumen del Cliente ===");
-        System.out.printf("💰 Ingresos: $%,.2f\n", totalIngresos);
-        System.out.printf("🧾 Gastos:   $%,.2f\n", totalGastos);
-        System.out.printf("💼 Saldo:    $%,.2f\n", saldo);
-        System.out.println("===========================");
+    public double getTotalGastos() {
+        return totalGastos;
+    }
+
+    public double getTotalIngresos() {
+        return totalIngresos;
     }
 }
