@@ -44,5 +44,4 @@ public class ControllerTransaccionesAdmin{
 
         view.tablaTransacciones.getItems().setAll(transacciones);
     }
-
 }

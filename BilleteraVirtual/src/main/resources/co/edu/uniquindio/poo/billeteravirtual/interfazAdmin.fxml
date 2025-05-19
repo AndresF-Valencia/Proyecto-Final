@@ -35,7 +35,7 @@
             <children>
 
                 <!-- Gráficas de Estadísticas -->
-                <AnchorPane fx:id="AnchorpaneEstadisticas" layoutX="50.0" layoutY="30.0" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="AnchorpaneEstadisticas" layoutX="50.0" layoutY="30.0" prefHeight="700.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <Pane fx:id="paneStats" layoutX="14.0" layoutY="24.0" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
                           <Text fx:id="labelSaldoPromedio" layoutX="32.0" layoutY="354.0" text="Saldo promedio: $0.0" />
@@ -105,9 +105,9 @@
                   </children>
                </Pane>
                 </AnchorPane>
-            <AnchorPane fx:id="anchorPaneTransacciones" prefHeight="700.0" prefWidth="1000.0" visible="false">
+            <AnchorPane fx:id="anchorPaneTransacciones" prefHeight="700.0" prefWidth="1000.0">
                <children>
-                  <Pane fx:id="paneTransacciones" layoutY="-12.8" prefHeight="698.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-13.0">
+                  <Pane fx:id="paneTransacciones" layoutY="-12.8" prefHeight="698.0" prefWidth="1000.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-13.0">
                      <children>
                         <TableView fx:id="tablaTransacciones" layoutX="14.0" layoutY="30.0" prefHeight="500.0" prefWidth="972.0">
                           <columns>
@@ -123,7 +123,7 @@
             </AnchorPane>
 
                                         <!-- Tabla de Cuentas -->
-                <AnchorPane fx:id="paneCuentas" prefHeight="600.0" prefWidth="900.0">
+                <AnchorPane fx:id="paneCuentas" prefHeight="642.0" prefWidth="982.0">
                <Pane fx:id="paneGestionCuentas" prefHeight="698.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="-98.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-100.0" AnchorPane.topAnchor="0.0">
                   <children>
                           <TableView fx:id="tablaCuentas" layoutX="44.0" layoutY="26.0" prefHeight="500.0" prefWidth="900.0">
@@ -156,6 +156,8 @@
                      <Button fx:id="btnRegresarCuenta" layoutX="321.0" layoutY="408.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Regresar" />
                   </children>
                </Pane>
+               <Button fx:id="btnPdf" layoutX="416.0" layoutY="524.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Reporte PDF" />
+               <Button fx:id="btnCsv" layoutX="416.0" layoutY="575.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Reporte CSV" />
                 </AnchorPane>
 
             </children>

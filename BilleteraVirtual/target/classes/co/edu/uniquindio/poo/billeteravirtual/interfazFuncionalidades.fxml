@@ -197,7 +197,7 @@
                   </Pane>
                   <Pane fx:id="PanePrincipal" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Circle fx:id = "circle" fill="WHITE" layoutX="458.0" layoutY="216.0" radius="111.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fx:id="circle" fill="WHITE" layoutX="458.0" layoutY="216.0" radius="111.0" stroke="BLACK" strokeType="INSIDE" />
                         <Text layoutX="416.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuánto tengo?" />
                         <Text fx:id="txtSaldoPrincipal" layoutX="426.0" layoutY="201.0" text="Saldo">
                            <font>

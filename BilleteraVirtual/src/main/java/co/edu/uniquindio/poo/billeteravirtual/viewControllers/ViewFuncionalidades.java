@@ -16,7 +16,7 @@ public class ViewFuncionalidades {
             btnVerDatos, btnCambiarContrasena, btnAgregarCuenta, btnAgregar, btnGenerarCodigo,btnRegresar11,
             btnGestionarCuentas, btnCerrarSesion, btnRegistrarCuenta, btnRegresarTienda, btnTienda,
             btnConsultarCuenta, btnEliminarCuenta,btnVolverTransaccion, btnRegresar, btnRegresar1,btnRegresar13,
-            btnGuardarCambios,btnRegresar15,btnActualizar,btnRegresar16,btnEliminarPresupuesto1,btnEliminarPresupuesto,btnActualizarPresupuesto,btnVerEstado,btnCrearPresupuesto,btnAgregarPresupuesto, btnModificarDatos,btnConsultarPresupuesto, btnRegresar14, btnVolverDatosUsuario,btnGuardarCambioClave, btnVolverCambioClave, btnVermas;
+            btnGuardarCambios,btnRegresar15,bntPdf, btnCsv, btnActualizar,btnRegresar16,btnEliminarPresupuesto1,btnEliminarPresupuesto,btnActualizarPresupuesto,btnVerEstado,btnCrearPresupuesto,btnAgregarPresupuesto, btnModificarDatos,btnConsultarPresupuesto, btnRegresar14, btnVolverDatosUsuario,btnGuardarCambioClave, btnVolverCambioClave, btnVermas;
 
     @FXML
     public Text bienvenidaText, textTitular, textNumeroCuenta, textTipoCuenta, textSaldo,txtSaldoPrincipal,
@@ -184,6 +184,8 @@ public class ViewFuncionalidades {
             //Evento ControllerTransacciones
             btnVermas.setOnAction(e -> controllerTransacciones.iniciarVista());
             btnVolverTransaccion.setOnAction(e-> controllerCuenta.Inicio());
+            bntPdf.setOnAction(e-> controllerTransacciones.generarReporteUsuario());
+            btnCsv.setOnAction(e-> controllerTransacciones.generarReporteUsuarioCSV());
 
 
 

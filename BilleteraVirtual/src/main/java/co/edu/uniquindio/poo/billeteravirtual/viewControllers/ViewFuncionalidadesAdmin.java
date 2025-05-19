@@ -177,6 +177,12 @@ public class ViewFuncionalidadesAdmin {
     public Button btnAgregarCuenta;
 
     @FXML
+    public Button btnPdf;
+
+    @FXML
+    public Button btnCsv;
+
+    @FXML
     public Button btnRegresarCuenta;
 
     @FXML
@@ -293,6 +299,8 @@ public class ViewFuncionalidadesAdmin {
             btnEstadisticas.setOnAction(e-> controllerEstadisticas.mostrarEstadisticas());
 
             btnGestionTransacciones.setOnAction(e-> controllerTransaccionesAdmin.iniciarVista());
+            btnPdf.setOnAction(e->);
+            btnCsv.setOnAction(e->);
 
 
     } catch (Exception e) {

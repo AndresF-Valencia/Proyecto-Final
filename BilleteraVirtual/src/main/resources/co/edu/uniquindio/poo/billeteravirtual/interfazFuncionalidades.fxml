@@ -171,21 +171,8 @@
                   <Button fx:id="btnVolverCambioClave" layoutX="325.0" layoutY="400.0" prefWidth="250.0" text="Regresar" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPanePrincipal" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+            <AnchorPane fx:id="anchorPanePrincipal" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
                <children>
-                  <Pane fx:id="PaneVerMas" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <TableView fx:id="tablaTransacciones" prefHeight="268.0" prefWidth="899.0">
-                          <columns>
-                            <TableColumn fx:id="columnaFecha" prefWidth="222.40008544921875" text="Fecha" />
-                            <TableColumn fx:id="columnaTipo" minWidth="0.0" prefWidth="225.60003662109375" text="Tipo" />
-                              <TableColumn fx:id="columnaMonto" prefWidth="192.79998779296875" text="Monto" />
-                              <TableColumn fx:id="columnaDescripcion" prefWidth="300.0" text="Descripción" />
-                          </columns>
-                        </TableView>
-                        <Button fx:id="btnVolverTransaccion" layoutX="308.0" layoutY="335.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="300.0" text="Regresar" />
-                     </children>
-                  </Pane>
                   <Pane fx:id="panePasarDinero" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="912.8" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <ComboBox fx:id="comboSelecionCuenta2" layoutX="14.0" layoutY="14.0" prefHeight="37.0" prefWidth="870.0" promptText="Seleccione su cuenta" />
@@ -197,7 +184,7 @@
                   </Pane>
                   <Pane fx:id="PanePrincipal" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Circle fx:id = "circle" fill="WHITE" layoutX="458.0" layoutY="216.0" radius="111.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fx:id="circle" fill="WHITE" layoutX="458.0" layoutY="216.0" radius="111.0" stroke="BLACK" strokeType="INSIDE" />
                         <Text layoutX="416.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuánto tengo?" />
                         <Text fx:id="txtSaldoPrincipal" layoutX="426.0" layoutY="201.0" text="Saldo">
                            <font>
@@ -242,9 +229,24 @@
                         <Button fx:id="btnRegresar1" layoutX="315.0" layoutY="252.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="250.0" text="Regresar" />
                      </children>
                   </Pane>
+                  <Pane fx:id="PaneVerMas" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TableView fx:id="tablaTransacciones" prefHeight="268.0" prefWidth="899.0">
+                          <columns>
+                            <TableColumn fx:id="columnaFecha" prefWidth="222.40008544921875" text="Fecha" />
+                            <TableColumn fx:id="columnaTipo" minWidth="0.0" prefWidth="225.60003662109375" text="Tipo" />
+                              <TableColumn fx:id="columnaMonto" prefWidth="192.79998779296875" text="Monto" />
+                              <TableColumn fx:id="columnaDescripcion" prefWidth="300.0" text="Descripción" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="btnVolverTransaccion" layoutX="308.0" layoutY="335.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="300.0" text="Regresar" />
+                        <Button fx:id="bntPdf" layoutX="308.0" layoutY="382.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="300.0" text="Reporte PDF" />
+                        <Button fx:id="btnCsv" layoutX="308.0" layoutY="429.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="300.0" text="Reporte CSV" />
+                     </children>
+                  </Pane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="anchorPanePresupuesto" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0">
+            <AnchorPane fx:id="anchorPanePresupuesto" layoutX="50.0" layoutY="42.0" prefHeight="600.0" prefWidth="900.0" visible="false">
                <children>
                   <Pane fx:id="PaneEliminarPresupuesto" layoutX="273.0" layoutY="92.0" prefHeight="392.0" prefWidth="365.0" visible="false">
                      <children>

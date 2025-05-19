@@ -1,7 +1,6 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
 import co.edu.uniquindio.poo.billeteravirtual.model.adapter.EstadisticasReporte;
-import co.edu.uniquindio.poo.billeteravirtual.model.adapter.ExportadorReporte;
 import co.edu.uniquindio.poo.billeteravirtual.model.adapter.ExportadorReporteCSV;
 import co.edu.uniquindio.poo.billeteravirtual.model.adapter.ExportadorReportePDF;
 import co.edu.uniquindio.poo.billeteravirtual.model.decoradores.UsuarioConPresupuesto;
@@ -12,15 +11,14 @@ import co.edu.uniquindio.poo.billeteravirtual.model.observer.SujetoObservable;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioPresupuesto;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioTransaccion;
-import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioUsuario;
 import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.*;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidades;
+import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidadesAdmin;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Observer;
 
 public class ControllerTransacciones implements Observador {
     public Usuario usuarioActual;
