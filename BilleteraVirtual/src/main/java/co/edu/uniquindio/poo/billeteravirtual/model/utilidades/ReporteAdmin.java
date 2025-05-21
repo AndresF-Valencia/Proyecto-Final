@@ -21,6 +21,8 @@ public class ReporteAdmin extends ReporteBase {
 
     public ReporteAdmin(ExportadorReporte exportador) {
         super(exportador);
+        this.servicioUsuario = ServicioUsuario.getInstancia();
+        this.servicioEstadisticas = ServicioEstadisticas.getInstancia();
     }
 
     @Override

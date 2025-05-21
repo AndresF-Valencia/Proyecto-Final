@@ -79,6 +79,10 @@ public class Cuenta {
         return saldo;
     }
 
+    public void setSaldo1(double saldo1) {
+        this.saldo = saldo1;
+    }
+
     @Override
     public String toString() {
         return bancoCuenta + "-" + numeroCuenta;

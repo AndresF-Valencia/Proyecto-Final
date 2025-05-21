@@ -99,7 +99,7 @@ public class ViewFuncionalidades {
             
             bienvenidaText.setText(bienvenidaText.getText() + usuarioActual.getNombre() + "!");
             String saldo = controllerTransacciones.actualizarSaldoInicio();
-            txtSaldoPrincipal.setText(saldo);
+            txtSaldoPrincipal.setText("$" + saldo);
 
 
 

@@ -9,13 +9,14 @@ import java.util.List;
 public class ReporteCliente extends ReporteBase {
 
     private final String idCliente;
-    private double totalIngresos = 0;
-    private double totalGastos = 0;
-    private ServicioTransaccion servicioTransaccion;
+    private double totalIngresos = 0.0;
+    private double totalGastos = 0.0;
+    private final ServicioTransaccion servicioTransaccion;
 
     public ReporteCliente(ExportadorReporte exportador, String idCliente) {
         super(exportador);
         this.idCliente = idCliente;
+        this.servicioTransaccion = ServicioTransaccion.getInstancia();
     }
 
     @Override

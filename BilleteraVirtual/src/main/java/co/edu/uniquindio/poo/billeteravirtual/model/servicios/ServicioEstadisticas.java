@@ -9,13 +9,19 @@ import java.util.List;
 import java.util.Map;
 
 public class ServicioEstadisticas {
-
+    private static ServicioEstadisticas instancia;
     private final ServicioUsuario servicioUsuario;
 
-    public ServicioEstadisticas() {
+    private ServicioEstadisticas() {
         this.servicioUsuario = ServicioUsuario.getInstancia();
     }
 
+    public static ServicioEstadisticas getInstancia() {
+        if (instancia == null) {
+            instancia = new ServicioEstadisticas();
+        }
+        return instancia;
+    }
     public Map<String, Double> obtenerGastosPorCategoria() {
         Map<String, Double> categorias = new HashMap<>();
 

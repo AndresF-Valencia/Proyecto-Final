@@ -222,13 +222,14 @@ public class ControllerTransacciones implements Observador {
 
     @Override
     public void actualizarSaldo() {
-        double saldoTotal = servicioCuenta.obtenerSaldo(usuarioActual);
-        view.txtSaldoPrincipal.setText("$" + String.format("%.2f", saldoTotal));
+        double saldo = servicioCuenta.obtenerSaldo(usuarioActual);
+        String saldoTotal = String.valueOf(saldo);
+        view.txtSaldoPrincipal.setText("$" + saldoTotal);
     }
 
     public String actualizarSaldoInicio(){
         double saldo = servicioCuenta.obtenerSaldo(usuarioActual);
-        String saldoTotal = String.format("%.2f", saldo);
+        String saldoTotal = String.valueOf(saldo);
         return saldoTotal;
     }
 
@@ -242,26 +243,6 @@ public class ControllerTransacciones implements Observador {
 
         exportador.setTotalesCliente(ingresos, gastos);
 
-        reporte.generar(rutaArchivo);
-    }
-
-    public void generarReporteAdmin(EstadisticasReporte estadisticasReporte){
-        String rutaArchivo = "C:/Users/andre/OneDrive/Documents/admin.pdf";
-        ExportadorReportePDF exportador = new ExportadorReportePDF();
-
-        exportador.setEstadisticas(estadisticasReporte);
-
-        ReporteAdmin reporte = new ReporteAdmin(exportador);
-        reporte.generar(rutaArchivo);
-    }
-
-    public void generarReporteAdminCSV(EstadisticasReporte estadisticasReporte) {
-        String rutaArchivo = "C:/Users/andre/OneDrive/Documents/admin.csv"; // O la ruta que prefieras
-        ExportadorReporteCSV exportador = new ExportadorReporteCSV();
-
-        exportador.setEstadisticas(estadisticasReporte);
-
-        ReporteAdmin reporte = new ReporteAdmin(exportador);
         reporte.generar(rutaArchivo);
     }
 

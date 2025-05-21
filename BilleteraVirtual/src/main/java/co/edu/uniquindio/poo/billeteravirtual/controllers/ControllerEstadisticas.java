@@ -56,7 +56,7 @@ public class ControllerEstadisticas {
 
 
     public void cargarGraficoPie() {
-        ServicioEstadisticas servicioEstadisticas = new ServicioEstadisticas();
+        ServicioEstadisticas servicioEstadisticas = ServicioEstadisticas.getInstancia();
         Map<String, Double> categorias = servicioEstadisticas.obtenerGastosPorCategoria();
 
         // Limpia datos previos

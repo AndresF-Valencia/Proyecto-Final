@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.billeteravirtual.viewControllers;
 
 import co.edu.uniquindio.poo.billeteravirtual.controllers.*;
+import co.edu.uniquindio.poo.billeteravirtual.model.adapter.EstadisticasReporte;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
@@ -228,6 +229,7 @@ public class ViewFuncionalidadesAdmin {
     private ControllerCuentaAdmin controllerCuentaAdmin;
     private ControllerEstadisticas controllerEstadisticas;
     private ControllerTransaccionesAdmin controllerTransaccionesAdmin;
+    private EstadisticasReporte estadisticasReporte;
 
     @FXML
     public void initialize(){
@@ -299,8 +301,8 @@ public class ViewFuncionalidadesAdmin {
             btnEstadisticas.setOnAction(e-> controllerEstadisticas.mostrarEstadisticas());
 
             btnGestionTransacciones.setOnAction(e-> controllerTransaccionesAdmin.iniciarVista());
-            btnPdf.setOnAction(e->);
-            btnCsv.setOnAction(e->);
+            btnPdf.setOnAction(e-> controllerTransaccionesAdmin.generarReporteAdmin(estadisticasReporte));
+            btnCsv.setOnAction(e->controllerTransaccionesAdmin.generarReporteAdminCSV(estadisticasReporte));
 
 
     } catch (Exception e) {

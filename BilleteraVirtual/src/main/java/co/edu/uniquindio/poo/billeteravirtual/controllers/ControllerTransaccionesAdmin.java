@@ -1,7 +1,11 @@
 package co.edu.uniquindio.poo.billeteravirtual.controllers;
 
+import co.edu.uniquindio.poo.billeteravirtual.model.adapter.EstadisticasReporte;
+import co.edu.uniquindio.poo.billeteravirtual.model.adapter.ExportadorReporteCSV;
+import co.edu.uniquindio.poo.billeteravirtual.model.adapter.ExportadorReportePDF;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioTransaccion;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.ReporteAdmin;
 import co.edu.uniquindio.poo.billeteravirtual.viewControllers.ViewFuncionalidadesAdmin;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -43,5 +47,25 @@ public class ControllerTransaccionesAdmin{
         view.columnaDescripcion.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDescripcion()));
 
         view.tablaTransacciones.getItems().setAll(transacciones);
+    }
+
+    public void generarReporteAdmin(EstadisticasReporte estadisticasReporte){
+        String rutaArchivo = "C:/Users/andre/OneDrive/Documents/admin.pdf";
+        ExportadorReportePDF exportador = new ExportadorReportePDF();
+
+        exportador.setEstadisticas(estadisticasReporte);
+
+        ReporteAdmin reporte = new ReporteAdmin(exportador);
+        reporte.generar(rutaArchivo);
+    }
+
+    public void generarReporteAdminCSV(EstadisticasReporte estadisticasReporte) {
+        String rutaArchivo = "C:/Users/andre/OneDrive/Documents/admin.csv"; // O la ruta que prefieras
+        ExportadorReporteCSV exportador = new ExportadorReporteCSV();
+
+        exportador.setEstadisticas(estadisticasReporte);
+
+        ReporteAdmin reporte = new ReporteAdmin(exportador);
+        reporte.generar(rutaArchivo);
     }
 }

@@ -32,41 +32,40 @@ public class ExportadorReportePDF implements ExportadorReporte {
             contenido.setFont(PDType1Font.HELVETICA_BOLD, 14);
             contenido.newLineAtOffset(25, 750);
             contenido.showText("Reporte de Transacciones");
-            contenido.newLine();
-            contenido.setFont(PDType1Font.HELVETICA, 12);
 
+            contenido.setFont(PDType1Font.HELVETICA, 12);
+            contenido.newLineAtOffset(0, -20);
 
             if (estadisticas != null) {
-                contenido.newLine();
                 contenido.showText("Usuario con más transacciones: " + estadisticas.usuarioMasActivo);
-                contenido.newLine();
+                contenido.newLineAtOffset(0, -15);
                 contenido.showText("Categoría más usada: " + estadisticas.categoriaMasUsada);
-                contenido.newLine();
+                contenido.newLineAtOffset(0, -15);
             }
 
             if (totalIngresosCliente != null && totalGastosCliente != null) {
-                contenido.newLine();
                 contenido.showText(String.format("Total Ingresos: %.2f", totalIngresosCliente));
-                contenido.newLine();
+                contenido.newLineAtOffset(0, -15);
                 contenido.showText(String.format("Total Gastos: %.2f", totalGastosCliente));
-                contenido.newLine();
+                contenido.newLineAtOffset(0, -20);
             }
 
-
-            contenido.newLine();
             contenido.setFont(PDType1Font.HELVETICA_BOLD, 12);
             contenido.showText("ID | Fecha | Tipo | Monto | Descripción");
-            contenido.newLine();
+            contenido.newLineAtOffset(0, -15);
 
             contenido.setFont(PDType1Font.HELVETICA, 10);
             for (Transaccion t : transacciones) {
-                contenido.showText(t.getIdTransaccion() + " | " + t.getFecha() + " | " +
-                        t.getTipo() + " | " + t.getMonto() + " | " + t.getDescripcion());
-                contenido.newLine();
+                String linea = t.getIdTransaccion() + " | " +
+                        t.getFecha() + " | " +
+                        t.getTipo() + " | " +
+                        String.format("%.2f", t.getMonto()) + " | " +
+                        t.getDescripcion();
+                contenido.showText(linea);
+                contenido.newLineAtOffset(0, -12);
             }
 
             contenido.endText();
-
         } catch (IOException e) {
             System.err.println("Error al escribir el PDF: " + e.getMessage());
         }
@@ -74,6 +73,7 @@ public class ExportadorReportePDF implements ExportadorReporte {
         try {
             documento.save(rutaArchivo);
             documento.close();
+            System.out.println("PDF generado correctamente en: " + rutaArchivo);
         } catch (IOException e) {
             System.err.println("Error al guardar el PDF: " + e.getMessage());
         }
