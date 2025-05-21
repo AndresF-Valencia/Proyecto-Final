@@ -160,7 +160,7 @@
                         <TextField fx:id="numeroCuenta" layoutX="14.0" layoutY="111.0" prefHeight="34.0" prefWidth="260.0" promptText="Ingrese el numero de cuenta" />
                      </children>
                   </Pane>
-                  <Pane fx:id="PanePrincipal" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="0.0">
+                  <Pane fx:id="PanePrincipal" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="0.0">
                      <children>
                         <Circle fx:id="circle" fill="WHITE" layoutX="458.0" layoutY="216.0" radius="111.0" stroke="BLACK" strokeType="INSIDE" />
                         <Text layoutX="416.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Cuánto tengo?" />
@@ -174,7 +174,7 @@
                         <Button fx:id="btnPasarDinero" layoutX="481.0" layoutY="355.0" prefHeight="35.0" prefWidth="260.0" text="🔁" />
                         <Button fx:id="btnTienda" layoutX="553.0" layoutY="309.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="261.0" text="🏪" />
                         <Text layoutX="429.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Disponible" />
-                        <Button fx:id="btnVermas" blendMode="HARD_LIGHT" layoutX="416.0" layoutY="266.0" mnemonicParsing="false" text="Ver más" underline="true" />
+                        <Button fx:id="btnVermas" blendMode="HARD_LIGHT" layoutX="408.0" layoutY="266.0" mnemonicParsing="false" text="Ver más" underline="true" />
                         <Text layoutX="326.0" layoutY="367.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meter Plata" />
                         <Text layoutX="389.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sacar Plata" />
                         <Text layoutX="470.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pasar Plata" />
@@ -211,7 +211,7 @@
                         <Button fx:id="btnRegresar1" layoutX="315.0" layoutY="252.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="250.0" text="Regresar" />
                      </children>
                   </Pane>
-                  <Pane fx:id="PaneVerMas" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Pane fx:id="PaneVerMas" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <TableView fx:id="tablaTransacciones" prefHeight="268.0" prefWidth="899.0">
                           <columns>

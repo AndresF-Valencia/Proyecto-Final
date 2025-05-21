@@ -100,6 +100,7 @@ public class ControllerUsuario {
             String palabra = u.getPalabraclave();
             if(palabra.equals(palabraclave)){
                 generarCodigoRecuperacion();
+                u.setClaveAcceso(codigoGenerado);
                 view.getPanePalabraClave().setVisible(false);
                 view.getPaneCodigo().setVisible(true);
                 break;
@@ -111,9 +112,12 @@ public class ControllerUsuario {
         String codigoIngresado = view.getTextCodigo().getText();
         if (codigoGenerado != null && codigoGenerado.equals(codigoIngresado)) {
             Logger.getInstance().mostrarToast(view.rootPane,"✅ Código correcto.");
+            cambiarVista("IniciarSesion");
             return true;
         } else {
             Logger.getInstance().mostrarToast(view.rootPane,"❌ Código incorrecto.");
+            cambiarVista("Bienvenida");
+            Logger.getInstance().mostrarToast(view.rootPane, "No se puede recuperar el acceso a la cuenta.");
         }
         return false;
     }

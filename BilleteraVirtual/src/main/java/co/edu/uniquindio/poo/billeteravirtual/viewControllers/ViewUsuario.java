@@ -67,14 +67,7 @@ public class ViewUsuario {
         });
         OlvidarClave.setOnAction(e -> controllerUsuario.mostrarRecuperacion());
         enviarCodigo.setOnAction(e -> controllerUsuario.verificarPalabraClave() );
-        iniciarSesionPorRecuperacion.setOnAction(e -> {
-            boolean valido = controllerUsuario.verificarCodigo();
-
-            if (valido) {
-                Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                controllerUsuario.cambiarEscena(stage, "/co/edu/uniquindio/poo/billeteravirtual/interfazFuncionalidades.fxml");
-            }
-        });
+        iniciarSesionPorRecuperacion.setOnAction(e -> controllerUsuario.verificarCodigo());
     }
 
 
