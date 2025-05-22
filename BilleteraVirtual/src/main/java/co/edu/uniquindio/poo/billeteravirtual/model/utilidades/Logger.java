@@ -1,15 +1,23 @@
 package co.edu.uniquindio.poo.billeteravirtual.model.utilidades;
+
 import javafx.animation.*;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+/**
+ * Singleton que permite mostrar mensajes tipo toast en una interfaz JavaFX.
+ */
 public class Logger {
     private static Logger instance;
+
     private Logger() {}
 
+    /**
+     * Obtiene la instancia única del Logger.
+     * @return Instancia singleton de Logger.
+     */
     public static Logger getInstance() {
         if (instance == null) {
             instance = new Logger();
@@ -17,7 +25,13 @@ public class Logger {
         return instance;
     }
 
-
+    /**
+     * Muestra un mensaje tipo toast en la esquina inferior derecha del AnchorPane dado.
+     * El mensaje se desvanece después de unos segundos automáticamente.
+     *
+     * @param rootPane Panel principal donde se mostrará el toast.
+     * @param mensaje Texto del mensaje a mostrar.
+     */
     public void mostrarToast(AnchorPane rootPane, String mensaje) {
         Label label = new Label(mensaje);
         label.setStyle("""

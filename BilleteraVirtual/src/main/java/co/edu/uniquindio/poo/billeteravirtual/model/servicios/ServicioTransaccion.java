@@ -1,18 +1,15 @@
 package co.edu.uniquindio.poo.billeteravirtual.model.servicios;
 
-
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
-import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Sesion;
 
 import java.util.*;
 
 public class ServicioTransaccion {
-    // Mapa que mantiene las listas de transacciones por tipo
+    /**
+     * Singleton que maneja las transacciones agrupadas por tipo.
+     */
     private static final Map<String, List<Transaccion>> tipoTransacciones = new HashMap<>();
-
-    // Instancia única del Singleton
     private static ServicioTransaccion instancia;
 
     private ServicioTransaccion() {
@@ -29,14 +26,22 @@ public class ServicioTransaccion {
         return instancia;
     }
 
+    /**
+     * Agrega una transacción a la lista correspondiente a su tipo.
+     * @param tipo Tipo de la transacción.
+     * @param transaccion Transacción a agregar.
+     */
     public void agregarTransaccionPorTipo(String tipo, Transaccion transaccion) {
         if (!tipoTransacciones.containsKey(tipo)) {
             throw new IllegalArgumentException("Tipo de transacción no permitido: " + tipo);
         }
-
         tipoTransacciones.get(tipo).add(transaccion);
     }
 
+    /**
+     * Obtiene todas las transacciones registradas sin importar el tipo.
+     * @return Lista con todas las transacciones.
+     */
     public static List<Transaccion> obtenerTodasLasTransacciones() {
         List<Transaccion> todasTransacciones = new ArrayList<>();
         for (List<Transaccion> transacciones : tipoTransacciones.values()) {
@@ -45,6 +50,11 @@ public class ServicioTransaccion {
         return todasTransacciones;
     }
 
+    /**
+     * Obtiene las transacciones correspondientes a un tipo dado.
+     * @param tipo Tipo de transacción.
+     * @return Lista de transacciones del tipo especificado.
+     */
     public List<Transaccion> obtenerTransaccionesPorTipo(String tipo) {
         if (!tipoTransacciones.containsKey(tipo)) {
             throw new IllegalArgumentException("Tipo de transacción no encontrado: " + tipo);
@@ -52,6 +62,11 @@ public class ServicioTransaccion {
         return tipoTransacciones.get(tipo);
     }
 
+    /**
+     * Obtiene las transacciones asociadas a un cliente identificado por su ID.
+     * @param idCliente ID del cliente.
+     * @return Lista de transacciones relacionadas con el cliente.
+     */
     public List<Transaccion> obtenerTransaccionesPorCliente(String idCliente) {
         List<Transaccion> transaccionesPorCliente = new ArrayList<>();
 
@@ -68,10 +83,14 @@ public class ServicioTransaccion {
                 }
             }
         }
-
         return transaccionesPorCliente;
     }
 
+    /**
+     * Verifica si existe una transacción con un ID específico.
+     * @param idTransaccion id de la transacción.
+     * @return true si existe la transacción, false en caso contrario.
+     */
     public boolean existeTransaccion(String idTransaccion) {
         for (List<Transaccion> transacciones : tipoTransacciones.values()) {
             for (Transaccion transaccion : transacciones) {
@@ -83,6 +102,10 @@ public class ServicioTransaccion {
         return false;
     }
 
+    /**
+     * Cuenta la cantidad de veces que se ha comprado cada producto.
+     * @return Mapa con producto y su respectivo conteo de compras.
+     */
     public Map<String, Integer> contarProductosMasComprados() {
         Map<String, Integer> conteoProductos = new HashMap<>();
         List<Transaccion> compras = getCompras();
@@ -95,11 +118,9 @@ public class ServicioTransaccion {
                 conteoProductos.put(producto, conteoProductos.getOrDefault(producto, 0) + 1);
             }
         }
-
         return conteoProductos;
     }
 
-    // Métodos adicionales para obtener las listas de transacciones por tipo
     public List<Transaccion> getTransferencias() {
         return tipoTransacciones.get("TRANSFERENCIA");
     }
@@ -119,5 +140,4 @@ public class ServicioTransaccion {
     public List<Transaccion> getTransacciones() {
         return obtenerTodasLasTransacciones();
     }
-
 }

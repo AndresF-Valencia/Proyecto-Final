@@ -13,28 +13,52 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Clase que genera un reporte administrativo basado en las transacciones y usuarios.
+ * Extiende ReporteBase para exportar reportes con diferentes formatos.
+ */
 public class ReporteAdmin extends ReporteBase {
+
     private ServicioUsuario servicioUsuario;
     private ServicioEstadisticas servicioEstadisticas;
-    int maxTransacciones;
-    double maxGasto = 0.0;
+    private int maxTransacciones;
+    private double maxGasto = 0.0;
 
+    /**
+     * Constructor que inicializa el exportador y los servicios necesarios.
+     *
+     * @param exportador Exportador para el formato de reporte deseado.
+     */
     public ReporteAdmin(ExportadorReporte exportador) {
         super(exportador);
         this.servicioUsuario = ServicioUsuario.getInstancia();
         this.servicioEstadisticas = ServicioEstadisticas.getInstancia();
     }
 
+    /**
+     * Obtiene todas las transacciones para procesar en el reporte.
+     *
+     * @return Lista con todas las transacciones registradas.
+     */
     @Override
     protected List<Transaccion> obtenerTransacciones() {
         return ServicioTransaccion.obtenerTodasLasTransacciones();
     }
 
+    /**
+     * Procesa los datos de las transacciones para calcular estadísticas relevantes
+     * como el usuario más activo y la categoría con mayor gasto.
+     *
+     * @param transacciones Lista de transacciones a procesar.
+     */
     @Override
     protected void procesarDatos(List<Transaccion> transacciones) {
         EstadisticasReporte estadisticas = new EstadisticasReporte();
+
         Map<String, Double> categorias = servicioEstadisticas.obtenerGastosPorCategoria();
+
         transacciones.sort(Comparator.comparing(Transaccion::getFecha).reversed());
+
         for (Usuario usuario : servicioUsuario.getUsuariosRegistrados()) {
             int total = 0;
             for (Cuenta cuenta : usuario.getCuentas()) {

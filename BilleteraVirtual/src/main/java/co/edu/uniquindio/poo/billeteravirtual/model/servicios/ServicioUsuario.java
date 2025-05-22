@@ -1,16 +1,47 @@
 package co.edu.uniquindio.poo.billeteravirtual.model.servicios;
 
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
-import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ServicioUsuario {
-    private static ServicioUsuario instance;
+
+    /**
+     * Instancia única del singleton que maneja los usuarios registrados.
+     */
+    private static ServicioUsuario instancia;
+
+    /**
+     * Lista de usuarios registrados.
+     */
     public List<Usuario> usuariosRegistrados = new ArrayList<>();
 
-    // Registrar un nuevo usuario
+    /**
+     * Constructor privado para evitar instanciación externa.
+     */
+    private ServicioUsuario() {}
+
+    /**
+     * Obtiene la instancia única de ServicioUsuario.
+     * @return instancia singleton de ServicioUsuario
+     */
+    public static ServicioUsuario getInstancia() {
+        if (instancia == null) {
+            instancia = new ServicioUsuario();
+        }
+        return instancia;
+    }
+
+    /**
+     * Registra un nuevo usuario si no existe previamente.
+     * @param nombre Nombre del usuario
+     * @param correo Correo electrónico
+     * @param telefono Número telefónico
+     * @param cedula Cédula de identidad
+     * @param palabraClave Palabra clave de seguridad
+     * @param clave Clave de acceso
+     */
     public void registrarUsuario(String nombre, String correo, String telefono, String cedula, String palabraClave, String clave){
         if(!verificarExistenciaUsuario(cedula)) {
             Usuario usuario = new Usuario.UsuarioBuilder()
@@ -23,52 +54,66 @@ public class ServicioUsuario {
                     .build();
 
             usuariosRegistrados.add(usuario);
-        } else{
+        } else {
             System.out.println("Usuario ya existe");
         }
     }
 
+    /**
+     * Verifica si un usuario con la cédula dada ya existe.
+     * @param cedula Cédula a verificar
+     * @return true si el usuario existe, false si no
+     */
     public boolean verificarExistenciaUsuario(String cedula) {
-        boolean existe = false;
         for(Usuario u: usuariosRegistrados){
             if(u.getCedula().equals(cedula)){
-                existe = true;
+                return true;
             }
         }
-        return existe;
+        return false;
     }
 
-    // Obtener un usuario por cédula
+    /**
+     * Obtiene un usuario por su cédula.
+     * @param cedula Cédula del usuario
+     * @return Usuario encontrado o null si no existe
+     */
     public Usuario obtenerUsuario(String cedula)  {
-        Usuario usuarioEncontrado = null;
         for(Usuario usuario : usuariosRegistrados){
             if(usuario.getCedula().equals(cedula)){
-                usuarioEncontrado = usuario;
+                return usuario;
             }
         }
-        return usuarioEncontrado;
+        return null;
     }
 
-    // Eliminar un usuario
+    /**
+     * Elimina un usuario por cédula.
+     * @param cedula Cédula del usuario a eliminar
+     */
     public void eliminarUsuario(String cedula) {
         usuariosRegistrados.removeIf(u -> u.getCedula().equals(cedula));
     }
 
-
-    // Verificar login de usuario
+    /**
+     * Autentica un usuario verificando cédula y clave de acceso.
+     * @param cedula Cédula del usuario
+     * @param claveAcceso Clave de acceso
+     * @return true si las credenciales son válidas, false en caso contrario
+     */
     public boolean autenticarUsuario(String cedula, String claveAcceso) {
-        boolean autenticado = false;
         for (Usuario u : usuariosRegistrados) {
-            String cedulaUsuario = u.getCedula();
-            String claveUsuario = u.getClaveAcceso();
-            if (cedulaUsuario.equals(cedula) && claveUsuario.equals(claveAcceso)) {
-                autenticado = true;
-                break;
+            if (u.getCedula().equals(cedula) && u.getClaveAcceso().equals(claveAcceso)) {
+                return true;
             }
         }
-        return autenticado;
+        return false;
     }
 
+    /**
+     * Actualiza la clave de acceso y palabra clave de un usuario existente.
+     * @param usuarioActualizado Usuario con los datos actualizados
+     */
     public void actualizarUsuario(Usuario usuarioActualizado) {
         for (Usuario u : usuariosRegistrados) {
             if (u.getCedula().equals(usuarioActualizado.getCedula())) {
@@ -77,15 +122,6 @@ public class ServicioUsuario {
                 break;
             }
         }
-    }
-
-    private ServicioUsuario() {}
-
-    public static ServicioUsuario getInstancia() {
-        if (instance == null) {
-            instance = new ServicioUsuario();
-        }
-        return instance;
     }
 
     public List<Usuario> getUsuariosRegistrados() {

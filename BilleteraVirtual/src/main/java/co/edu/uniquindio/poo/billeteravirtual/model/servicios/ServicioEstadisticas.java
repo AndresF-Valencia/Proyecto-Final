@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Proporciona estadísticas basadas en las transacciones de los usuarios.
+ */
 public class ServicioEstadisticas {
     private static ServicioEstadisticas instancia;
     private final ServicioUsuario servicioUsuario;
@@ -16,12 +19,24 @@ public class ServicioEstadisticas {
         this.servicioUsuario = ServicioUsuario.getInstancia();
     }
 
+    /**
+     * Retorna la instancia única del servicio.
+     *
+     * @return Instancia del servicio de estadísticas.
+     */
     public static ServicioEstadisticas getInstancia() {
         if (instancia == null) {
             instancia = new ServicioEstadisticas();
         }
         return instancia;
     }
+
+    /**
+     * Obtiene un mapa con los gastos agrupados por categoría.
+     * Considera transacciones de tipo "COMPRA" y "RETIRO".
+     *
+     * @return Mapa con categorías y su gasto total acumulado.
+     */
     public Map<String, Double> obtenerGastosPorCategoria() {
         Map<String, Double> categorias = new HashMap<>();
 
@@ -40,4 +55,3 @@ public class ServicioEstadisticas {
         return categorias;
     }
 }
-
