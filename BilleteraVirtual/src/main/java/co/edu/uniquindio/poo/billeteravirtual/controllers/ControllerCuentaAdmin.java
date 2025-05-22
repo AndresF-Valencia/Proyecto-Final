@@ -38,7 +38,7 @@ public class ControllerCuentaAdmin {
         view.paneUsuarios.setVisible(vistaActiva.equals("Gestion Usuarios"));
         view.paneCrearUsuario.setVisible(vistaActiva.equals("Crear Usuario"));
         view.paneStats.setVisible(vistaActiva.equals("Estadisticas"));
-        view.paneActualizar.setVisible(vistaActiva.equals("Actualizar Usuario"));;
+        view.paneActualizar.setVisible(vistaActiva.equals("Actualizar Usuario"));
         view.paneAgregarCuenta.setVisible(vistaActiva.equals("Agregar Cuenta"));
         view.paneTransacciones.setVisible(vistaActiva.equals("Transacciones"));
         view.AnchorpaneEstadisticas.setVisible(vistaActiva.equals("Estadisticas"));

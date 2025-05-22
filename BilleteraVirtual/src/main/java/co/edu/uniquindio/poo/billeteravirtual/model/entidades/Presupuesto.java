@@ -54,6 +54,60 @@ public class Presupuesto implements Cloneable {
                 ", montoGastado=" + montoGastado +
                 '}';
     }
+
+    public String getIdPresupuesto() {
+        return idPresupuesto;
+    }
+
+    public Presupuesto setIdPresupuesto(String idPresupuesto) {
+        this.idPresupuesto = idPresupuesto;
+        return this;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public Presupuesto setNombre(String nombre) {
+        this.nombre = nombre;
+        return this;
+    }
+
+    public Double getMontoTotal() {
+        return montoTotal;
+    }
+
+    public Presupuesto setMontoTotal(Double montoTotal) {
+        this.montoTotal = montoTotal;
+        return this;
+    }
+
+    public double getMontoGastado() {
+        return montoGastado;
+    }
+
+    public Presupuesto setMontoGastado(double montoGastado) {
+        this.montoGastado = montoGastado;
+        return this;
+    }
+
+    public boolean isEsGeneral() {
+        return esGeneral;
+    }
+
+    public Presupuesto setEsGeneral(boolean esGeneral) {
+        this.esGeneral = esGeneral;
+        return this;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public Presupuesto setCategoria(String categoria) {
+        this.categoria = categoria;
+        return this;
+    }
 }
 
 
