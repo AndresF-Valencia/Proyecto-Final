@@ -19,13 +19,23 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Controlador encargado de gestionar las funcionalidades relacionadas con las cuentas
+ * y presupuestos del usuario dentro de la aplicación de billetera virtual.
+ */
 public class ControllerCuenta {
+
     public Usuario usuarioActual;
     public ServicioCuenta servicioCuenta;
     private final ViewFuncionalidades view;
     public ServicioUsuario servicioUsuario;
     public ServicioPresupuesto servicioPresupuesto;
 
+    /**
+     * Constructor que inicializa los servicios y el usuario actual.
+     *
+     * @param viewFuncionalidades Referencia a la vista de funcionalidades.
+     */
     public ControllerCuenta(ViewFuncionalidades viewFuncionalidades) {
         this.view = viewFuncionalidades;
         this.servicioCuenta = ServicioCuenta.getInstancia();
@@ -34,7 +44,12 @@ public class ControllerCuenta {
         this.servicioPresupuesto = ServicioPresupuesto.getInstancia();
     }
 
-    public void cambiarVista(String vistaActiva){
+    /**
+     * Cambia la vista activa del panel según el nombre proporcionado.
+     *
+     * @param vistaActiva Nombre de la vista a activar.
+     */
+    public void cambiarVista(String vistaActiva) {
         view.anchorPaneGestionarCuenta.setVisible(vistaActiva.equals("Gestionar Cuenta"));
         view.anchorPaneRegistroCuenta.setVisible(vistaActiva.equals("Registrar Cuenta"));
         view.anchorPanePresupuesto.setVisible(vistaActiva.equals("Presupuesto"));
@@ -43,15 +58,24 @@ public class ControllerCuenta {
         view.anchorPanePrincipal.setVisible(false);
     }
 
-    public void agregarCuenta(){
+    /**
+     * Activa la vista para agregar una nueva cuenta.
+     */
+    public void agregarCuenta() {
         cambiarVista("Registrar Cuenta");
     }
 
-    public void gestionarCuentas(){
+    /**
+     * Activa la vista para gestionar cuentas existentes.
+     */
+    public void gestionarCuentas() {
         cambiarVista("Gestionar Cuenta");
     }
 
-    public void gestionarPresupuesto(){
+    /**
+     * Activa la vista para gestionar presupuestos.
+     */
+    public void gestionarPresupuesto() {
         cambiarVista("Presupuesto");
         view.PaneCrearPresupuesto.setVisible(true);
         view.PaneEstadoPresupuesto.setVisible(false);
@@ -59,27 +83,42 @@ public class ControllerCuenta {
         view.PaneActualizarPresupuesto.setVisible(false);
     }
 
-    public void verEstado(){
+    /**
+     * Muestra el estado actual del presupuesto.
+     */
+    public void verEstado() {
         view.PaneCrearPresupuesto.setVisible(false);
         view.PaneEstadoPresupuesto.setVisible(true);
         view.PaneEliminarPresupuesto.setVisible(false);
         view.PaneActualizarPresupuesto.setVisible(false);
     }
 
-    public void actualizar(){
+    /**
+     * Activa el panel para actualizar presupuesto.
+     */
+    public void actualizar() {
         view.PaneActualizarPresupuesto.setVisible(true);
         view.PaneCrearPresupuesto.setVisible(false);
         view.PaneEstadoPresupuesto.setVisible(false);
         view.PaneEliminarPresupuesto.setVisible(false);
     }
 
-    public void eliminar(){
+    /**
+     * Activa el panel para eliminar presupuesto.
+     */
+    public void eliminar() {
         view.PaneEliminarPresupuesto.setVisible(true);
         view.PaneActualizarPresupuesto.setVisible(false);
         view.PaneCrearPresupuesto.setVisible(false);
         view.PaneEstadoPresupuesto.setVisible(false);
     }
 
+    /**
+     * Verifica si alguno de los campos ingresados está vacío.
+     *
+     * @param campos Campos a verificar.
+     * @return true si hay campos vacíos, false si todos están llenos.
+     */
     private boolean camposVacios(String... campos) {
         for (String campo : campos) {
             if (campo == null || campo.trim().isEmpty()) {
@@ -89,18 +128,24 @@ public class ControllerCuenta {
         return false;
     }
 
+    /**
+     * Limpia los campos del formulario de registro de cuenta.
+     */
     private void limpiarCamposRegistroCuenta() {
         view.getCampoNumeroCuenta().clear();
         view.getCampoTitular().clear();
         view.getComboTipoCuenta().getSelectionModel().clearSelection();
     }
 
+    /**
+     * Registra una nueva cuenta para el usuario actual.
+     */
     public void registrarCuenta() {
         String numeroCuenta = view.getCampoNumeroCuenta().getText();
         String tipoCuenta = view.getComboTipoCuenta().getValue();
         String bancoCuenta = view.getCampoTitular().getText();
 
-        if(camposVacios(numeroCuenta, tipoCuenta, bancoCuenta)) {
+        if (camposVacios(numeroCuenta, tipoCuenta, bancoCuenta)) {
             Logger.getInstance().mostrarToast(view.rootPane, "Debe llenar todos los campos");
             return;
         }
@@ -116,7 +161,10 @@ public class ControllerCuenta {
         limpiarCamposRegistroCuenta();
     }
 
-    public void consultarCuenta(){
+    /**
+     * Consulta y muestra los datos de la cuenta seleccionada.
+     */
+    public void consultarCuenta() {
         Cuenta cuentaSeleccionada = view.comboCuentas.getValue();
 
         if (cuentaSeleccionada != null) {
@@ -124,23 +172,28 @@ public class ControllerCuenta {
             view.textNumeroCuenta.setText(cuentaSeleccionada.getNumeroCuenta());
             view.textTipoCuenta.setText(cuentaSeleccionada.getTipoCuenta());
             view.textSaldo.setText(cuentaSeleccionada.getSaldo());
-
         } else {
-            Logger.getInstance().mostrarToast(view.rootPane,"Debe seleccionar una cuenta");
+            Logger.getInstance().mostrarToast(view.rootPane, "Debe seleccionar una cuenta");
         }
     }
 
-    public void eliminarCuenta(){
+    /**
+     * Elimina la cuenta seleccionada del usuario.
+     */
+    public void eliminarCuenta() {
         Cuenta cuentaSeleccionada = view.comboCuentas.getValue();
         if (cuentaSeleccionada != null) {
             usuarioActual.getCuentas().remove(cuentaSeleccionada);
             cargarCuentas();
-        }else{
-            Logger.getInstance().mostrarToast(view.rootPane,"Debe seleccionar una cuenta");
+        } else {
+            Logger.getInstance().mostrarToast(view.rootPane, "Debe seleccionar una cuenta");
         }
     }
 
-    public void Inicio(){
+    /**
+     * Vuelve a la vista principal de la aplicación.
+     */
+    public void Inicio() {
         view.anchorPanePrincipal.setVisible(true);
         view.PanePrincipal.setVisible(true);
         view.anchorPaneRegistroCuenta.setVisible(false);
@@ -157,21 +210,25 @@ public class ControllerCuenta {
         view.PaneMeterDinero.setVisible(false);
         view.PaneTienda.setVisible(false);
         view.PaneVerMas.setVisible(false);
-
     }
 
+    /**
+     * Carga todas las cuentas del usuario actual en los combos de selección.
+     */
     public void cargarCuentas() {
         List<Cuenta> cuentasUsuario = servicioCuenta.obtenerCuentasDe(usuarioActual);
         view.comboCuentas.getItems().setAll(cuentasUsuario);
         view.comboSelecionCuenta.getItems().setAll(cuentasUsuario);
         view.comboSelecionCuenta1.getItems().setAll(cuentasUsuario);
         view.comboSelecionCuenta2.getItems().setAll(cuentasUsuario);
-
     }
 
+    /**
+     * Cierra la sesión actual y retorna a la vista de inicio de sesión.
+     */
     public void cerrarSesion() {
         Sesion.getInstancia().cerrarSesion();
-        for(Usuario u: servicioUsuario.getUsuariosRegistrados()){
+        for (Usuario u : servicioUsuario.getUsuariosRegistrados()) {
             System.out.println(u.toString());
         }
         try {
@@ -183,10 +240,12 @@ public class ControllerCuenta {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    public void inicializarCuentas(){
+    /**
+     * Inicializa dos cuentas por defecto si el usuario actual no tiene cuentas registradas.
+     */
+    public void inicializarCuentas() {
         String numCuenta1 = new GeneradorCodigo().generarCodigo();
         String numCuenta2 = new GeneradorCodigo().generarCodigo();
         String idCuenta = new GeneradorCodigo().generarCodigo();
@@ -204,6 +263,10 @@ public class ControllerCuenta {
         cargarCuentas();
     }
 
+    /**
+     * Crea un nuevo presupuesto para el usuario actual con los datos ingresados en la vista.
+     * El presupuesto puede ser general o asociado a una categoría específica.
+     */
     public void crearPresupuesto() {
         String idPresupuesto = new GeneradorCodigo().generarCodigo();
         String nombre = view.campoNombrePresupuesto.getText();
@@ -220,16 +283,21 @@ public class ControllerCuenta {
         view.campoMonto.clear();
     }
 
+    /**
+     * Consulta el estado actual del presupuesto especificado por su nombre.
+     * Muestra el monto gastado, asignado y disponible en la interfaz.
+     */
     public void consultarEstadoPresupuesto() {
         String nombrePresupuesto = view.campoNombrePresupuestoConsultar.getText();
         List<Presupuesto> presupuestos = servicioPresupuesto.obtenerPresupuestos(usuarioActual);
 
-        if(presupuestos.isEmpty()){
+        if (presupuestos.isEmpty()) {
             Logger.getInstance().mostrarToast(view.rootPane, "No se encontro el presupuesto");
             return;
         }
-        for(Presupuesto p: presupuestos){
-            if(p.getNombre().equals(nombrePresupuesto)){
+
+        for (Presupuesto p : presupuestos) {
+            if (p.getNombre().equals(nombrePresupuesto)) {
                 String categoria = p.getCategoria();
                 double gastado = servicioPresupuesto.obtenerMontoGastado(usuarioActual, categoria);
                 double total = servicioPresupuesto.obtenerMontoTotal(usuarioActual, categoria);
@@ -239,26 +307,36 @@ public class ControllerCuenta {
                 view.txtMontoDisponible.setText(String.valueOf(disponible));
             }
         }
+
         view.campoNombrePresupuesto.clear();
     }
 
+    /**
+     * Elimina el presupuesto especificado por su nombre, si existe entre los registrados del usuario.
+     */
     public void eliminarPresupuesto() {
         String nombrePresupuesto = view.campoNombrePresupuestoConsultar.getText();
         List<Presupuesto> presupuestos = servicioPresupuesto.obtenerPresupuestos(usuarioActual);
 
-        if(presupuestos.isEmpty()){
+        if (presupuestos.isEmpty()) {
             Logger.getInstance().mostrarToast(view.rootPane, "No se encontro el presupuesto");
             return;
         }
-        for (Presupuesto p: presupuestos){
-            if(p.getNombre().equals(nombrePresupuesto)){
+
+        for (Presupuesto p : presupuestos) {
+            if (p.getNombre().equals(nombrePresupuesto)) {
                 servicioPresupuesto.eliminarPresupuesto(usuarioActual, p);
                 Logger.getInstance().mostrarToast(view.rootPane, "✅ Presupuesto eliminado correctamente.");
             }
         }
+
         view.campoNombrePresupuesto.clear();
     }
 
+    /**
+     * Actualiza el monto total del presupuesto especificado por su nombre, siempre que
+     * el nuevo monto no sea inferior al monto ya gastado.
+     */
     public void actualizarPresupuesto() {
         String nombrePresupuesto = view.campoNombrePresupuestoConsultar.getText();
         String monto = view.campoMontoTotal.getText();
@@ -271,6 +349,7 @@ public class ControllerCuenta {
 
         if (monto.isEmpty()) {
             Logger.getInstance().mostrarToast(view.rootPane, "Llene todos los campos");
+            return;
         }
 
         try {
@@ -280,18 +359,18 @@ public class ControllerCuenta {
                     Logger.getInstance().mostrarToast(view.rootPane, "❌ El nuevo monto no puede ser menor al ya gastado.");
                     return;
                 }
+
                 if (p.getNombre().equals(nombrePresupuesto)) {
                     servicioPresupuesto.actualizarMontoPresupuesto(usuarioActual, p, nuevoMonto);
                     Logger.getInstance().mostrarToast(view.rootPane, "✅ Presupuesto actualizado correctamente.");
                 }
-
             }
 
-        }catch (NumberFormatException e){
-        Logger.getInstance().mostrarToast(view.rootPane, "Monto invalido");
+        } catch (NumberFormatException e) {
+            Logger.getInstance().mostrarToast(view.rootPane, "Monto invalido");
         }
+
         view.campoNombrePresupuesto.clear();
         view.campoMontoTotal.clear();
     }
-
 }

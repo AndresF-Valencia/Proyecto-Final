@@ -16,11 +16,17 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * Controlador encargado de gestionar la lógica y eventos relacionados con la tienda virtual.
+ * <p>
+ * Administra la carga de productos, categorías, cuentas del usuario actual y la realización
+ * de compras, además de manejar la interfaz correspondiente a la tienda.
+ * </p>
+ */
 public class TiendaController {
+
     private final ViewFuncionalidades view;
     private final Usuario usuarioActual;
     private final TransaccionFacade transaccionFacade;
@@ -28,7 +34,12 @@ public class TiendaController {
     public ServicioPresupuesto servicioPresupuesto;
     public ServicioTransaccion servicioTransaccion;
 
-
+    /**
+     * Constructor que inicializa el controlador con la vista y los servicios necesarios.
+     * Obtiene el usuario actual de la sesión y prepara la fachada de transacciones.
+     *
+     * @param view instancia de la vista que contiene los elementos visuales de funcionalidades
+     */
     public TiendaController(ViewFuncionalidades view) {
         this.view = view;
         this.usuarioActual = Sesion.getInstancia().getUsuarioActual();
@@ -37,10 +48,13 @@ public class TiendaController {
         this.servicioPresupuesto = ServicioPresupuesto.getInstancia();
         TransaccionFactory.setServicioCuenta(servicioCuenta);
 
-        this.transaccionFacade = new TransaccionFacade(servicioCuenta, servicioTransaccion,new TransaccionFactory());
-
+        this.transaccionFacade = new TransaccionFacade(servicioCuenta, servicioTransaccion, new TransaccionFactory());
     }
 
+    /**
+     * Inicializa la vista de la tienda, mostrando solo el panel correspondiente,
+     * cargando cuentas, categorías y productos y asignando el evento de cambio de categoría.
+     */
     public void iniciarVista() {
         ocultarElementoDePrincipalExceptoTienda();
         view.PaneTienda.setVisible(true);
@@ -54,36 +68,47 @@ public class TiendaController {
         view.comboCategorias.setOnAction(e -> cargarProductosPorCategoria());
     }
 
-    private void ocultarElementoDePrincipalExceptoTienda(){
-        view.anchorPanePrincipal.getChildren().forEach(nodo ->{
+    /**
+     * Oculta todos los elementos del panel principal excepto el panel de tienda.
+     */
+    private void ocultarElementoDePrincipalExceptoTienda() {
+        view.anchorPanePrincipal.getChildren().forEach(nodo -> {
             nodo.setVisible(nodo == view.PaneTienda);
         });
     }
 
+    /**
+     * Restaura la vista principal, ocultando todos los paneles secundarios y mostrando solo el principal.
+     */
     public void restaurarVistaPrincipal() {
         view.PaneTienda.setVisible(false);
         view.panePasarDinero.setVisible(false);
         view.PaneMeterDinero.setVisible(false);
         view.PaneSacarDinero.setVisible(false);
 
-        // Muestra solo el principal
         view.PanePrincipal.setVisible(true);
-        view.PanePrincipal.toFront(); // Esto asegura que se muestre correctamente
+        view.PanePrincipal.toFront();
     }
 
-
+    /**
+     * Carga y muestra en la vista las cuentas asociadas al usuario actual.
+     */
     private void cargarCuentas() {
         List<Cuenta> cuentas = servicioCuenta.obtenerCuentasDe(usuarioActual);
         view.comboCuentaTienda.getItems().setAll(cuentas);
     }
 
-    // Método para cargar las categorías
+    /**
+     * Carga y muestra las categorías disponibles para productos en la tienda.
+     */
     public void cargarCategorias() {
         List<CategoriaProducto> categorias = ServicioProducto.obtenerCategoriasDisponibles();
         view.comboCategorias.getItems().setAll(categorias);
     }
 
-    // Método para cargar los productos correspondientes a la categoría seleccionada
+    /**
+     * Carga y muestra los productos correspondientes a la categoría seleccionada en el combo.
+     */
     public void cargarProductosPorCategoria() {
         CategoriaProducto categoriaSeleccionada = view.comboCategorias.getValue();
         if (categoriaSeleccionada != null) {
@@ -92,7 +117,10 @@ public class TiendaController {
         }
     }
 
-    // Método para realizar la compra
+    /**
+     * Realiza una compra validando los campos, saldo y presupuesto disponible,
+     * registra la transacción y actualiza las vistas y observadores.
+     */
     public void realizarCompra() {
         Cuenta cuentaOrigen = view.comboCuentaTienda.getValue();
         CategoriaProducto categoriaProducto = view.comboCategorias.getValue();
@@ -128,7 +156,10 @@ public class TiendaController {
             decorado.registrarGasto(monto, categoriaProducto.getNombre());
         }
 
-        transaccionFacade.procesarTransaccion(codigoGenerado, LocalDate.now(), "COMPRA", monto, "Compra exitosa de " + producto.getNombre(), cuentaOrigen.getNumeroCuenta(), Transaccion.CUENTAEXTERNA);
+        transaccionFacade.procesarTransaccion(codigoGenerado, LocalDate.now(), "COMPRA", monto,
+                "Compra exitosa de " + producto.getNombre(),
+                cuentaOrigen.getNumeroCuenta(), Transaccion.CUENTAEXTERNA);
+
         SujetoObservable.notificarObservadores();
         SujetoObservable.notificarSaldo();
         Logger.getInstance().mostrarToast(view.rootPane, "Transacción exitosa");
@@ -138,6 +169,13 @@ public class TiendaController {
         view.txtCantidad.clear();
     }
 
+    /**
+     * Muestra un mensaje de error en la vista si la condición es verdadera.
+     *
+     * @param condicion condición que determina si se muestra el mensaje de error
+     * @param mensaje   texto del mensaje a mostrar
+     * @return true si se mostró el error, false en caso contrario
+     */
     private boolean mostrarErrorSi(boolean condicion, String mensaje) {
         if (condicion) {
             Logger.getInstance().mostrarToast(view.rootPane, mensaje);

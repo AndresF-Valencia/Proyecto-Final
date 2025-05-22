@@ -20,6 +20,11 @@ import javafx.beans.property.SimpleStringProperty;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Controlador principal para gestionar las transacciones financieras del usuario en la aplicación.
+ * Implementa el patrón Observador para actualizar la vista cuando hay cambios en las transacciones o saldo.
+ * Gestiona depósitos, retiros, transferencias y generación de reportes, además de controlar las vistas relacionadas.
+ */
 public class ControllerTransacciones implements Observador {
     public Usuario usuarioActual;
     public ServicioTransaccion servicioTransaccion;
@@ -28,6 +33,12 @@ public class ControllerTransacciones implements Observador {
     private final ServicioCuenta servicioCuenta;
     private final ServicioPresupuesto servicioPresupuesto;
 
+    /**
+     * Constructor que inicializa el controlador con la vista proporcionada,
+     * configura servicios, fachadas y registra el controlador como observador.
+     *
+     * @param view La vista principal de funcionalidades del usuario.
+     */
     public ControllerTransacciones(ViewFuncionalidades view) {
         this.view = view;
         this.servicioTransaccion = ServicioTransaccion.getInstancia();
@@ -40,6 +51,12 @@ public class ControllerTransacciones implements Observador {
         this.transaccionFacade = new TransaccionFacade(servicioCuenta,servicioTransaccion,new TransaccionFactory());
     }
 
+    /**
+     * Cambia la vista activa del panel principal según la opción seleccionada.
+     * Solo el panel correspondiente a la vista activa será visible.
+     *
+     * @param vistaActiva Nombre del panel a mostrar ("Principal", "Pasar", "Meter", "Sacar", "Comprar", "Ver transacciones").
+     */
     public void cambiarVista(String vistaActiva) {
         view.PanePrincipal.setVisible(vistaActiva.equals("Principal"));
         view.panePasarDinero.setVisible(vistaActiva.equals("Pasar"));
@@ -54,6 +71,10 @@ public class ControllerTransacciones implements Observador {
         view.anchorPanePresupuesto.setVisible(false);
     }
 
+    /**
+     * Realiza un depósito (agregar dinero) a la cuenta seleccionada desde la interfaz.
+     * Valida los campos y muestra mensajes de error o éxito según corresponda.
+     */
     public void agregarDinero() {
         try {
             Cuenta cuentaDestino = view.comboSelecionCuenta.getValue();
@@ -84,6 +105,10 @@ public class ControllerTransacciones implements Observador {
         }
     }
 
+    /**
+     * Realiza una transferencia de dinero desde una cuenta origen a una cuenta destino.
+     * Valida campos, saldo, presupuesto y condiciones lógicas para la transferencia.
+     */
     public void transferirDinero() {
         Cuenta cuentaOrigen = view.comboSelecionCuenta2.getValue();
         String numeroCuentaDestino = view.numeroCuenta.getText();
@@ -135,6 +160,10 @@ public class ControllerTransacciones implements Observador {
         view.cantidadIngresar2.clear();
     }
 
+    /**
+     * Realiza el retiro de dinero desde la cuenta seleccionada.
+     * Valida que la cuenta tenga saldo suficiente y que la cantidad ingresada sea válida.
+     */
     public void retirarDinero() {
         try {
             Cuenta cuentaOrigen = view.comboSelecionCuenta1.getValue();
@@ -171,6 +200,9 @@ public class ControllerTransacciones implements Observador {
         }
     }
 
+    /**
+     * Carga todas las transacciones asociadas al usuario actual y las muestra en la tabla de la interfaz.
+     */
     public void cargarTransacciones() {
         List<Transaccion> transacciones = servicioTransaccion.obtenerTransaccionesPorCliente(usuarioActual.getCedula());
 
@@ -182,19 +214,31 @@ public class ControllerTransacciones implements Observador {
         view.tablaTransacciones.getItems().setAll(transacciones);
     }
 
+    /**
+     * Inicializa la vista principal mostrando únicamente el panel de "Ver transacciones".
+     */
     public void iniciarVista() {
         ocultarElementoDePrincipalExceptoVerMas();
         view.PaneVerMas.setVisible(true);
         cargarTransacciones();
     }
 
+    /**
+     * Oculta todos los elementos dentro del panel principal excepto el panel "Ver transacciones".
+     */
     private void ocultarElementoDePrincipalExceptoVerMas(){
         view.anchorPanePrincipal.getChildren().forEach(nodo ->{
             nodo.setVisible(nodo == view.PaneVerMas);
         });
     }
 
-
+    /**
+     * Muestra un mensaje de error mediante un toast si se cumple la condición dada.
+     *
+     * @param condicion Condición para mostrar el error.
+     * @param mensaje Mensaje que se mostrará si la condición es verdadera.
+     * @return true si se mostró el error, false en caso contrario.
+     */
     private boolean mostrarErrorSi(boolean condicion, String mensaje) {
         if (condicion) {
             Logger.getInstance().mostrarToast(view.rootPane, mensaje);
@@ -203,23 +247,39 @@ public class ControllerTransacciones implements Observador {
         return false;
     }
 
+    /**
+     * Cambia la vista para mostrar el panel de ingresar dinero (depósitos).
+     */
     public void meterDinero(){
         cambiarVista("Meter");
     }
 
+    /**
+     * Cambia la vista para mostrar el panel de transferencia de dinero entre cuentas.
+     */
     public void pasarDinero(){
         cambiarVista("Pasar");
     }
 
+    /**
+     * Cambia la vista para mostrar el panel de retiro de dinero.
+     */
     public void retirar(){
         cambiarVista("Sacar");
     }
 
+    /**
+     * Método llamado al notificar el cambio en las transacciones.
+     * Recarga la tabla de transacciones en la vista.
+     */
     @Override
     public void actualizar() {
         cargarTransacciones();
     }
 
+    /**
+     * Método llamado para actualizar el saldo mostrado en la interfaz.
+     */
     @Override
     public void actualizarSaldo() {
         double saldo = servicioCuenta.obtenerSaldo(usuarioActual);
@@ -227,12 +287,21 @@ public class ControllerTransacciones implements Observador {
         view.txtSaldoPrincipal.setText("$" + saldoTotal);
     }
 
+    /**
+     * Obtiene el saldo actual del usuario como cadena para mostrarlo en la interfaz.
+     *
+     * @return El saldo total en formato cadena.
+     */
     public String actualizarSaldoInicio(){
         double saldo = servicioCuenta.obtenerSaldo(usuarioActual);
         String saldoTotal = String.valueOf(saldo);
         return saldoTotal;
     }
 
+    /**
+     * Genera un reporte en formato PDF con las estadísticas de ingresos y gastos del usuario.
+     * El archivo se guarda en una ruta fija.
+     */
     public void generarReporteUsuario(){
         String rutaArchivo = "C:/Users/andre/OneDrive/Documents/user.pdf";
         ExportadorReportePDF exportador = new ExportadorReportePDF();
@@ -246,6 +315,10 @@ public class ControllerTransacciones implements Observador {
         reporte.generar(rutaArchivo);
     }
 
+    /**
+     * Genera un reporte en formato CSV con las estadísticas de ingresos y gastos del usuario.
+     * El archivo se guarda en una ruta fija.
+     */
     public void generarReporteUsuarioCSV() {
         String rutaArchivo = "C:/Users/andre/OneDrive/Documents/user.csv";
         ExportadorReporteCSV exportador = new ExportadorReporteCSV();
