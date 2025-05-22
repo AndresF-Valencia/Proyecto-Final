@@ -58,7 +58,7 @@
                 </AnchorPane>
 
                 <!-- Tabla de Usuarios -->
-                <AnchorPane fx:id="AnchorpaneUsuarios" layoutX="50.0" layoutY="30.0" prefHeight="700.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="AnchorpaneUsuarios" layoutX="50.0" layoutY="30.0" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <Pane fx:id="paneBienvenida" prefHeight="610.4" prefWidth="910.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
                      <Text fx:id="labelBienvenida" layoutX="214.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido, seleccion una opcción">
@@ -86,26 +86,35 @@
                <Pane fx:id="paneActualizar" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <children>
                      <TextField fx:id="txtNombreNuevo" layoutX="39.0" layoutY="30.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese el nuevo nombre" />
-                     <TextField fx:id="txtCorreoNuevo" layoutX="39.0" layoutY="75.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese el nuevo coreo" />
-                     <TextField fx:id="txtTelefonoNuevo" layoutX="39.0" layoutY="119.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese el nuevo telefono" />
-                     <Button fx:id="btnAceptarActualizarUsuario" layoutX="312.0" layoutY="174.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Aceptar" />
-                     <Button fx:id="btnRegresarCrearUsuario" layoutX="312.0" layoutY="222.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Regresar" />
+                     <TextField fx:id="txtCorreoNuevo" layoutX="39.0" layoutY="90.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese el nuevo coreo" />
+                     <TextField fx:id="txtTelefonoNuevo" layoutX="39.0" layoutY="145.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese el nuevo telefono" />
+                     <Button fx:id="btnAceptarActualizarUsuario" layoutX="312.0" layoutY="194.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Aceptar" />
+                     <Button fx:id="btnRegresarCrearUsuario" layoutX="312.0" layoutY="238.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Regresar" />
+                     <Text layoutX="47.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nuevo Nombre" />
+                     <Text layoutX="47.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nuevo Correo" />
+                     <Text layoutX="47.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nuevo Telefono" />
                   </children>
                </Pane>
-               <Pane fx:id="paneCrearUsuario" layoutY="6.0" prefHeight="700.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="-5.2000000000000455" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="6.0">
+               <Pane fx:id="paneCrearUsuario" layoutY="7.0" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="-6.2000000000000455" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="7.0">
                   <children>
-                     <TextField fx:id="txtNombreNuevo1" layoutX="39.0" layoutY="30.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su nombre" />
-                     <TextField fx:id="txtCorreoNuevo1" layoutX="39.0" layoutY="75.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su correo" />
-                     <TextField fx:id="txtTelefonoNuevo1" layoutX="39.0" layoutY="119.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su telefono" />
-                     <Button fx:id="btnAceptarCrearUsuario1" layoutX="312.0" layoutY="307.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Aceptar" />
-                     <Button fx:id="btnRegresarCrearUsuario1" layoutX="312.0" layoutY="352.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Regresar" />
-                     <TextField fx:id="txtCedulaNuevo1" layoutX="39.0" layoutY="164.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su cedula" />
-                     <TextField fx:id="txtClaveNuevo1" layoutX="39.0" layoutY="205.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su clave" />
-                     <TextField fx:id="txtPalabraClaveNuevo1" layoutX="39.0" layoutY="248.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su pablabra clave" />
+                     <TextField fx:id="txtNombreNuevo1" layoutX="34.0" layoutY="30.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su nombre" />
+                     <TextField fx:id="txtCorreoNuevo1" layoutX="34.0" layoutY="83.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su correo" />
+                     <TextField fx:id="txtTelefonoNuevo1" layoutX="34.0" layoutY="141.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su telefono" />
+                     <Button fx:id="btnAceptarCrearUsuario1" layoutX="312.0" layoutY="358.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Aceptar" />
+                     <Button fx:id="btnRegresarCrearUsuario1" layoutX="312.0" layoutY="400.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="277.0" text="Regresar" />
+                     <TextField fx:id="txtCedulaNuevo1" layoutX="34.0" layoutY="196.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su cedula" />
+                     <TextField fx:id="txtClaveNuevo1" layoutX="34.0" layoutY="248.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su clave" />
+                     <TextField fx:id="txtPalabraClaveNuevo1" layoutX="34.0" layoutY="305.0" prefHeight="27.0" prefWidth="833.0" promptText="Ingrese su pablabra clave" />
+                     <Text layoutX="42.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" />
+                     <Text layoutX="36.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Correo" />
+                     <Text layoutX="40.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telefono" />
+                     <Text layoutX="36.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cedula" />
+                     <Text layoutX="40.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clave" />
+                     <Text layoutX="37.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Palabra Clave" />
                   </children>
                </Pane>
                 </AnchorPane>
-            <AnchorPane fx:id="anchorPaneTransacciones" prefHeight="700.0" prefWidth="1000.0">
+            <AnchorPane fx:id="anchorPaneTransacciones" prefHeight="700.0" prefWidth="1000.0" visible="false">
                <children>
                   <Pane fx:id="paneTransacciones" layoutY="-12.8" prefHeight="698.0" prefWidth="1000.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-13.0">
                      <children>
@@ -123,7 +132,7 @@
             </AnchorPane>
 
                                         <!-- Tabla de Cuentas -->
-                <AnchorPane fx:id="paneCuentas" prefHeight="642.0" prefWidth="982.0">
+                <AnchorPane fx:id="paneCuentas" prefHeight="642.0" prefWidth="982.0" visible="false">
                <Pane fx:id="paneGestionCuentas" prefHeight="698.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="-98.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-100.0" AnchorPane.topAnchor="0.0">
                   <children>
                           <TableView fx:id="tablaCuentas" layoutX="44.0" layoutY="26.0" prefHeight="500.0" prefWidth="900.0">
