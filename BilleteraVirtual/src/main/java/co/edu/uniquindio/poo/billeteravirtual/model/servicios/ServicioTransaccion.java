@@ -74,23 +74,31 @@ public class ServicioTransaccion {
             for (Transaccion transaccion : transacciones) {
                 Cuenta cuentaOrigen = ServicioCuenta.obtenerCuentaPorNumero(transaccion.getCuentaOrigen());
                 Cuenta cuentaDestino = ServicioCuenta.obtenerCuentaPorNumero(transaccion.getCuentaDestino());
-
                 boolean esOrigenDelCliente = cuentaOrigen != null && cuentaOrigen.getUsuario().getCedula().equals(idCliente);
                 boolean esDestinoDelCliente = cuentaDestino != null && cuentaDestino.getUsuario().getCedula().equals(idCliente);
 
                 if (esOrigenDelCliente || esDestinoDelCliente) {
-                    transaccionesPorCliente.add(transaccion);
+                    Transaccion copia = transaccion.clone();
+                    if (transaccion.getTipo().equalsIgnoreCase("TRANSFERENCIA")) {
+                        if (esOrigenDelCliente) {
+                            copia.setDescripcion("Pasó plata a " + (cuentaDestino != null ? cuentaDestino.getUsuario().getNombre() : "Cuenta destino"));
+                        } else if (esDestinoDelCliente) {
+                            copia.setDescripcion("Recibió plata de " + (cuentaOrigen != null ? cuentaOrigen.getUsuario().getNombre() : "Cuenta origen"));
+                        }
+                    }
+
+                    transaccionesPorCliente.add(copia);
                 }
             }
         }
         return transaccionesPorCliente;
     }
 
-    /**
-     * Verifica si existe una transacción con un ID específico.
-     * @param idTransaccion id de la transacción.
-     * @return true si existe la transacción, false en caso contrario.
-     */
+        /**
+         * Verifica si existe una transacción con un ID específico.
+         * @param idTransaccion id de la transacción.
+         * @return true si existe la transacción, false en caso contrario.
+         */
     public boolean existeTransaccion(String idTransaccion) {
         for (List<Transaccion> transacciones : tipoTransacciones.values()) {
             for (Transaccion transaccion : transacciones) {

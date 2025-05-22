@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.billeteravirtual.model.adapter;
 
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
+import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.ReporteCliente;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -15,19 +16,8 @@ import java.util.List;
  */
 public class ExportadorReportePDF implements ExportadorReporte {
 
-    /**
-     * Estadísticas generales del sistema.
-     */
     private EstadisticasReporte estadisticas;
-
-    /**
-     * Total de ingresos del cliente.
-     */
     private Double totalIngresosCliente;
-
-    /**
-     * Total de gastos del cliente.
-     */
     private Double totalGastosCliente;
 
     /**
@@ -35,7 +25,7 @@ public class ExportadorReportePDF implements ExportadorReporte {
      *
      * @param estadisticas Instancia de {@link EstadisticasReporte}.
      */
-    public void setEstadisticas(EstadisticasReporte estadisticas) {
+    public void setEstadisticasReporte(EstadisticasReporte estadisticas) {
         this.estadisticas = estadisticas;
     }
 
@@ -73,9 +63,9 @@ public class ExportadorReportePDF implements ExportadorReporte {
             contenido.newLineAtOffset(0, -20);
 
             if (estadisticas != null) {
-                contenido.showText("Usuario con más transacciones: " + estadisticas.usuarioMasActivo);
+                contenido.showText("Usuario con más transacciones: " + estadisticas.getUsuarioMasActivo().getNombre());
                 contenido.newLineAtOffset(0, -15);
-                contenido.showText("Categoría más usada: " + estadisticas.categoriaMasUsada);
+                contenido.showText("Categoría más usada: " + estadisticas.getCategoriaMasUsada());
                 contenido.newLineAtOffset(0, -15);
             }
 

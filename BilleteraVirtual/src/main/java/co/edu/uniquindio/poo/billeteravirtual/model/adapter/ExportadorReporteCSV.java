@@ -32,7 +32,7 @@ public class ExportadorReporteCSV implements ExportadorReporte {
      *
      * @param estadisticas Instancia de {@link EstadisticasReporte}.
      */
-    public void setEstadisticas(EstadisticasReporte estadisticas) {
+    public void setEstadisticasReporte(EstadisticasReporte estadisticas) {
         this.estadisticas = estadisticas;
     }
 
@@ -60,8 +60,8 @@ public class ExportadorReporteCSV implements ExportadorReporte {
 
             if (estadisticas != null) {
                 escritor.append("Estadísticas del Sistema:\n");
-                escritor.append("Usuario con más transacciones,").append((CharSequence) estadisticas.usuarioMasActivo).append("\n");
-                escritor.append("Categoría más usada,").append(estadisticas.categoriaMasUsada).append("\n");
+                escritor.append("Usuario con más transacciones,").append(estadisticas.getUsuarioMasActivo().getNombre()).append("\n");
+                escritor.append("Categoría más usada,").append(estadisticas.getCategoriaMasUsada()).append("\n");
                 escritor.append("\n");
             }
 

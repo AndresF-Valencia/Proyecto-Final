@@ -86,7 +86,7 @@ public class ControllerTransaccionesAdmin {
         String rutaArchivo = "C:/Users/andre/OneDrive/Documents/admin.pdf";
         ExportadorReportePDF exportador = new ExportadorReportePDF();
 
-        exportador.setEstadisticas(estadisticasReporte);
+        exportador.setEstadisticasReporte(estadisticasReporte);
 
         ReporteAdmin reporte = new ReporteAdmin(exportador);
         reporte.generar(rutaArchivo);
@@ -101,7 +101,7 @@ public class ControllerTransaccionesAdmin {
         String rutaArchivo = "C:/Users/andre/OneDrive/Documents/admin.csv";
         ExportadorReporteCSV exportador = new ExportadorReporteCSV();
 
-        exportador.setEstadisticas(estadisticasReporte);
+        exportador.setEstadisticasReporte(estadisticasReporte);
 
         ReporteAdmin reporte = new ReporteAdmin(exportador);
         reporte.generar(rutaArchivo);

@@ -9,7 +9,7 @@ import java.util.Date;
  * Representa una transacción dentro del sistema.
  * Puede ser un depósito, retiro, transferencia o compra.
  */
-public class Transaccion{
+public class Transaccion implements Cloneable {
     private String idTransaccion;
     private LocalDate fecha;
     private String tipo;
@@ -116,5 +116,14 @@ public class Transaccion{
                 ", cuentaOrigen='" + cuentaOrigen + '\'' +
                 ", cuentaDestino='" + cuentaDestino + '\'' +
                 '}';
+    }
+
+    @Override
+    public Transaccion clone() {
+        try {
+            return (Transaccion) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

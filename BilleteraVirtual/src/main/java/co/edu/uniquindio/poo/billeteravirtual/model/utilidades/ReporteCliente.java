@@ -1,7 +1,10 @@
 package co.edu.uniquindio.poo.billeteravirtual.model.utilidades;
 
 import co.edu.uniquindio.poo.billeteravirtual.model.adapter.ExportadorReporte;
+import co.edu.uniquindio.poo.billeteravirtual.model.adapter.ExportadorReportePDF;
+import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
+import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioTransaccion;
 
 import java.util.Comparator;
@@ -14,8 +17,8 @@ import java.util.List;
 public class ReporteCliente extends ReporteBase {
 
     private final String idCliente;
-    private double totalIngresos = 0.0;
-    private double totalGastos = 0.0;
+    private double totalIngresos;
+    private double totalGastos;
     private final ServicioTransaccion servicioTransaccion;
 
     /**
@@ -48,16 +51,25 @@ public class ReporteCliente extends ReporteBase {
     @Override
     protected void procesarDatos(List<Transaccion> transacciones) {
         transacciones.sort(Comparator.comparing(Transaccion::getFecha).reversed());
-
+        double totalIngresos = 0.0;
+        double totalGastos = 0.0;
         for (Transaccion transaccion : transacciones) {
             if (transaccion.getTipo().equalsIgnoreCase("Deposito")) {
-                totalIngresos++;
+                totalIngresos+= transaccion.getMonto();
+            } else if (transaccion.getTipo().equalsIgnoreCase("Transferencia")) {
+                Cuenta cuentaDestino = ServicioCuenta.obtenerCuentaPorNumero(transaccion.getCuentaDestino());
+                if (cuentaDestino != null && cuentaDestino.getUsuario().getCedula().equals(idCliente)){
+                    totalIngresos+= transaccion.getMonto();
+                }else{
+                    totalGastos+= transaccion.getMonto();
+                }
             } else if (transaccion.getTipo().equalsIgnoreCase("Retiro") ||
-                    transaccion.getTipo().equalsIgnoreCase("Transferencia") ||
                     transaccion.getTipo().equalsIgnoreCase("Compra")) {
-                totalGastos++;
+                totalGastos+= transaccion.getMonto();
             }
         }
+
+        super.exportador.setTotalesCliente(totalIngresos, totalGastos);
     }
 
     /**

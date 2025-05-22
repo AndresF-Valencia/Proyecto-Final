@@ -13,7 +13,7 @@ import java.util.List;
  */
 public abstract class ReporteBase {
 
-    private final ExportadorReporte exportador;
+    public final ExportadorReporte exportador;
 
     /**
      * Constructor que recibe el exportador de reportes.

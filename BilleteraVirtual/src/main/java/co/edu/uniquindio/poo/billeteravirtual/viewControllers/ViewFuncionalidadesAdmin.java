@@ -5,7 +5,6 @@ import co.edu.uniquindio.poo.billeteravirtual.model.adapter.EstadisticasReporte;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Cuenta;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Usuario;
-import co.edu.uniquindio.poo.billeteravirtual.model.entidades.GestorUsuarios;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -265,7 +264,6 @@ public class ViewFuncionalidadesAdmin {
             colBanco.setCellValueFactory(new PropertyValueFactory<>("bancoCuenta"));
             colSaldo.setCellValueFactory(new PropertyValueFactory<>("saldo"));
 
-            // Configurar el gráfico de barras
             CategoryAxis ejeX = (CategoryAxis) graficoBarras.getXAxis();
             NumberAxis ejeY = (NumberAxis) graficoBarras.getYAxis();
 

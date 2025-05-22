@@ -17,4 +17,22 @@ public class EstadisticasReporte {
      * Categoría de transacción más utilizada.
      */
     public String categoriaMasUsada;
+
+    public Usuario getUsuarioMasActivo() {
+        return usuarioMasActivo;
+    }
+
+    public EstadisticasReporte setUsuarioMasActivo(Usuario usuarioMasActivo) {
+        this.usuarioMasActivo = usuarioMasActivo;
+        return this;
+    }
+
+    public String getCategoriaMasUsada() {
+        return categoriaMasUsada;
+    }
+
+    public EstadisticasReporte setCategoriaMasUsada(String categoriaMasUsada) {
+        this.categoriaMasUsada = categoriaMasUsada;
+        return this;
+    }
 }

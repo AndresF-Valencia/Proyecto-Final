@@ -66,15 +66,16 @@ public class ReporteAdmin extends ReporteBase {
             }
             if (total > maxTransacciones) {
                 maxTransacciones = total;
-                estadisticas.usuarioMasActivo = usuario;
+                estadisticas.setUsuarioMasActivo(usuario);
             }
         }
 
         for (Map.Entry<String, Double> entrada : categorias.entrySet()) {
             if (entrada.getValue() > maxGasto) {
                 maxGasto = entrada.getValue();
-                estadisticas.categoriaMasUsada = entrada.getKey();
+                estadisticas.setCategoriaMasUsada(entrada.getKey());
             }
         }
+        super.exportador.setEstadisticasReporte(estadisticas);
     }
 }
