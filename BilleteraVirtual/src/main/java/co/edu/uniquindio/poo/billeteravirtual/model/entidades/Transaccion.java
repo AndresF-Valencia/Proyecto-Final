@@ -5,6 +5,10 @@ import co.edu.uniquindio.poo.billeteravirtual.model.estrategia.EstrategiaTransac
 import java.time.LocalDate;
 import java.util.Date;
 
+/**
+ * Representa una transacción dentro del sistema.
+ * Puede ser un depósito, retiro, transferencia o compra.
+ */
 public class Transaccion{
     private String idTransaccion;
     private LocalDate fecha;
@@ -16,6 +20,17 @@ public class Transaccion{
     private EstrategiaTransaccion estrategia;
     public static final String CUENTAEXTERNA = "Corresponsal Bancario";
 
+    /**
+     * Constructor de la clase Transaccion.
+     *
+     * @param idTransaccion ID único de la transacción.
+     * @param fecha Fecha de la transacción.
+     * @param tipo Tipo de transacción.
+     * @param monto Monto de dinero involucrado.
+     * @param descripcion Descripción de la transacción.
+     * @param cuentaOrigen Cuenta de origen.
+     * @param cuentaDestino Cuenta de destino.
+     */
     //Constructor de Transacción
     public Transaccion(String idTransaccion, LocalDate fecha, String tipo, double monto, String descripcion,String cuentaOrigen, String cuentaDestino) {
         this.idTransaccion = idTransaccion;
@@ -26,6 +41,11 @@ public class Transaccion{
         this.cuentaOrigen = cuentaOrigen;
         this.cuentaDestino = cuentaDestino;
     }
+
+    /**
+     * Ejecuta la estrategia asociada a la transacción.
+     */
+
     //Getters y Setters de Transacción
     public String getCuentaOrigen() {
         return cuentaOrigen;

@@ -1,6 +1,6 @@
 package co.edu.uniquindio.poo.billeteravirtual.model.adapter;
+
 import co.edu.uniquindio.poo.billeteravirtual.model.entidades.Transaccion;
-import co.edu.uniquindio.poo.billeteravirtual.model.utilidades.ReporteCliente;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -8,19 +8,55 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import java.io.IOException;
 import java.util.List;
+
+/**
+ * Implementación de {@link ExportadorReporte} que permite exportar
+ * las transacciones en formato PDF utilizando PDFBox.
+ */
 public class ExportadorReportePDF implements ExportadorReporte {
 
+    /**
+     * Estadísticas generales del sistema.
+     */
     private EstadisticasReporte estadisticas;
+
+    /**
+     * Total de ingresos del cliente.
+     */
     private Double totalIngresosCliente;
+
+    /**
+     * Total de gastos del cliente.
+     */
     private Double totalGastosCliente;
 
+    /**
+     * Establece las estadísticas generales del sistema.
+     *
+     * @param estadisticas Instancia de {@link EstadisticasReporte}.
+     */
     public void setEstadisticas(EstadisticasReporte estadisticas) {
         this.estadisticas = estadisticas;
     }
+
+    /**
+     * Establece los totales de ingresos y gastos del cliente.
+     *
+     * @param ingresos Total de ingresos.
+     * @param gastos Total de gastos.
+     */
     public void setTotalesCliente(Double ingresos, Double gastos) {
         this.totalIngresosCliente = ingresos;
         this.totalGastosCliente = gastos;
     }
+
+    /**
+     * Exporta un reporte en formato PDF con la información de las transacciones,
+     * estadísticas generales y los totales del cliente.
+     *
+     * @param transacciones Lista de transacciones.
+     * @param rutaArchivo Ruta donde se guardará el archivo PDF.
+     */
     @Override
     public void exportarReporte(List<Transaccion> transacciones, String rutaArchivo) {
         PDDocument documento = new PDDocument();
