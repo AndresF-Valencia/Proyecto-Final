@@ -8,13 +8,34 @@ import co.edu.uniquindio.poo.billeteravirtual.model.servicios.ServicioCuenta;
 
 import java.time.LocalDate;
 
+/**
+ * Fábrica para crear transacciones con su estrategia correspondiente.
+ */
 public class TransaccionFactory {
     private static ServicioCuenta servicioCuenta;
 
+    /**
+     * Establece el servicio de cuentas usado por las estrategias.
+     *
+     * @param sc Servicio de cuentas a utilizar.
+     */
     public static void setServicioCuenta(ServicioCuenta sc) {
         servicioCuenta = sc;
     }
 
+    /**
+     * Crea una nueva transacción del tipo especificado, asociando la estrategia correspondiente.
+     *
+     * @param idTransaccion ID de la transacción.
+     * @param fecha Fecha de la transacción.
+     * @param tipo Tipo de transacción ("DEPOSITO", "RETIRO", "TRANSFERENCIA", "COMPRA").
+     * @param monto Monto de la transacción.
+     * @param descripcion Descripción.
+     * @param cuentaOrigen Cuenta desde la que se origina la transacción.
+     * @param cuentaDestino Cuenta de destino.
+     * @return Objeto Transaccion configurado.
+     * @throws IllegalArgumentException Si el tipo no es válido.
+     */
     public static Transaccion crear(String idTransaccion, LocalDate fecha, String tipo, double monto, String descripcion,String cuentaOrigen, String cuentaDestino) {
         Transaccion t = new Transaccion(idTransaccion,fecha,tipo, monto,descripcion,cuentaOrigen, cuentaDestino);
 

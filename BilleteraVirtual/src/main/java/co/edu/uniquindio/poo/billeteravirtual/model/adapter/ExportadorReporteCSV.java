@@ -6,21 +6,54 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Implementación de {@link ExportadorReporte} que permite exportar
+ * las transacciones en formato CSV.
+ */
 public class ExportadorReporteCSV implements ExportadorReporte {
 
+    /**
+     * Estadísticas generales del sistema.
+     */
     private EstadisticasReporte estadisticas;
+
+    /**
+     * Total de ingresos registrados por el cliente.
+     */
     private Double totalIngresosCliente;
+
+    /**
+     * Total de gastos registrados por el cliente.
+     */
     private Double totalGastosCliente;
 
+    /**
+     * Establece las estadísticas generales del sistema.
+     *
+     * @param estadisticas Instancia de {@link EstadisticasReporte}.
+     */
     public void setEstadisticas(EstadisticasReporte estadisticas) {
         this.estadisticas = estadisticas;
     }
 
+    /**
+     * Establece los totales de ingresos y gastos del cliente.
+     *
+     * @param ingresos Total de ingresos.
+     * @param gastos Total de gastos.
+     */
     public void setTotalesCliente(Double ingresos, Double gastos) {
         this.totalIngresosCliente = ingresos;
         this.totalGastosCliente = gastos;
     }
 
+    /**
+     * Exporta un reporte en formato CSV con la información de las transacciones,
+     * las estadísticas generales y los totales del cliente.
+     *
+     * @param transacciones Lista de transacciones.
+     * @param rutaArchivo Ruta donde se guardará el archivo CSV.
+     */
     @Override
     public void exportarReporte(List<Transaccion> transacciones, String rutaArchivo) {
         try (FileWriter escritor = new FileWriter(rutaArchivo)) {
@@ -40,7 +73,7 @@ public class ExportadorReporteCSV implements ExportadorReporte {
             }
 
             escritor.append("ID Transacción,Fecha,Tipo,Monto,Descripción\n");
-            
+
             for (Transaccion transaccion : transacciones) {
                 escritor.append(transaccion.getIdTransaccion())
                         .append(",")
